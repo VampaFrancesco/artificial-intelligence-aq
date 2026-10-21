@@ -1,0 +1,44 @@
+\section{Introduzione}
+
+Il problema del giro di consegne consiste nel determinare un percorso che
+permetta a un veicolo di partire da un deposito, visitare tutti i punti di
+consegna una sola volta e tornare al deposito, minimizzando la distanza totale
+percorsa. In questo lavoro, i luoghi sono rappresentati da punti su un piano
+e gli spostamenti sono valutati mediante distanze euclidee. Il problema
+corrisponde quindi al problema del commesso viaggiatore euclideo
+(\emph{Euclidean Traveling Salesman Problem}, TSP euclideo).
+
+Il numero dei possibili ordini di visita cresce rapidamente all'aumentare
+delle consegne, rendendo utile scegliere quali alternative esplorare quando
+il calcolo disponibile è limitato. L'obiettivo del progetto è valutare se un
+modello predittivo possa guidare la ricerca verso percorsi promettenti e se
+un regolatore possa migliorarne ulteriormente l'efficacia, decidendo dove
+dedicare ulteriore calcolo. A questo scopo, verranno confrontate una ricerca
+di base, una ricerca predittiva e una ricerca predittiva regolata, utilizzando
+budget di ricerca comparabili.
+
+\subsection{Complessità computazionale}
+
+Il TSP è un problema di ottimizzazione \textbf{NP-hard}, anche quando le
+distanze sono euclidee~\cite{deberg2018}. La classificazione riguarda la
+famiglia di istanze di dimensione variabile: non implica che ogni singola
+istanza sia difficile da risolvere. In particolare, istanze piccole possono
+essere risolte esattamente e utilizzate come riferimento negli esperimenti.
+
+Per il TSP generale, la NP-hardness può essere dimostrata mediante una
+riduzione polinomiale dal problema del circuito
+hamiltoniano~\cite{opendsa-tsp}. Dato un grafo $G=(V,E)$, si costruisce un
+grafo completo sugli stessi vertici, assegnando costo $0$ agli archi presenti
+in $E$ e costo $1$ agli archi aggiunti. Il grafo originale contiene un
+circuito hamiltoniano se e solo se il grafo costruito ammette un giro TSP
+di costo $0$. Un algoritmo esatto per il TSP permetterebbe quindi di
+decidere l'esistenza del circuito hamiltoniano. Quest'ultimo visita ogni
+\emph{vertice} una sola volta, mentre un circuito euleriano attraversa ogni
+\emph{arco} una sola volta.
+
+Questa costruzione riguarda il TSP generale: i costi così assegnati non
+sono necessariamente rappresentabili come distanze euclidee. La
+NP-hardness della variante euclidea è un risultato distinto, richiamato
+in~\cite{deberg2018}. Nel presente progetto si mantiene questa variante e si
+studia la qualità delle soluzioni ottenute con risorse di ricerca limitate,
+senza pretendere di eliminare la difficoltà del problema nel caso generale.
