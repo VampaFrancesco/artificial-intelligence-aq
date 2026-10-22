@@ -172,41 +172,85 @@ soluzione corrente; non si assume un miglioramento della complessità
 nel caso peggiore.
 
 \subsection{Orizzonte, frontiera attiva e condizioni di arresto}
+\label{sec:orizzonte-frontiera}
 
-L'\emph{orizzonte della ricerca} è il confine al quale si arresta
-l'esplorazione esplicita corrente. Al termine di ciascuna iterazione,
-si identifica con l'insieme $H_t$ degli stati generati ancora in attesa
-nella pila $S$. Tali stati possono avere profondità diverse:
+L'\emph{orizzonte della ricerca} descrive il confine al quale si arresta
+l'esplorazione esplicita corrente. Nel presente progetto si adotta come
+orizzonte $H_t$ l'insieme delle foglie dell'albero esplicito generato
+fino al termine dell'iterazione $t$. Si tratta di un confine che evolve
+durante la ricerca: espandere una foglia la sostituisce con i suoi
+successori. Nella DFS tali foglie possono avere profondità diverse;
 l'orizzonte non coincide quindi con un unico livello dell'albero.
 
-La \emph{frontiera attiva} $F_t \subseteq H_t$ comprende gli stati
-ancora eleggibili per ricevere ulteriore calcolo. Nella ricerca di
-base tutti gli stati in attesa possono essere esaminati, pertanto:
+Per descrivere lo stato delle alternative si distinguono tre insiemi
+disgiunti:
+\begin{itemize}
+    \item $P_t$: stati generati ancora pendenti nella pila;
+    \item $T_t$: stati terminali già valutati, per i quali è stato
+    calcolato il costo del giro completo, incluso il ritorno al deposito;
+    \item $D_t$: stati esclusi mediante branch-and-bound, prima
+    dell'inserimento nella pila oppure dopo l'estrazione.
+\end{itemize}
+Con questa convenzione, anche un ramo già risolto o potato contribuisce
+al confine dell'albero esplicito, pur non richiedendo altro calcolo:
 \[
-    F_t=H_t.
+    H_t = P_t \cup T_t \cup D_t,
+    \qquad
+    |H_t| = |P_t| + |T_t| + |D_t|.
 \]
-La politica LIFO determina quale di questi stati viene estratto
-successivamente. Il nodo scelto in una singola iterazione non deve
-essere confuso con l'intera frontiera attiva.
+Questi insiemi descrivono l'albero costruito dalla ricerca; non indicano
+che tutti gli stati debbano essere conservati in memoria.
 
-La distinzione tra orizzonte e frontiera attiva consentirà,
-nella versione regolata, di sospendere alcune alternative mantenendole
-in memoria per una possibile riattivazione. I rami eliminati tramite
-branch-and-bound, invece, vengono esclusi definitivamente, poiché
-non possono migliorare la soluzione corrente.
+La \emph{frontiera attiva} $F_t$ comprende invece le alternative
+pendenti ancora ammissibili a ricevere ulteriore calcolo. Nella baseline,
+con il limite inferiore $LB(s)=g(s)$ e il miglior costo completo
+$G_{\mathrm{best},t}$ disponibile, si definisce:
+\[
+    F_t = \bigl\{s \in P_t : g(s) < G_{\mathrm{best},t}\bigr\},
+    \qquad
+    F_t \subseteq P_t \subseteq H_t.
+\]
+L'ammissibilità è valutata rispetto al controllo di potatura adottato:
+non afferma che lo stato conduca effettivamente a un miglioramento.
+Prima di trovare un giro completo si ha $G_{\mathrm{best},t}=+\infty$.
 
-La ricerca termina quando la pila è vuota oppure quando viene
-raggiunto un budget prefissato $B$. Un'unità di budget corrisponde
-all'estrazione e all'elaborazione di uno stato, anche se questo viene
-scartato dal branch-and-bound o rappresenta una foglia. La generazione
-dei suoi successori rientra nella stessa unità. Il numero di estrazioni
-non coincide necessariamente con le espansioni effettive né garantisce
-un tempo costante per passo.
+La pila contiene quindi i candidati della frontiera attiva. Se nel
+frattempo viene trovato un giro migliore, alcuni stati in attesa
+possono non soddisfare più il criterio. Il controllo successivo al
+\texttt{pop} li scarta quando vengono estratti. Per questo il numero
+di stati pendenti può essere maggiore della dimensione della frontiera
+attiva. La politica LIFO stabilisce quale candidato esaminare per primo;
+il singolo stato estratto non coincide con l'intera frontiera.
 
-Se la pila si svuota, tutte le alternative sono state esaminate o
-escluse mediante un limite valido: il miglior giro trovato è quindi
-ottimo. Se il budget termina con stati ancora in attesa, si restituisce
-il miglior giro completo disponibile, senza garantirne l'ottimalità.
-Qualora non sia stato ancora trovato alcun giro completo, tale esito
-viene segnalato esplicitamente e non interpretato come assenza di
-soluzioni ammissibili.
+L'implementazione registra il numero di stati pendenti
+(\texttt{pending\_states}), quello degli stati ancora ammissibili
+(\texttt{active\_frontier\_size}), i giri completi valutati e le due
+categorie di potatura. La statistica \texttt{horizon\_size} applica
+la somma precedente. Gli stati terminali e potati sono contabilizzati
+senza conservarne l'intero insieme. Anche a ricerca conclusa si può
+quindi avere $F_t=\emptyset$ e $H_t\neq\emptyset$.
+
+La ricerca termina quando la pila è vuota oppure quando viene raggiunto
+un budget prefissato $B$. Un'unità di budget corrisponde all'estrazione
+e all'elaborazione di uno stato, anche se questo viene potato o è
+terminale. La generazione dei suoi successori rientra nella stessa unità.
+Il numero di estrazioni non coincide necessariamente con le espansioni
+effettive e non garantisce un tempo costante per passo.
+
+Se la pila si svuota, tutte le alternative sono state valutate o escluse
+tramite un limite valido: il miglior giro trovato è ottimo. Questa è
+la condizione di certificazione usata dall'implementazione. Se il budget
+termina con stati ancora in attesa, si restituisce il miglior giro
+completo disponibile senza certificarne l'ottimalità. Qualora nessun
+giro completo sia stato trovato, viene segnalato tale esito, che non
+equivale all'assenza di soluzioni ammissibili.
+
+Gli stati rimasti pendenti alla scadenza del budget rappresentano
+alternative irrisolte: l'interruzione non costituisce una potatura.
+Nella versione corrente vengono restituite soltanto la soluzione,
+l'indicazione di completamento e le statistiche; la pila locale non
+viene conservata e la ricerca non è riprendibile. Nella futura versione
+regolata sarà possibile mantenere alternative sospese e scegliere quali
+riattivare. Tale sospensione dovrà essere distinta dalla potatura
+sicura del branch-and-bound, che esclude definitivamente un ramo
+perché non può migliorare la soluzione corrente.

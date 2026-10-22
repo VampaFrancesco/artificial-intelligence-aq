@@ -1,69 +1,123 @@
-import os
+# import os
 
-from time import perf_counter as timer
-from .models.tsp import distance_matrix, successors
-from .algorithms.baseline import DFS, BranchAndBound
-from .models.state import State
-from .utils.loader import load_location
+# from .experiments.generate_dataset import collect_examples
+# from .utils.loader import load_location
 
 
-def format_path(path):
-    return " → ".join(
-        "Deposito" if index == 0 else str(index)
-        for index in path
-    )
+# # Configurazione della raccolta: un budget B&B per ogni stato parziale.
+# file_path = os.getenv("file_path", "data/data.json")
+# instance_id = "istanza_001"
+# max_states = 100_000
+
+# # Legge le coordinate dal JSON e le converte in oggetti Node.
+# locations = load_location(file_path)
+
+# print("RACCOLTA DEGLI ESEMPI", flush=True)
+# print(f"  File: {file_path}")
+# print(f"  Consegne: {len(locations) - 1}")
+# print(f"  Budget B&B per esempio: {max_states}", flush=True)
+
+# # Matrice, stato iniziale e ricerche sono gestiti da collect_examples.
+# dataset = collect_examples(
+#     locations,
+#     instance_id=instance_id,
+#     max_states=max_states,
+# )
+
+# print(f"\nEsempi raccolti: {len(dataset)}")
+
+# for example in dataset:
+#     print(
+#         f"Percorso: {example['state']['path']}"
+#         f" | Costo rimanente: {example['target_cost_to_go']:.3f}"
+#     )
+
+# # Ogni prima mossa produce un esempio solo se il target è certificato.
+# skipped_examples = len(locations) - 1 - len(dataset)
+# if skipped_examples > 0:
+#     print(f"Esempi esclusi perché il target non è certificato: {skipped_examples}")
 
 
-# Se la variabile d'ambiente non esiste, usa questo file.
-file_path = os.getenv("file_path", "data/data.json")
 
-locations = load_location(file_path)
-matrix = distance_matrix(locations)
+# from .experiments.generate_dataset import (
+#     collect_examples,
+#     generate_locations,
+# )
 
-initial_state = State(
-    path=(0,),
-    unvisited=frozenset(range(1, len(locations))),
-    cost=0.0,
+
+# seed = 42
+# max_states = 100_000
+
+# locations = generate_locations(
+#     n_deliveries=6,
+#     seed=seed,
+# )
+
+# print("RACCOLTA DEGLI ESEMPI")
+# print(f"  Origine: coordinate generate con seed {seed}")
+# print(f"  Consegne: {len(locations) - 1}")
+# print(f"  Budget B&B per esempio: {max_states}")
+
+# dataset = collect_examples(
+#     locations,
+#     instance_id=f"istanza_seed_{seed}",
+#     max_states=max_states,
+# )
+
+# print(f"\nEsempi raccolti: {len(dataset)}")
+
+# for example in dataset:
+#     print(
+#         f"Percorso: {example['state']['path']}"
+#         f" | Costo rimanente: {example['target_cost_to_go']:.3f}"
+#     )
+
+
+
+
+
+import json
+
+from .experiments.generate_dataset import (
+    collect_examples,
+    generate_locations,
 )
 
-print("STATO INIZIALE")
-print(f"  Percorso: {format_path(initial_state.path)}")
-print(f"  Consegne da effettuare: {len(initial_state.unvisited)}")
-print(f"  Costo: {initial_state.cost:.3f}")
 
-print("\nPRIME MOSSE POSSIBILI")
+max_states = 100_000
 
-for state in successors(initial_state, matrix):
-    remaining = ", ".join(str(i) for i in sorted(state.unvisited))
-    print(
-        f"  {format_path(state.path)}"
-        f" | Costo: {state.cost:.3f}"
-        f" | Da visitare: {remaining}"
+dataset = {
+    "instances": {},
+    "examples": [],
+}
+
+for seed in range(42, 52):
+    instance_id = f"istanza_seed_{seed}"
+
+    locations = generate_locations(
+        n_deliveries=6,
+        seed=seed,
     )
 
-print("\nAvvio branch-and-bound...", flush=True)
-start = timer()
+    dataset["instances"][instance_id] = [
+        {"x": node.x, "y": node.y}
+        for node in locations
+    ]
 
-best_bnb = BranchAndBound(initial_state, matrix)
+    examples = collect_examples(
+        locations,
+        instance_id=instance_id,
+        max_states=max_states,
+    )
 
-bnb_time = timer() - start
+    dataset["examples"].extend(examples)
 
-print("\nMIGLIOR GIRO TROVATO CON BRANCH AND BOUND")
-print(f"  {format_path(best_bnb.path)}")
-print(f"  Costo totale: {best_bnb.cost:.3f}")
-print(f"  Tempo: {bnb_time:.3f} secondi", flush=True)
+    print(f"{instance_id}: {len(examples)} esempi raccolti")
 
-print("\nAvvio DFS...", flush=True)
-start = timer()
+with open("data/examples.json", "w", encoding="utf-8") as file:
+    json.dump(dataset, file, indent=2, ensure_ascii=False)
 
-best_dfs = min(
-    DFS(initial_state, matrix),
-    key=lambda state: state.cost,
-)
+print("Dataset salvato in data/examples.json")
 
-dfs_time = timer() - start
-
-print("\nMIGLIOR GIRO TROVATO CON DFS")
-print(f"  {format_path(best_dfs.path)}")
-print(f"  Costo totale: {best_dfs.cost:.3f}")
-print(f"  Tempo: {dfs_time:.3f} secondi")
+print(f"\nIstanze: {len(dataset['instances'])}")
+print(f"Esempi totali: {len(dataset['examples'])}")
