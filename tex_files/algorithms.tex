@@ -1,12 +1,10 @@
 \section{Algoritmi di ricerca}
 
-In questa sezione viene descritto l'algoritmo di ricerca 
-adottato per risolvere il problema del
-giro del corriere. 
-In particolare, l'algoritmo utilizza una visita in profondità (DFS)
-per determinare l'ordine di visita dei nodi, con l'aggiunta di un
-meccanismo di branch-and-bound che ci consente di scartare i rami 
-che non possono portare a una soluzione migliore di quella già trovata.
+In questa sezione viene descritta la ricerca di base adottata per il
+problema del giro del corriere. La procedura utilizza una visita in
+profondità (DFS) per determinare l'ordine di esplorazione degli stati,
+integrata con un meccanismo di branch-and-bound per scartare i rami
+che non possono migliorare la migliore soluzione completa già trovata.
 
 \subsection{Rappresentazione dello stato e spazio di ricerca}
 
@@ -29,11 +27,11 @@ viene inclusa nel costo finale.
 
 Lo \emph{spazio di ricerca} è l'insieme degli stati
 raggiungibili dallo stato iniziale attraverso le azioni
-consentite. In questo caso, comprende tutti i percorsi
-parziali ammissibili e i giri completi. I percorsi iniziano
-dal deposito e non ripetono alcun punto di consegna;
-i giri completi visitano tutte le consegne e terminano
-nuovamente al deposito.
+consentite. In questo caso, comprende i percorsi ammissibili che
+partono dal deposito e visitano un sottoinsieme delle consegne,
+senza ripetizioni. Gli stati che hanno visitato tutte le consegne
+costituiscono le foglie dell'albero di ricerca; a ciascuna foglia
+si associa un giro completo aggiungendo il ritorno al deposito.
 
 
 \subsection{Espansione e generazione dei successori}
@@ -54,8 +52,10 @@ Si ha quindi:
     C \cup N = V.
 \]
 
-L'ordine delle località visitate è conservato separatamente
-nel percorso $p$, mentre $g$ indica il costo accumulato.
+Lo stato viene indicato con $s=(p,N,g)$, dove $p$ conserva
+l'ordine delle località visitate e $g$ indica il costo accumulato.
+L'insieme $C$ si ricava dal percorso $p$ e non deve quindi essere
+memorizzato separatamente.
 
 Per ogni consegna $v \in N$ viene generato uno stato
 successore. Il nuovo percorso si ottiene aggiungendo $v$
@@ -70,14 +70,19 @@ il costo del successore è:
 \[
     g' = g + \operatorname{dist}(u,v).
 \]
+Ogni successore rappresenta un'alternativa distinta: gli aggiornamenti
+non modificano lo stato padre né gli altri successori.
 
 \subsection{Ordine di visita tramite DFS}
 
 Per determinare l'ordine di esplorazione degli stati, l'algoritmo utilizza
 una \textbf{visita in profondità} (DFS, \emph{Depth-First Search}),
 implementata mediante una pila con politica LIFO: l'ultimo stato inserito
-è il primo a essere estratto. La procedura è riportata
-nell'Algoritmo~\ref{alg:dfs}.
+è il primo a essere estratto. La DFS fornisce una procedura di base
+semplice da descrivere e da integrare con la potatura.
+L'Algoritmo~\ref{alg:dfs} presenta esclusivamente la strategia di visita;
+il criterio di branch-and-bound viene descritto nella sottosezione
+successiva.
 
 \begin{algorithm}[htbp]
 \caption{Depth-First Search}
@@ -85,7 +90,7 @@ nell'Algoritmo~\ref{alg:dfs}.
 \begin{algorithmic}[1]
 
 \Require Stato iniziale $s_0$
-\Ensure Visita degli stati in profondità
+\Ensure Visita di tutti gli stati dell'albero in profondità
 
 \State $S \gets$ pila vuota \Comment{Conserva gli stati in attesa}
 \State $\operatorname{push}(S,s_0)$
@@ -108,11 +113,15 @@ definita nella sottosezione precedente. Se non rimangono consegne da
 effettuare, restituisce una lista vuota. I successori vengono inseriti
 nella pila in ordine decrescente di indice, così che quello con indice
 minore venga estratto per primo. La visita termina quando la pila è vuota.
+L'operazione \textbf{visita} indica l'elaborazione dello stato estratto;
+nel caso di una foglia, si può valutare il giro completo a essa associato.
 
 La DFS determina l'ordine di esplorazione, ma non riduce di per sé
 il numero di stati da esaminare. In assenza di potatura, il numero
 complessivo di stati attraversati è $\Theta(n!)$, dove $n$ indica
-il numero di consegne, escluso il deposito. Questa crescita fattoriale
+il numero di consegne, escluso il deposito. Il costo temporale effettivo
+dipende anche dalla rappresentazione e dalla generazione degli stati.
+Questa crescita fattoriale del numero di stati
 limita la scalabilità della ricerca esaustiva e motiva l'introduzione
 del branch-and-bound, che consente di eliminare i rami che non possono
 migliorare la migliore soluzione completa già trovata.
@@ -120,4 +129,84 @@ migliorare la migliore soluzione completa già trovata.
 
 \subsection{Eliminazione dei rami tramite branch-and-bound}
 
+Il branch-and-bound evita di approfondire i rami che non possono
+migliorare la migliore soluzione completa già trovata. Si mantiene
+il relativo percorso insieme al suo costo $G_{\mathrm{best}}$,
+inizialmente posto a $+\infty$.
+
+Quando viene raggiunto uno stato $s=(p,N,g)$ con $N=\emptyset$,
+si completa il percorso tornando al deposito. Indicando con $u$
+l'ultima località visitata, il costo del giro è:
+\[
+    G = g + \operatorname{dist}(u,d).
+\]
+Se $G < G_{\mathrm{best}}$, si aggiorna il costo migliore e si conserva
+il giro corrispondente. Il valore $G_{\mathrm{best}}$ descrive quindi
+una soluzione effettivamente disponibile, non un ottimo già noto.
+
+Per valutare se proseguire da uno stato si utilizza un limite
+inferiore $LB(s)$ al costo di qualsiasi giro che completi il suo
+percorso parziale. Nella versione di base si adotta:
+\[
+    LB(s)=g(s),
+\]
+dove $g(s)$ è il costo accumulato nello stato. Questo limite è valido
+perché le distanze sono non negative: aggiungere altri spostamenti
+non può diminuire il costo già sostenuto.
+
+Il controllo viene eseguito dopo l'estrazione dalla pila e prima
+dell'eventuale generazione dei successori. Se:
+\[
+    LB(s) \geq G_{\mathrm{best}},
+\]
+lo stato viene scartato senza espanderlo. Qualunque completamento
+avrebbe infatti un costo almeno pari a una soluzione già disponibile
+e non potrebbe migliorarla. La ricerca mira a trovare un giro ottimo,
+non a enumerare tutti i giri di costo ottimo.
+
+Il limite scelto è economico da calcolare, ma poco informativo,
+poiché non considera la distanza ancora necessaria per completare
+il giro. La potatura può ridurre gli stati esplorati nella pratica,
+ma la sua efficacia dipende dalle istanze e dalla qualità della
+soluzione corrente; non si assume un miglioramento della complessità
+nel caso peggiore.
+
 \subsection{Orizzonte, frontiera attiva e condizioni di arresto}
+
+L'\emph{orizzonte della ricerca} è il confine al quale si arresta
+l'esplorazione esplicita corrente. Al termine di ciascuna iterazione,
+si identifica con l'insieme $H_t$ degli stati generati ancora in attesa
+nella pila $S$. Tali stati possono avere profondità diverse:
+l'orizzonte non coincide quindi con un unico livello dell'albero.
+
+La \emph{frontiera attiva} $F_t \subseteq H_t$ comprende gli stati
+ancora eleggibili per ricevere ulteriore calcolo. Nella ricerca di
+base tutti gli stati in attesa possono essere esaminati, pertanto:
+\[
+    F_t=H_t.
+\]
+La politica LIFO determina quale di questi stati viene estratto
+successivamente. Il nodo scelto in una singola iterazione non deve
+essere confuso con l'intera frontiera attiva.
+
+La distinzione tra orizzonte e frontiera attiva consentirà,
+nella versione regolata, di sospendere alcune alternative mantenendole
+in memoria per una possibile riattivazione. I rami eliminati tramite
+branch-and-bound, invece, vengono esclusi definitivamente, poiché
+non possono migliorare la soluzione corrente.
+
+La ricerca termina quando la pila è vuota oppure quando viene
+raggiunto un budget prefissato $B$. Un'unità di budget corrisponde
+all'estrazione e all'elaborazione di uno stato, anche se questo viene
+scartato dal branch-and-bound o rappresenta una foglia. La generazione
+dei suoi successori rientra nella stessa unità. Il numero di estrazioni
+non coincide necessariamente con le espansioni effettive né garantisce
+un tempo costante per passo.
+
+Se la pila si svuota, tutte le alternative sono state esaminate o
+escluse mediante un limite valido: il miglior giro trovato è quindi
+ottimo. Se il budget termina con stati ancora in attesa, si restituisce
+il miglior giro completo disponibile, senza garantirne l'ottimalità.
+Qualora non sia stato ancora trovato alcun giro completo, tale esito
+viene segnalato esplicitamente e non interpretato come assenza di
+soluzioni ammissibili.
