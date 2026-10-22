@@ -1,1 +1,123 @@
 \section{Algoritmi di ricerca}
+
+In questa sezione viene descritto l'algoritmo di ricerca 
+adottato per risolvere il problema del
+giro del corriere. 
+In particolare, l'algoritmo utilizza una visita in profondità (DFS)
+per determinare l'ordine di visita dei nodi, con l'aggiunta di un
+meccanismo di branch-and-bound che ci consente di scartare i rami 
+che non possono portare a una soluzione migliore di quella già trovata.
+
+\subsection{Rappresentazione dello stato e spazio di ricerca}
+
+Prima di descrivere l'algoritmo, si definiscono i concetti
+di stato e spazio di ricerca.
+
+Uno \emph{stato} rappresenta una configurazione del problema
+in un dato momento della ricerca. Nel problema del giro del
+corriere, ciascuno stato contiene il percorso parziale
+costruito fino a quel momento, l'insieme delle consegne
+ancora da effettuare e la distanza accumulata.
+La posizione attuale del corriere corrisponde all'ultimo
+punto del percorso.
+
+Lo stato iniziale contiene il solo deposito nel percorso,
+tutte le consegne ancora da effettuare e un costo pari a zero.
+Quando tutte le consegne sono state visitate, il giro viene
+completato tornando al deposito. La distanza di ritorno
+viene inclusa nel costo finale.
+
+Lo \emph{spazio di ricerca} è l'insieme degli stati
+raggiungibili dallo stato iniziale attraverso le azioni
+consentite. In questo caso, comprende tutti i percorsi
+parziali ammissibili e i giri completi. I percorsi iniziano
+dal deposito e non ripetono alcun punto di consegna;
+i giri completi visitano tutte le consegne e terminano
+nuovamente al deposito.
+
+
+\subsection{Espansione e generazione dei successori}
+
+L'espansione di uno stato consiste nella generazione dei possibili
+proseguimenti del percorso corrente.
+
+Sia $V = \{d, c_1, \ldots, c_n\}$ l'insieme delle località,
+dove $d$ rappresenta il deposito e $c_1, \ldots, c_n$
+i punti di consegna. Per ciascuno stato si distinguono
+l'insieme $C \subseteq V$ delle località già visitate,
+comprendente il deposito, e l'insieme
+$N = V \setminus C$ delle consegne ancora da effettuare.
+Si ha quindi:
+\[
+    C \cap N = \emptyset,
+    \qquad
+    C \cup N = V.
+\]
+
+L'ordine delle località visitate è conservato separatamente
+nel percorso $p$, mentre $g$ indica il costo accumulato.
+
+Per ogni consegna $v \in N$ viene generato uno stato
+successore. Il nuovo percorso si ottiene aggiungendo $v$
+alla fine di $p$, mentre gli insiemi vengono aggiornati come:
+\[
+    C' = C \cup \{v\},
+    \qquad
+    N' = N \setminus \{v\}.
+\]
+Indicando con $u$ l'ultima località del percorso corrente,
+il costo del successore è:
+\[
+    g' = g + \operatorname{dist}(u,v).
+\]
+
+\subsection{Ordine di visita tramite DFS}
+
+Per determinare l'ordine di esplorazione degli stati, l'algoritmo utilizza
+una \textbf{visita in profondità} (DFS, \emph{Depth-First Search}),
+implementata mediante una pila con politica LIFO: l'ultimo stato inserito
+è il primo a essere estratto. La procedura è riportata
+nell'Algoritmo~\ref{alg:dfs}.
+
+\begin{algorithm}[htbp]
+\caption{Depth-First Search}
+\label{alg:dfs}
+\begin{algorithmic}[1]
+
+\Require Stato iniziale $s_0$
+\Ensure Visita degli stati in profondità
+
+\State $S \gets$ pila vuota \Comment{Conserva gli stati in attesa}
+\State $\operatorname{push}(S,s_0)$
+
+\While{$S$ non è vuota}
+    \State $s \gets \operatorname{pop}(S)$ \Comment{Estrae l'ultimo inserito}
+    \State \textbf{visita} $s$
+    \State $L \gets \operatorname{Successori}(s)$ \Comment{Genera le estensioni ammissibili}
+    \State Ordina $L$ per indice crescente della consegna aggiunta
+    \For{$s' \in L$ in ordine inverso} \Comment{Esplora prima gli indici minori}
+        \State $\operatorname{push}(S,s')$
+    \EndFor
+\EndWhile
+
+\end{algorithmic}
+\end{algorithm}
+
+La funzione $\operatorname{Successori}(s)$ applica la regola di espansione
+definita nella sottosezione precedente. Se non rimangono consegne da
+effettuare, restituisce una lista vuota. I successori vengono inseriti
+nella pila in ordine decrescente di indice, così che quello con indice
+minore venga estratto per primo. La visita termina quando la pila è vuota.
+
+La DFS determina l'ordine di esplorazione, ma non riduce di per sé
+il numero di stati da esaminare. In assenza di potatura, il numero
+complessivo di stati attraversati è $\Theta(n!)$, dove $n$ indica
+il numero di consegne, escluso il deposito. Questa crescita fattoriale
+limita la scalabilità della ricerca esaustiva e motiva l'introduzione
+del branch-and-bound, che consente di eliminare i rami che non possono
+migliorare la migliore soluzione completa già trovata.
+
+
+\subsection{Eliminazione dei rami tramite branch-and-bound}
+
+\subsection{Orizzonte, frontiera attiva e condizioni di arresto}

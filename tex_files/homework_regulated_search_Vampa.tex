@@ -7,10 +7,15 @@
 \usepackage{amsmath,amssymb}
 \usepackage{booktabs}
 \usepackage{microtype}
-% BibLaTeX gestisce le citazioni; il backend BibTeX è integrato in Tectonic.
 \usepackage[backend=bibtex,style=numeric,sorting=none]{biblatex}
 \addbibresource{bibliografia.bib}
 \usepackage[hidelinks]{hyperref}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\floatname{algorithm}{Algoritmo}
+\renewcommand{\algorithmicrequire}{Dati:}
+\renewcommand{\algorithmicensure}{Risultato:}
+
 
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{0.5em}
