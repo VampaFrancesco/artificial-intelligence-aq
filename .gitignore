@@ -4,4 +4,5 @@ tex_files/build/*
 delivery_search/
 *.bib
 src/.venv/
-src/__pycache__/
+__pycache__/
+*.pyc

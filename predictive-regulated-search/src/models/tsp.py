@@ -33,12 +33,9 @@ def distance_matrix(locations):
             matrix[i][j] = distance(locations[i], locations[j])
     return matrix
 
-def print_matrix(matrix):
-    for row in matrix:
-        print("\t    ".join(f"{d:.3f}" for d in row))
-
 def successors(state, matrix):
     next_states = []
+
     for node in state.unvisited:
         next_state = State(
             path=state.path + (node,),
