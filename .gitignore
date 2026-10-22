@@ -1,4 +1,5 @@
-tex_files/build
+tex_files/build/*
+!tex_files/build/*.pdf
 .vscode/
 delivery_search/
 *.bib
