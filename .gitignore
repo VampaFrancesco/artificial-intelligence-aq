@@ -3,3 +3,5 @@ tex_files/build/*
 .vscode/
 delivery_search/
 *.bib
+src/.venv/
+src/__pycache__/
