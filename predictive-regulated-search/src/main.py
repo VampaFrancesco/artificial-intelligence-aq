@@ -1,81 +1,3 @@
-# import os
-
-# from .experiments.generate_dataset import collect_examples
-# from .utils.loader import load_location
-
-
-# # Configurazione della raccolta: un budget B&B per ogni stato parziale.
-# file_path = os.getenv("file_path", "data/data.json")
-# instance_id = "istanza_001"
-# max_states = 100_000
-
-# # Legge le coordinate dal JSON e le converte in oggetti Node.
-# locations = load_location(file_path)
-
-# print("RACCOLTA DEGLI ESEMPI", flush=True)
-# print(f"  File: {file_path}")
-# print(f"  Consegne: {len(locations) - 1}")
-# print(f"  Budget B&B per esempio: {max_states}", flush=True)
-
-# # Matrice, stato iniziale e ricerche sono gestiti da collect_examples.
-# dataset = collect_examples(
-#     locations,
-#     instance_id=instance_id,
-#     max_states=max_states,
-# )
-
-# print(f"\nEsempi raccolti: {len(dataset)}")
-
-# for example in dataset:
-#     print(
-#         f"Percorso: {example['state']['path']}"
-#         f" | Costo rimanente: {example['target_cost_to_go']:.3f}"
-#     )
-
-# # Ogni prima mossa produce un esempio solo se il target è certificato.
-# skipped_examples = len(locations) - 1 - len(dataset)
-# if skipped_examples > 0:
-#     print(f"Esempi esclusi perché il target non è certificato: {skipped_examples}")
-
-
-
-# from .experiments.generate_dataset import (
-#     collect_examples,
-#     generate_locations,
-# )
-
-
-# seed = 42
-# max_states = 100_000
-
-# locations = generate_locations(
-#     n_deliveries=6,
-#     seed=seed,
-# )
-
-# print("RACCOLTA DEGLI ESEMPI")
-# print(f"  Origine: coordinate generate con seed {seed}")
-# print(f"  Consegne: {len(locations) - 1}")
-# print(f"  Budget B&B per esempio: {max_states}")
-
-# dataset = collect_examples(
-#     locations,
-#     instance_id=f"istanza_seed_{seed}",
-#     max_states=max_states,
-# )
-
-# print(f"\nEsempi raccolti: {len(dataset)}")
-
-# for example in dataset:
-#     print(
-#         f"Percorso: {example['state']['path']}"
-#         f" | Costo rimanente: {example['target_cost_to_go']:.3f}"
-#     )
-
-
-
-
-
 import json
 
 from .experiments.generate_dataset import (
@@ -83,10 +5,14 @@ from .experiments.generate_dataset import (
     generate_locations,
 )
 
-from .algorithms.predictor import extract_features
+from .algorithms.predictor import extract_features, train_predictor, load_model_parameters, predict_remaining_cost
+from .algorithms.predictive_search import estimated_total_cost
+from .algorithms.baseline import BranchAndBound
 from .models.state import State
 from .models.tsp import distance_matrix
 from .models.node import Node
+
+
 
 
 # Budget del B&B insegnante per calcolare il target di ciascun esempio.
@@ -131,35 +57,120 @@ print("Dataset salvato in data/examples.json")
 print(f"\nIstanze: {len(dataset['instances'])}")
 print(f"Esempi totali: {len(dataset['examples'])}")
 
+features_list = []
+target_costs = [] 
+instance_ids = []
 
-# Prendiamo il primo esempio di addestramento, non la prima consegna.
-# dataset è ancora in memoria: qui non stiamo rileggendo il file JSON.
-example = dataset["examples"][0]
-state_example = example["state"]
 
-# Dal dizionario ricostruiamo uno State, per usare attributi come state.unvisited.
-# Le liste salvabili in JSON tornano ai tipi usati dal modello: tuple e frozenset.
+for example in dataset["examples"]:
+    state_example = example["state"]
+    state = State(
+        path=tuple(state_example["path"],),
+        unvisited=frozenset(state_example["unvisited"]),
+        cost=state_example["cost"]
+    )
+    instance_id=example["instance_id"]
+    coordinates= dataset["instances"][instance_id]
+    example_location=[
+        Node(x=point["x"], y=point["y"])
+        for point in coordinates
+    ]
+    matrix = distance_matrix(example_location)
+    features=extract_features(state,matrix)
+    target=example["target_cost_to_go"]
+    features_list.append(features)
+    target_costs.append(target)
+    instance_ids.append(instance_id)
+
+"""Crea/modifica un file json che contiene due liste, features dove ogni riga indica rispettivamente
+Numero di consegne rimaste,
+Distanza dal nodo corrente al deposito,
+Distanza alla consegna rimasta più vicina,
+Distanza media alle consegne rimaste.
+l'altra è target_costs che indica il costo minimo rimanente per completare il giro."""
+
+with open("data/result.json", "w", encoding="utf-8") as file:
+    json.dump(
+        {"features":features_list, 
+         "target_costs":target_costs,
+         "instance_ids": instance_ids
+         },
+        file, 
+        indent=2, 
+        ensure_ascii=False
+        )
+
+test_instance_ids = {"istanza_seed_50", "istanza_seed_51"}
+
+train_features = []
+train_costs = []
+test_features = []
+test_costs = []
+
+for features, target, instance_id in zip(
+    features_list, target_costs, instance_ids
+):
+    if instance_id in test_instance_ids:
+        test_features.append(features)
+        test_costs.append(target)
+    else:
+        train_features.append(features)
+        train_costs.append(target)
+
+print("Esempi per addestrare:", len(train_features))
+print("Esempi per verificare:", len(test_features))
+
+model = train_predictor(train_features, train_costs)
+
+predicted_costs = model.predict(test_features)
+
+total_error = 0
+for predicted, actual in zip(predicted_costs, test_costs):
+    total_error += abs(predicted - actual)
+mean_error = total_error / len(test_costs)
+
+print(mean_error)
+
+constant_prediction = sum(train_costs) / len(train_costs)
+
+constant_total_error = 0
+
+for actual in test_costs:
+    constant_total_error += abs(constant_prediction - actual)
+
+constant_mean_error = constant_total_error / len(test_costs)
+
+print(constant_mean_error)
+
+
+with open("data/model.json", "w", encoding="utf-8") as file:
+    json.dump(
+        {"weights":model.coef_.tolist(), "intercept":float(model.intercept_)},
+        file,
+        indent=2,
+        ensure_ascii=False
+    )
+
+model_data = load_model_parameters("data/model.json")
+loaded_prediction = predict_remaining_cost(test_features[0], model_data)
+print(loaded_prediction, predicted_costs[0])
+
 state = State(
-    path= tuple(state_example["path"]),
-    unvisited=frozenset(state_example["unvisited"]),
-    cost= state_example["cost"]
+    path=(0, 2),
+    unvisited=frozenset(range(1, len(matrix))) - {2},
+    cost=matrix[0][2]
 )
 
-#matrix = distance_matrix(locations)
-# L'identificativo collega questo esempio alle coordinate della sua istanza.
-# locations, dopo il ciclo, contiene invece l'ultima istanza generata.
-istance_id = example["instance_id"]
-coordinates = dataset["instances"][istance_id]
+ETA = estimated_total_cost(state, matrix, model_data)
 
-# Questa comprensione di lista crea un Node per ogni dizionario in coordinates:
-# point è, per esempio, {"x": 3, "y": 4}; Node(x=3, y=4) è l'oggetto corrispondente.
-# L'ordine resta identico: gli indici in state.path indicano ancora gli stessi punti.
-example_location = [
-    Node(x=point["x"], y=point["y"])
-    for point in coordinates
-]
-# matrix[i][j] contiene la distanza tra i punti con indici i e j di questa istanza.
-matrix = distance_matrix(example_location)
+print("Costo già percorso:", state.cost)
+print("Costo rimanente previsto predittore:", ETA - state.cost)
 
-# Stampiamo le feature dello stato, non ancora una previsione del costo rimanente.
-print(extract_features(state, matrix ))
+best_state, is_complete, stats = BranchAndBound(state, matrix, max_states)
+
+if(is_complete == True and best_state != None):
+    print("Il costo del Branch&Bound è: ", best_state.cost)
+else:
+    print("Giro non trovato")
+
+print("Costo rimanente B&B:", best_state.cost - state.cost)

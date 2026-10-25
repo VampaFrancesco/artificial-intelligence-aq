@@ -44,8 +44,4 @@ def successors(state, matrix):
         )
         next_states.append(next_state)
     return next_states
-        
-
-if __name__ == "__main__":
-    distance_matrix(locations)
-    print_matrix(distance_matrix(locations))
+    
