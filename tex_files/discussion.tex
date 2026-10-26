@@ -1,0 +1,43 @@
+\section{Discussione}
+\label{sec:discussion}
+
+\subsection{Guadagno dalla previsione e dalla regolazione}
+
+Sul seed $50$, l'ordinamento predittivo produce giri migliori ai tre
+budget più piccoli e raggiunge l'ottimo già a $200$ estrazioni. Sul seed
+$51$, invece, peggiora il risultato ai budget $50$ e $100$, mentre a
+$200$ e $500$ i costi coincidono. Il miglioramento del MAE rispetto alla
+previsione costante non si traduce quindi in un miglioramento uniforme
+dell'ordine di ricerca: stime inaccurate possono indirizzare
+prima verso rami meno utili.
+
+Questa evidenza riguarda soltanto due istanze della stessa dimensione
+e distribuzione delle istanze di addestramento. Non permette di stabilire
+un vantaggio generale, né un comportamento su problemi più grandi.
+Per una valutazione finale serviranno ulteriori istanze; eventuali scelte
+del regolatore e dei suoi parametri dovranno essere effettuate su dati di
+sviluppo separati dalle istanze riservate al test finale.
+
+Il beneficio osservato della previsione dipende dall'istanza e dal budget:
+non emerge un vantaggio uniforme. Non essendo disponibile un sistema C,
+il contributo aggiuntivo della regolazione non è misurabile in questi
+esperimenti. Un numero maggiore di giri valutati o di stati potati non
+costituisce da solo una qualità decisionale migliore: la misura principale
+rimane il costo del miglior giro, valutato rispetto all'ottimo.
+
+\subsection{Alternative poco promettenti e utilità di ulteriore ricerca}
+
+Il sistema distingue l'orizzonte dalla frontiera attiva e conserva, fino
+all'arresto, candidati ancora ammissibili secondo il limite sul costo
+accumulato. Una previsione elevata ne ritarda l'esplorazione, ma non ne
+certifica l'inutilità. La sottostima o sovrastima del modello può quindi
+modificare quali rami vengono esaminati prima dell'esaurimento del budget.
+
+I risultati aggregati non registrano, per ogni ramo, la previsione iniziale
+e il miglioramento prodotto dalla successiva esplorazione. Non consentono
+pertanto di identificare sistematicamente gli stati in cui ulteriore
+ricerca è preziosa nonostante una previsione poco interessante. Questa
+limitazione impedisce di rispondere sperimentalmente all'ultima domanda
+della consegna. Analogamente, l'assenza della distribuzione sulle
+alternative impedisce un'interpretazione del risultato in termini di
+massa probabilistica irrisolta.

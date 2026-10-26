@@ -9,7 +9,7 @@
 \usepackage{microtype}
 \usepackage[backend=bibtex,style=numeric,sorting=none]{biblatex}
 \addbibresource{bibliografia.bib}
-\usepackage[hidelinks]{hyperref}
+\usepackage[hidelinks,hypertexnames=false]{hyperref}
 \usepackage{algorithm}
 \usepackage{algpseudocode}
 \floatname{algorithm}{Algoritmo}
@@ -19,6 +19,7 @@
 
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{0.5em}
+\setcounter{tocdepth}{1}
 
 \title{Ricerca predittiva regolata\\
 \large Un esperimento sul giro di consegne}
@@ -33,6 +34,18 @@
 
 \input{introduction}
 \input{algorithms}
+\input{prediction}
+\input{targets}
+\input{predictive_search}
+\input{regulation}
+\input{prediction_error}
+\input{probability}
+\input{experiments}
+\input{discussion}
+\input{deliverables}
+\clearpage
+\appendix
+\input{ai_decisions}
 \clearpage
 \printbibliography[heading=bibintoc,title={Riferimenti bibliografici}]
 \end{document}

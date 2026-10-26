@@ -1,4 +1,5 @@
-\section{Introduzione}
+\section*{Introduzione}
+\addcontentsline{toc}{section}{Introduzione}
 
 Il problema del giro di consegne consiste nel determinare un percorso che
 permetta a un veicolo di partire da un deposito, visitare tutti i punti di
@@ -13,11 +14,13 @@ delle consegne, rendendo utile scegliere quali alternative esplorare quando
 il calcolo disponibile è limitato. L'obiettivo del progetto è valutare se un
 modello predittivo possa guidare la ricerca verso percorsi promettenti e se
 un regolatore possa migliorarne ulteriormente l'efficacia, decidendo dove
-dedicare ulteriore calcolo. A questo scopo, verranno confrontate una ricerca
-di base, una ricerca predittiva e una ricerca predittiva regolata, utilizzando
-budget di ricerca comparabili.
+dedicare ulteriore calcolo. La distinzione centrale è tra la previsione
+di quali alternative sembrano promettenti e la regolazione del calcolo
+dedicato a tali alternative. L'esperimento riportato confronta la ricerca
+di base e quella predittiva a budget di estrazioni comparabili; il contributo
+aggiuntivo della regolazione non è misurato.
 
-\subsection{Complessità computazionale}
+\subsection*{Complessità computazionale}
 
 Il TSP è un problema di ottimizzazione \textbf{NP-hard}, anche quando le
 distanze sono euclidee~\cite{deberg2018}. La classificazione riguarda la

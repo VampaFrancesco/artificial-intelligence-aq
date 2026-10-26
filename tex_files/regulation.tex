@@ -1,0 +1,21 @@
+\section{Regolazione della ricerca predittiva}
+\label{sec:regulation}
+
+L'ordinamento predittivo adotta una politica fissa: ogni espansione ordina
+i successori con la medesima funzione $\widehat f(s)$. Il budget globale
+limita la ricerca, ma non è un regolatore che reagisce al suo andamento.
+Un regolatore richiede una relazione esplicita
+\[
+    O_t \xrightarrow{R} U_t,
+\]
+dove $O_t$ contiene osservazioni disponibili durante la ricerca e $U_t$
+determina l'allocazione successiva del calcolo, per esempio attraverso
+priorità, profondità locale o criteri di arresto.
+
+Il sistema esaminato non implementa tale relazione e non comprende un
+metodo C predittivo e regolato. Le statistiche di frontiera descrivono
+lo stato della ricerca, ma non ne modificano la politica. Di conseguenza,
+i risultati sperimentali permettono di valutare il contributo della
+previsione rispetto alla baseline, ma non il beneficio aggiuntivo della
+regolazione. Il costo ottimo di riferimento è riservato alla valutazione
+e non viene fornito alla politica di ricerca.

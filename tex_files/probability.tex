@@ -1,0 +1,21 @@
+\section{Scelta probabilistica e massa irrisolta}
+\label{sec:probability}
+
+Una distribuzione $\pi(a\mid s)$ deve assegnare probabilità alle alternative
+di un punto decisionale e avere un significato dichiarato, per esempio
+come preferenza di esplorazione. Se $U_t$ è l'insieme delle alternative
+ancora irrisolte, la massa corrispondente è
+\[
+    \rho_t=\sum_{a\in U_t}\pi(a\mid s).
+\]
+La mancata esplorazione di queste alternative non dimostra che siano
+inutili: rimane una parte della distribuzione senza una risoluzione
+tramite ricerca esplicita.
+
+L'implementazione esaminata produce un ordinamento deterministico dei
+successori e non assegna una distribuzione alle alternative. Pertanto
+non calcola $\pi(a\mid s)$ né $\rho_t$ e non soddisfa questa componente
+della consegna. Il numero di stati pendenti e la dimensione della
+frontiera non sono probabilità: senza una distribuzione definita non
+possono essere interpretati come massa irrisolta. Nessun risultato
+riportato viene quindi presentato come misura probabilistica.

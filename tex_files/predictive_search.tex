@@ -1,0 +1,30 @@
+\section{Ricerca predittiva non regolata}
+\label{sec:predictive-search}
+
+La versione predittiva conserva pila, budget, condizioni di potatura e
+statistiche della baseline. Cambia l'ordine di esplorazione dei successori.
+Per uno stato candidato si calcola il costo totale stimato:
+\[
+    \widehat f(s)=g(s)+\widehat h_\theta(s).
+\]
+Il costo già percorso deve essere incluso: confrontare soltanto il costo
+rimanente ignorerebbe la distanza già spesa per raggiungere lo stato.
+Se $N=\emptyset$, si usa direttamente
+$g(s)+\operatorname{dist}(u,d)$, senza interrogare il modello.
+
+A ogni espansione i successori vengono ordinati per $\widehat f$ decrescente
+e inseriti nella pila in tale ordine. Poiché la pila è LIFO, il candidato
+con stima minore viene estratto per primo. Si tratta di un ordinamento
+locale dei successori: la ricerca rimane in profondità e non ordina
+globalmente l'intera frontiera come una coda a priorità.
+
+La previsione non è un limite inferiore ammissibile e può sovrastimare
+il costo reale. Per questo viene usata soltanto per l'ordinamento;
+la potatura conserva il limite sicuro $LB(s)=g(s)$. Se la pila si svuota,
+anche la versione predittiva certifica l'ottimo. Con budget esaurito,
+restituisce il miglior giro disponibile senza tale certificazione.
+
+Questa versione risponde alla domanda \emph{quale alternativa sembra
+promettente?} mediante una regola fissa basata sul modello. Non contiene
+ancora un regolatore che osservi l'andamento della ricerca e modifichi
+la politica di allocazione del calcolo.

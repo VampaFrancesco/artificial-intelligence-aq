@@ -1,0 +1,47 @@
+\section{Origine dei target}
+\label{sec:targets}
+
+\subsection{Ricerca insegnante e generazione degli esempi}
+
+Per uno stato $s=(p,N,g)$, il predittore stima il costo minimo ancora
+necessario per visitare le consegne in $N$ e tornare al deposito, mantenendo
+fisso il percorso parziale $p$. Il target, indicato con $h^*(s)$, non
+comprende il costo $g(s)$ già sostenuto.
+
+I target sono ottenuti con il branch-and-bound usato come insegnante.
+Per ogni stato campionato si avvia una ricerca da quello stesso stato,
+con budget di $100\,000$ estrazioni. Se la ricerca termina e restituisce
+un completamento ottimo di costo totale $G^*(s)$, si conserva:
+\[
+    h^*(s)=G^*(s)-g(s).
+\]
+L'esempio viene escluso se la ricerca non termina o non restituisce un giro.
+Il target è dunque certificato dalla ricerca insegnante, non ricavato
+dalla previsione del modello. Il ritorno al deposito è incluso anche
+quando $N=\emptyset$.
+
+Il dataset corrente comprende dieci istanze, generate con seed da $42$ a
+$51$. Ogni istanza contiene sei consegne con coordinate uniformi in
+$[0,100]^2$ e deposito fisso in $(0,0)$. Si raccolgono gli stati dopo
+una, due, fino a sei consegne, senza includere lo stato iniziale.
+Per ciascuna istanza si ottengono
+\[
+    \sum_{k=1}^{6}\frac{6!}{(6-k)!}=1\,956
+\]
+esempi, per un totale di $19\,560$. La profondità massima limita gli stati
+raccolti; non tronca il completamento cercato dall'insegnante.
+
+Ogni esempio conserva l'identificativo dell'istanza, lo stato e il target
+\texttt{target\_cost\_to\_go}. Le coordinate sono associate all'istanza.
+Il file \texttt{data/examples.json} contiene questi dati; la matrice delle
+distanze viene ricostruita una volta per istanza e condivisa tra i suoi
+stati, poiché le coordinate non cambiano durante il percorso.
+
+\subsection{Separazione delle istanze}
+
+La separazione viene effettuata per istanza: i seed da $42$ a $49$
+forniscono $15\,648$ esempi di addestramento; i seed $50$ e $51$ forniscono
+$3\,912$ esempi di verifica. Stati dello stesso problema non vengono
+distribuiti tra i due gruppi. Gli esempi derivati da una stessa istanza
+restano comunque correlati: il numero di esempi non equivale al numero
+di problemi indipendenti osservati.

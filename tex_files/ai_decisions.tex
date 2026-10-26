@@ -1,0 +1,43 @@
+\section{Registro delle decisioni supportate da AI}
+
+Sono riportate quattro interazioni che hanno influito sul sistema.
+Le richieste sono sintetizzate; le motivazioni esplicitano il criterio
+tecnico delle scelte adottate.
+
+\begin{enumerate}
+    \item \textbf{Modello del costo rimanente.}
+    Richiesta: come addestrare un predittore a partire dalle feature e
+    dai costi corretti. Proposta: usare una regressione lineare con
+    \texttt{scikit-learn}, addestrata con \texttt{fit}.
+    Esito: accettata e implementata.
+    Motivazione: il modello consente di esaminare esplicitamente i quattro
+    pesi e l'intercetta e di salvare una formula di previsione semplice.
+
+    \item \textbf{Separazione dei dati per istanza.}
+    Richiesta: come preparare i dati per l'addestramento e la verifica.
+    Proposta: conservare l'identificativo di ogni istanza e separare gli
+    otto seed di addestramento dai due seed di test.
+    Esito: accettata e implementata.
+    Motivazione: stati dello stesso problema condividono le coordinate;
+    distribuirli tra addestramento e test renderebbe meno significativo
+    il controllo su istanze non usate per apprendere i pesi.
+
+    \item \textbf{Uso della previsione nella ricerca.}
+    Richiesta: come passare dalla previsione di un singolo stato a una
+    ricerca predittiva. Proposta: ordinare i successori tramite
+    $g+\widehat h$, inserendoli in ordine decrescente nella pila LIFO,
+    e mantenere la potatura sul solo costo accumulato.
+    Esito: accettata e implementata in \texttt{predictiveSearch}.
+    Motivazione: esplorare prima le stime più basse senza trattare
+    una previsione appresa come limite inferiore certificato.
+
+    \item \textbf{Valutazione della qualità a budget limitato.}
+    Richiesta: come interpretare il costo trovato quando la ricerca
+    non è completa. Proposta: calcolare un ottimo di riferimento con
+    una ricerca separata e riportare l'\emph{optimality gap}.
+    Esito: accettata e implementata; il punto di ingresso è stato
+    riorganizzato in generazione, addestramento e confronto.
+    Motivazione: distinguere la qualità del giro trovato dalla
+    certificazione di ottimalità e confrontare i metodi sullo stesso
+    budget online, senza usare l'ottimo per guidarli.
+\end{enumerate}

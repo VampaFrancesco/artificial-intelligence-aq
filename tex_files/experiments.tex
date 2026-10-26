@@ -1,0 +1,75 @@
+\section{Esperimento}
+\label{sec:experiments}
+
+\subsection{Protocollo e separazione del costo offline}
+
+Sono confrontati i sistemi A (DFS con branch-and-bound) e B (la stessa
+ricerca con ordinamento predittivo), sulle due istanze escluse
+dall'addestramento. Ogni esecuzione parte dal deposito, con percorso
+$p=(0)$, tutte le sei consegne da visitare e costo accumulato nullo.
+Le due ricerche ricevono la stessa matrice dell'istanza e lo stesso
+budget $B\in\{50,100,200,500\}$ di stati estratti. Ogni esecuzione riparte
+da zero: i budget maggiori non riprendono una pila lasciata dalle prove
+precedenti.
+
+La generazione dei target e l'addestramento sono operazioni offline.
+Anche il costo ottimo di riferimento viene calcolato separatamente,
+una volta per istanza, con B\&B e budget $100\,000$. La ricerca di
+riferimento termina in entrambi i casi: l'ottimo è circa $288{,}252135$
+per il seed $50$ e $309{,}557853$ per il seed $51$. I costi di riferimento
+servono soltanto per valutare i risultati: non sono usati per inizializzare
+la migliore soluzione o guidare i due metodi a budget limitato.
+
+Il budget online corrente misura estrazioni, comprendendo anche stati
+terminali o poi potati. Non coincide con il solo numero di espansioni.
+L'ordinamento predittivo richiede valutazioni delle feature e del modello,
+quindi lo stesso numero di estrazioni non implica uguale tempo di esecuzione.
+In questa fase non sono ancora riportate misure temporali: i risultati
+consentono un confronto a parità di budget di estrazioni, non una conclusione
+sulla velocità effettiva dei due metodi.
+
+\subsection{Misure di qualità e risultati}
+
+Per ogni esecuzione si registra il miglior costo totale $G_B$, il percorso,
+il completamento della ricerca e le statistiche di frontiera e potatura.
+La qualità è misurata anche tramite il divario percentuale dall'ottimo,
+o \emph{optimality gap}:
+\[
+    \operatorname{gap}_{\%}
+    =100\,\frac{G_B-G^*}{G^*}.
+\]
+Un divario nullo indica un giro ottimo; un valore positivo misura il
+sovracosto rispetto all'ottimo. Il divario viene calcolato soltanto se
+è disponibile un giro e il riferimento è certificato. Il codice gestisce
+anche il caso di costo ottimo nullo, evitando la divisione per zero.
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Risultati dal deposito su sei consegne. A: baseline; B: ricerca
+predittiva. I costi includono il ritorno al deposito.}
+\label{tab:search-results}
+\begin{tabular}{rrrrrr}
+\toprule
+Seed & Budget & Costo A & Costo B & Gap A (\%) & Gap B (\%)\\
+\midrule
+50 & 50  & $384{,}226$ & $309{,}735$ & $33{,}30$ & $7{,}45$\\
+50 & 100 & $380{,}162$ & $309{,}735$ & $31{,}89$ & $7{,}45$\\
+50 & 200 & $309{,}735$ & $288{,}252$ & $7{,}45$ & $0{,}00$\\
+50 & 500 & $288{,}252$ & $288{,}252$ & $0{,}00$ & $0{,}00$\\
+\midrule
+51 & 50  & $336{,}449$ & $369{,}651$ & $8{,}69$ & $19{,}41$\\
+51 & 100 & $331{,}273$ & $364{,}901$ & $7{,}01$ & $17{,}88$\\
+51 & 200 & $331{,}273$ & $331{,}273$ & $7{,}01$ & $7{,}01$\\
+51 & 500 & $309{,}558$ & $309{,}558$ & $0{,}00$ & $0{,}00$\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+In tutte le sedici esecuzioni della Tabella~\ref{tab:search-results}, il
+numero di stati estratti è pari al budget e la pila non è vuota al termine:
+\texttt{is\_complete=False}. I metodi hanno comunque trovato giri completi.
+In particolare, a budget $500$ entrambi raggiungono un costo uguale
+all'ottimo di riferimento, entro la precisione numerica, senza aver
+certificato autonomamente l'ottimalità. Trovare l'ottimo e completare la
+ricerca che ne fornisce la certificazione sono eventi distinti.

@@ -1,0 +1,45 @@
+\section{Materiale di consegna e riproducibilità}
+\label{sec:deliverables}
+
+\subsection{Esecuzione}
+
+Il punto di ingresso è \texttt{src/main.py}. La variabile \texttt{MODE}
+seleziona tre operazioni distinte:
+\begin{itemize}
+    \item \texttt{generate}: crea il dataset con i seed e il budget
+    dell'insegnante specificati nella configurazione;
+    \item \texttt{train}: legge il dataset, prepara le feature, separa
+    le istanze, addestra e salva i parametri del modello;
+    \item \texttt{compare}: legge dataset e modello esistenti, calcola
+    i riferimenti e confronta le ricerche sui budget scelti.
+\end{itemize}
+Dalla radice del sottoprogetto si esegue \texttt{python3 -m src.main}.
+La configurazione corrente usa \texttt{START\_PATH = (0,)}, le istanze
+$50$ e $51$ e i quattro budget della tabella. I risultati, inclusi
+\texttt{optimal\_cost}, \texttt{gap\_percent} e le statistiche di ciascuna
+ricerca, sono salvati in \path{results/search_comparison.json}.
+Le esecuzioni riportate utilizzano Python $3.14.6$ e
+\texttt{scikit-learn} $1.9.1$. La dipendenza è elencata in
+\texttt{requirements.txt}.
+
+\subsection{Codice, dati e risultati}
+
+Il programma contiene la costruzione delle istanze e dei target, il codice
+per addestrare il predittore e il confronto sperimentale A/B. I file
+necessari a riprodurre i risultati sono organizzati come segue:
+\begin{itemize}
+    \item \path{src/algorithms/baseline.py}: ricerca DFS con B\&B;
+    \item \path{src/algorithms/predictor.py}: feature, addestramento,
+    lettura dei parametri e previsione;
+    \item \path{src/algorithms/predictive_search.py}: ordinamento predittivo
+    dei successori e ricerca a budget limitato;
+    \item \path{src/experiments/generate_dataset.py}: istanze riproducibili
+    e produzione dei target tramite ricerca insegnante;
+    \item \path{data/examples.json}, \path{data/result.json} e
+    \path{data/model.json}: dati, feature e parametri appresi;
+    \item \path{results/search_comparison.json}: costi, percorsi, riferimenti
+    e statistiche delle sedici esecuzioni.
+\end{itemize}
+Il materiale consente di riprodurre le sedici esecuzioni A/B riportate
+nella relazione. Il registro delle interazioni AI è riportato
+nell'Allegato~A.

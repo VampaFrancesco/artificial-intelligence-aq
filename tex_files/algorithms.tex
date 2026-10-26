@@ -1,4 +1,4 @@
-\section{Algoritmi di ricerca}
+\section{Ricerca}
 
 In questa sezione viene descritta la ricerca di base adottata per il
 problema del giro del corriere. La procedura utilizza una visita in
@@ -99,8 +99,7 @@ successiva.
     \State $s \gets \operatorname{pop}(S)$ \Comment{Estrae l'ultimo inserito}
     \State \textbf{visita} $s$
     \State $L \gets \operatorname{Successori}(s)$ \Comment{Genera le estensioni ammissibili}
-    \State Ordina $L$ per indice crescente della consegna aggiunta
-    \For{$s' \in L$ in ordine inverso} \Comment{Esplora prima gli indici minori}
+    \For{$s' \in L$ nell'ordine di generazione}
         \State $\operatorname{push}(S,s')$
     \EndFor
 \EndWhile
@@ -110,9 +109,12 @@ successiva.
 
 La funzione $\operatorname{Successori}(s)$ applica la regola di espansione
 definita nella sottosezione precedente. Se non rimangono consegne da
-effettuare, restituisce una lista vuota. I successori vengono inseriti
-nella pila in ordine decrescente di indice, così che quello con indice
-minore venga estratto per primo. La visita termina quando la pila è vuota.
+effettuare, restituisce una lista vuota. La baseline inserisce i successori
+nella pila nell'ordine prodotto dal generatore ed esplora per primo l'ultimo
+inserito. Nel codice, il generatore attraversa un \texttt{frozenset}:
+non viene applicato un ordinamento esplicito per indice e tale ordine non
+va assunto come garanzia della struttura dati. La visita termina quando
+la pila è vuota.
 L'operazione \textbf{visita} indica l'elaborazione dello stato estratto;
 nel caso di una foglia, si può valutare il giro completo a essa associato.
 
@@ -163,6 +165,12 @@ lo stato viene scartato senza espanderlo. Qualunque completamento
 avrebbe infatti un costo almeno pari a una soluzione già disponibile
 e non potrebbe migliorarla. La ricerca mira a trovare un giro ottimo,
 non a enumerare tutti i giri di costo ottimo.
+
+Lo stesso criterio viene applicato anche prima di inserire un successore
+nella pila: se il suo costo accumulato è già almeno
+$G_{\mathrm{best}}$, il successore viene scartato immediatamente.
+Il controllo dopo l'estrazione resta necessario perché il miglior costo
+completo può diminuire mentre altri stati sono ancora pendenti.
 
 Il limite scelto è economico da calcolare, ma poco informativo,
 poiché non considera la distanza ancora necessaria per completare
@@ -249,8 +257,9 @@ Gli stati rimasti pendenti alla scadenza del budget rappresentano
 alternative irrisolte: l'interruzione non costituisce una potatura.
 Nella versione corrente vengono restituite soltanto la soluzione,
 l'indicazione di completamento e le statistiche; la pila locale non
-viene conservata e la ricerca non è riprendibile. Nella futura versione
-regolata sarà possibile mantenere alternative sospese e scegliere quali
-riattivare. Tale sospensione dovrà essere distinta dalla potatura
+viene conservata e la ricerca non è riprendibile. La perdita delle
+alternative pendenti è un effetto dell'arresto e della restituzione del
+risultato, non una prova che i loro completamenti siano peggiori.
+La sospensione di un'alternativa deve essere distinta dalla potatura
 sicura del branch-and-bound, che esclude definitivamente un ramo
 perché non può migliorare la soluzione corrente.
