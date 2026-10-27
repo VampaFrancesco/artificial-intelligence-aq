@@ -1,54 +1,28 @@
 \section{Registro delle decisioni supportate da AI}
 
-Sono riportate cinque interazioni che hanno influito sul sistema.
-Le richieste sono sintetizzate; le motivazioni esplicitano il criterio
-tecnico delle scelte adottate.
-
 \begin{enumerate}
-    \item \textbf{Modello del costo rimanente.}
-    Richiesta: come addestrare un predittore a partire dalle feature e
-    dai costi corretti. Proposta: usare una regressione lineare con
-    \texttt{scikit-learn}, addestrata con \texttt{fit}.
-    Esito: accettata e implementata.
-    Motivazione: il modello consente di esaminare esplicitamente i quattro
-    pesi e l'intercetta e di salvare una formula di previsione semplice.
+\item \textbf{Previsione del costo rimanente.}
+Richiesta: costruire un modello a partire dagli stati della ricerca.
+Proposta: regressione lineare su quattro feature geometriche.
+Esito: accettata. Motivo: permette di distinguere chiaramente input,
+target e costo già percorso, con un modello leggibile.
 
-    \item \textbf{Separazione dei dati per istanza.}
-    Richiesta: come preparare i dati per l'addestramento e la verifica.
-    Proposta: conservare l'identificativo di ogni istanza e separare gli
-    otto seed di addestramento dai due seed di test.
-    Esito: accettata e implementata.
-    Motivazione: stati dello stesso problema condividono le coordinate;
-    distribuirli tra addestramento e test renderebbe meno significativo
-    il controllo su istanze non usate per apprendere i pesi.
+\item \textbf{Regolazione per stagnazione.}
+Richiesta: modificare la scelta dei candidati quando la ricerca non migliora.
+Proposta: estrarre uno stato con costo parziale minimo dopo stagnazione.
+Esito: modificata introducendo una pausa fra gli interventi.
+Motivo: una diversificazione continua può privilegiare stati poco profondi.
 
-    \item \textbf{Uso della previsione nella ricerca.}
-    Richiesta: come passare dalla previsione di un singolo stato a una
-    ricerca predittiva. Proposta: ordinare i successori tramite
-    $g+\widehat h$, inserendoli in ordine decrescente nella pila LIFO,
-    e mantenere la potatura sul solo costo accumulato.
-    Esito: accettata e implementata in \texttt{predictiveSearch}.
-    Motivazione: esplorare prima le stime più basse senza trattare
-    una previsione appresa come limite inferiore certificato.
+\item \textbf{Probabilità e diagnosi.}
+Richiesta: completare i punti su probabilità, massa irrisolta ed errore.
+Proposta: softmax sulle prime scelte, monitoraggio dei sottoalberi e
+confronto con completamenti indipendenti. Esito: mantenuta nel progetto.
+Motivo: rendere osservabile la differenza fra preferenza iniziale e
+utilità effettiva dell'esplorazione, senza usare l'ottimo nelle decisioni online.
 
-    \item \textbf{Valutazione della qualità a budget limitato.}
-    Richiesta: come interpretare il costo trovato quando la ricerca
-    non è completa. Proposta: calcolare un ottimo di riferimento con
-    una ricerca separata e riportare l'\emph{optimality gap}.
-    Esito: accettata e implementata; il punto di ingresso è stato
-    riorganizzato in generazione, addestramento e confronto.
-    Motivazione: distinguere la qualità del giro trovato dalla
-    certificazione di ottimalità e confrontare i metodi sullo stesso
-    budget online, senza usare l'ottimo per guidarli.
-    \item \textbf{Regolazione mediante stagnazione e diversificazione.}
-    Richiesta: introdurre un regolatore e comprendere come cambiasse
-    la scelta dello stato dalla pila. Proposta: dopo una sequenza senza
-    miglioramenti, estrarre lo stato pendente con costo parziale minimo.
-    Esito: proposta modificata dopo le prove sui seed $50$ e $51$,
-    introducendo un secondo contatore e una pausa tra gli interventi;
-    la versione con soglia $100$ è stata poi valutata sui seed $52$ e $53$.
-    Motivazione: intervenire continuamente può favorire stati poco
-    profondi; distanziare le deviazioni conserva spazio per la ricerca
-    guidata dal predittore. La separazione dei due contatori distingue
-    un miglioramento del giro da un semplice cambio di esplorazione.
+\item \textbf{Dataset per l'esperimento principale.}
+Richiesta: usare mappe più grandi. Proposta: programma separato con dati
+in memoria. Esito: rifiutata; adottato un dataset persistente nel programma
+esistente. Motivo: separare chiaramente allenamento e prova.
+
 \end{enumerate}

@@ -1,8 +1,5 @@
 from dataclasses import dataclass
-from .node import Node
-
-
-@dataclass
+@dataclass(frozen=True)
 class State:
     unvisited: frozenset[int]
     path: tuple[int, ...]

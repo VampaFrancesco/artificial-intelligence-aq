@@ -1,74 +1,22 @@
-\section{Errore di previsione e necessità di ricerca}
-\label{sec:prediction-error}
+\section{Errore di previsione e bisogno di ricerca}
 
-\subsection{Misura dell'errore sui dati di verifica}
+Valutiamo l'accuratezza confrontando le stime con i target delle mappe
+escluse dall'allenamento. Usiamo l'errore assoluto medio, MAE: la media
+delle differenze in valore assoluto. Come confronto semplice prevediamo
+sempre la media dei target di allenamento. Un MAE minore misura una
+previsione più accurata rispetto ai target, non necessariamente un giro migliore.
 
-La misura usata è l'errore assoluto medio, o MAE:
-\[
-    \operatorname{MAE}=
-    \frac{1}{m}\sum_{i=1}^{m}
-    \left|\widehat h_\theta(s_i)-h^*(s_i)\right|.
-\]
-Si sommano gli errori in valore assoluto affinché sovrastime e sottostime
-non si annullino. Il risultato è espresso nelle stesse unità delle distanze,
-non in percentuale. Come riferimento elementare si usa una previsione
-costante pari alla media dei target del solo insieme di addestramento.
+Per un singolo stato il residuo è
+$r(s)=h_{\mathrm{rif}}(s)-\widehat h(s)$. Un residuo positivo indica che
+il modello sottostima il costo rimanente; uno negativo indica una sovrastima.
+Se il riferimento è approssimato, questo è uno scarto dal riferimento,
+non l'errore esatto rispetto all'ottimo.
 
-\begin{table}[htbp]
-\centering
-\caption{Errore del predittore sui $3\,912$ stati delle due istanze di verifica.}
-\label{tab:predictor-error}
-\begin{tabular}{lr}
-\toprule
-Metodo & MAE\\
-\midrule
-Previsione costante & $44{,}569$\\
-Regressione lineare & $21{,}123$\\
-\bottomrule
-\end{tabular}
-\end{table}
-
-La riduzione del MAE rispetto alla previsione costante è circa il
-$52{,}61\%$. Questo risultato riguarda la stima del costo rimanente;
-non dimostra da solo che la ricerca guidata trovi giri migliori.
-La metrica aggrega stati a profondità diverse, con molti più esempi
-vicini al termine del giro rispetto agli stati iniziali. In particolare,
-include gli stati senza consegne rimaste; nella ricerca, invece, tali
-stati saranno valutati usando il costo esatto di ritorno al deposito.
-
-Sul dataset didattico separato, il MAE dei $128$ esempi di verifica è
-$1{,}318$ per il modello lineare e $2{,}466$ per la previsione costante,
-con una riduzione di circa il $46{,}54\%$. Anche qui la costante è
-calcolata solo sui target di addestramento. La previsione sul primo
-esempio di verifica, prima e dopo la rilettura dei parametri salvati,
-è circa $7{,}603719$ in entrambi i casi: questo controlla la coerenza
-del salvataggio, mentre l'accuratezza è misurata dal MAE. I due dataset
-hanno scale geometriche diverse, quindi i loro MAE assoluti non sono
-direttamente confrontabili.
-
-\subsection{Confronto con il risultato di ulteriore ricerca}
-
-Quando una ricerca aggiuntiva determina un completamento ottimo, il
-residuo della previsione è
-\[
-    r(s)=\bigl(G^*(s)-g(s)\bigr)-\widehat h_\theta(s).
-\]
-Per esempio, sull'istanza con seed $51$, lo stato con percorso
-$p=(0,2)$ ha costo accumulato $83{,}703625$. Il modello stima un costo
-rimanente di $212{,}672954$, mentre la ricerca completa da quello stato
-restituisce un costo totale di $327{,}297587$, cioè un costo rimanente
-ottimo di $243{,}593961$. Si ottiene dunque un residuo positivo di circa
-$30{,}921007$: il modello sottostima il costo necessario per completare
-quel percorso parziale.
-
-Il confronto identifica l'errore dopo aver eseguito la ricerca aggiuntiva.
-Se questa viene interrotta, il miglior giro trovato fornisce un costo
-superiore o uguale all'ottimo e il residuo non è automaticamente l'errore
-esatto del predittore. Il MAE globale e il confronto ex post non
-costituiscono, da soli, una stima online del bisogno di ricerca di un
-nuovo stato. Il sistema esaminato non usa tali residui per modificare
-l'allocazione del calcolo e non comprende un secondo modello dell'errore.
-Il regolatore usa invece la stagnazione del miglior giro e la distanza
-dall'ultima diversificazione, come descritto nella
-Sezione~\ref{sec:regulation}. Questi segnali non equivalgono a una stima
-del residuo del singolo candidato.
+Un grande errore può segnalare una stima poco affidabile, ma non basta
+per stabilire dove cercare: un ramo molto mal previsto può comunque
+essere peggiore degli altri. Il residuo esatto si conosce solo dopo
+la ricerca aggiuntiva e non guida il regolatore online. Per il bisogno
+di ulteriore esplorazione usiamo la stagnazione come segnale operativo,
+valutandone i benefici tramite i risultati e le tracce dei rami visitati.
+Il caso concreto della Sezione~8 mostra perché può valere la pena cercare
+anche in un ramo sfavorito dal modello.

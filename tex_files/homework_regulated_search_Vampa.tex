@@ -1,37 +1,18 @@
 \documentclass[11pt,a4paper]{article}
-
 \usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
 \usepackage[italian]{babel}
-\usepackage[margin=2.5cm]{geometry}
+\usepackage[margin=2.4cm]{geometry}
 \usepackage{amsmath,amssymb}
 \usepackage{booktabs}
 \usepackage{microtype}
-\usepackage[backend=bibtex,style=numeric,sorting=none]{biblatex}
-\addbibresource{bibliografia.bib}
 \usepackage[hidelinks,hypertexnames=false]{hyperref}
-\usepackage{algorithm}
-\usepackage{algpseudocode}
-\floatname{algorithm}{Algoritmo}
-\renewcommand{\algorithmicrequire}{Dati:}
-\renewcommand{\algorithmicensure}{Risultato:}
-
-
 \setlength{\parindent}{0pt}
-\setlength{\parskip}{0.5em}
-\setcounter{tocdepth}{1}
-
-\title{Ricerca predittiva regolata\\
-\large Un esperimento sul giro di consegne}
-\author{Francesco Vampa\\
-\small Matricola: 316461}
-\date{\today}
-
+\setlength{\parskip}{0.35em}
+\title{Ricerca predittiva regolata\\\large Un esperimento sul giro di consegne}
+\author{Francesco Vampa --- Matricola 316461}
+\date{27 ottobre 2026}
 \begin{document}
 \maketitle
-\tableofcontents
-\clearpage
-
 \input{introduction}
 \input{algorithms}
 \input{prediction}
@@ -43,9 +24,6 @@
 \input{experiments}
 \input{discussion}
 \input{deliverables}
-\clearpage
 \appendix
 \input{ai_decisions}
-\clearpage
-\printbibliography[heading=bibintoc,title={Riferimenti bibliografici}]
 \end{document}

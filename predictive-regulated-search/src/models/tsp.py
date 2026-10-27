@@ -36,7 +36,7 @@ def distance_matrix(locations):
 def successors(state, matrix):
     next_states = []
 
-    for node in state.unvisited:
+    for node in sorted(state.unvisited):
         next_state = State(
             path=state.path + (node,),
             unvisited=state.unvisited - {node},

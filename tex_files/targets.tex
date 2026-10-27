@@ -1,87 +1,20 @@
 \section{Origine dei target}
-\label{sec:targets}
 
-\subsection{Ricerca insegnante e generazione degli esempi}
+Per allenare il modello servono stati parziali e valori di riferimento,
+chiamati \emph{target}. Per ogni stato, un procedimento separato completa
+il percorso mantenendo fisse le consegne già visitate. Dal costo totale
+del completamento si sottrae $g$, ottenendo il costo ancora necessario.
 
-Per uno stato $s=(p,N,g)$, il predittore stima il costo minimo ancora
-necessario per visitare le consegne in $N$ e tornare al deposito, mantenendo
-fisso il percorso parziale $p$. Il target, indicato con $h^*(s)$, non
-comprende il costo $g(s)$ già sostenuto.
+Sulle mappe ridotte usiamo come insegnante un branch-and-bound completo:
+conserviamo il target soltanto se l'ottimo è certificato. Quando una ricerca
+completa è impraticabile, usiamo invece completamenti approssimati. Si visita
+ogni volta una consegna vicina e si migliora il giro con 2-opt: si invertono
+tratti del percorso se la distanza diminuisce. Proviamo più partenze e
+conserviamo il completamento migliore. Questo target è il costo di un giro
+ammissibile, non un ottimo dimostrato.
 
-I target sono ottenuti con il branch-and-bound usato come insegnante.
-Per ogni stato campionato si avvia una ricerca da quello stesso stato,
-con budget di $100\,000$ estrazioni. Se la ricerca termina e restituisce
-un completamento ottimo di costo totale $G^*(s)$, si conserva:
-\[
-    h^*(s)=G^*(s)-g(s).
-\]
-L'esempio viene escluso se la ricerca non termina o non restituisce un giro.
-Il target è dunque certificato dalla ricerca insegnante, non ricavato
-dalla previsione del modello. Il ritorno al deposito è incluso anche
-quando $N=\emptyset$.
-
-Il dataset principale comprende dieci istanze, generate con seed da $42$ a
-$51$. Ogni istanza contiene sei consegne con coordinate uniformi in
-$[0,100]^2$ e deposito fisso in $(0,0)$. Si raccolgono gli stati dopo
-una, due, fino a sei consegne, senza includere lo stato iniziale.
-Per ciascuna istanza si ottengono
-\[
-    \sum_{k=1}^{6}\frac{6!}{(6-k)!}=1\,956
-\]
-esempi, per un totale di $19\,560$. La profondità massima limita gli stati
-raccolti; non tronca il completamento cercato dall'insegnante.
-
-Ogni esempio conserva l'identificativo dell'istanza, lo stato e il target
-\texttt{target\_cost\_to\_go}. Le coordinate sono associate all'istanza.
-Il file \texttt{data/examples.json} contiene questi dati; la matrice delle
-distanze viene ricostruita una volta per istanza e condivisa tra i suoi
-stati, poiché le coordinate non cambiano durante il percorso.
-
-\subsection{Separazione delle istanze}
-
-La separazione viene effettuata per istanza: i seed da $42$ a $49$
-forniscono $15\,648$ esempi di addestramento; i seed $50$ e $51$ forniscono
-$3\,912$ esempi di verifica. Stati dello stesso problema non vengono
-distribuiti tra i due gruppi. Gli esempi derivati da una stessa istanza
-restano comunque correlati: il numero di esempi non equivale al numero
-di problemi indipendenti osservati.
-
-I seed $52$ e $53$ sono generati successivamente soltanto per il confronto
-online: non fanno parte di questi $19\,560$ esempi e non modificano il
-modello. L'uso dei seed $50$ e $51$ nello sviluppo del regolatore è
-distinto dalla separazione usata per apprendere i pesi, come precisato
-nella Sezione~\ref{sec:experiments}.
-
-\subsection{Dataset didattico separato}
-\label{sec:teaching-data}
-
-Un secondo dataset contiene dieci mappe disegnate a mano, ciascuna con
-quattro consegne e deposito in $(0,0)$. Le coordinate intere descrivono
-forme semplici, quali linea, croce, rettangolo e gruppi di punti: sono
-esempi artificiali in unità arbitrarie, non registrazioni di consegne
-reali. La raccolta usa lo stesso insegnante e comprende
-\[
-    \sum_{k=1}^{4}\frac{4!}{(4-k)!}=64
-\]
-stati per mappa, per un totale di $640$ esempi. Le otto mappe con
-prefisso \texttt{train} forniscono $512$ esempi. Le altre due mappe
-forniscono i $128$ esempi di verifica e sono escluse dall'addestramento;
-sono identificate come \path{test_triangolo} e \path{test_irregolare}.
-
-Per esempio, nella mappa in linea il deposito e le consegne hanno
-coordinate
-\[
-    (0,0),\ (1,0),\ (2,0),\ (3,0),\ (4,0).
-\]
-Lo stato con percorso
-$p=(0,4)$ ha costo accumulato $4$ e consegne residue $\{1,2,3\}$.
-Il completamento $4\to3\to2\to1\to0$ costa ancora $4$: il target è
-$h^*(s)=4$, mentre il costo totale del giro è $8$. Il corrispondente
-vettore di feature è $x(s)=(3,4,1,2)$.
-
-Le mappe e gli esempi sono conservati in
-\path{data/didattico/instances.json} e
-\path{data/didattico/examples.json}. Anche il modello e le feature
-preparate sono salvati in questa cartella, separatamente dal modello
-principale. Tutti i $640$ target sono stati controllati confrontandoli
-con l'enumerazione degli ordini possibili delle consegne residue.
+Campioniamo percorsi parziali con molte e poche consegne residue, alternando
+prefissi casuali e prefissi costruiti visitando consegne vicine. Separiamo
+le mappe di allenamento da quelle di prova: stati della stessa mappa non
+vengono distribuiti fra i due gruppi. La generazione dei target e il fit
+sono operazioni offline, esterne al budget della ricerca valutata.

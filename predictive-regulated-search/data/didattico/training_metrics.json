@@ -1,0 +1,22 @@
+{
+  "training_instances": [
+    "train_croce",
+    "train_diagonale",
+    "train_due_gruppi",
+    "train_gruppo_vicino",
+    "train_irregolare",
+    "train_linea",
+    "train_rettangolo",
+    "train_scala"
+  ],
+  "test_instances": [
+    "test_triangolo",
+    "test_irregolare"
+  ],
+  "training_examples": 512,
+  "test_examples": 128,
+  "model_mae": 1.3183718656273593,
+  "constant_mae": 2.4660716179259654,
+  "python_version": "3.14.6",
+  "scikit_learn_version": "1.9.1"
+}

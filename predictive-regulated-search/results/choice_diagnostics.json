@@ -1,0 +1,662 @@
+{
+  "istanza_seed_50": {
+    "reference_cost": 288.252135122945,
+    "reference_is_certified_optimum": true,
+    "reference_method": "branch_and_bound_and_enumeration",
+    "independent_enumeration_cost": 288.25213512294505,
+    "reference_stats": {
+      "states_examined": 1002,
+      "states_expanded": 869,
+      "model_evaluations": 0,
+      "diversification_candidates_scanned": 0,
+      "states_pruned": 0,
+      "states_pruned_before_push": 549,
+      "pending_states": 0,
+      "active_frontier_size": 0,
+      "completed_tours": 133,
+      "horizon_size": 682
+    },
+    "temperature": 60.21152870675604,
+    "alternatives": [
+      {
+        "action": 4,
+        "path": [
+          0,
+          4
+        ],
+        "predicted_total_cost": 219.18635811393258,
+        "probability": 0.39164117635526186,
+        "predicted_rank": 1,
+        "exact_total_cost": 288.25213512294505,
+        "exact_path": [
+          0,
+          4,
+          6,
+          3,
+          1,
+          2,
+          5,
+          0
+        ],
+        "prediction_residual": 69.06577700901246,
+        "gain_vs_predicted_first": 0.0,
+        "lower_half_by_prediction": false
+      },
+      {
+        "action": 1,
+        "path": [
+          0,
+          1
+        ],
+        "predicted_total_cost": 254.0727451316295,
+        "probability": 0.21941149132667845,
+        "predicted_rank": 2,
+        "exact_total_cost": 291.91445315376984,
+        "exact_path": [
+          0,
+          1,
+          5,
+          2,
+          3,
+          6,
+          4,
+          0
+        ],
+        "prediction_residual": 37.84170802214035,
+        "gain_vs_predicted_first": -3.6623180308247925,
+        "lower_half_by_prediction": false
+      },
+      {
+        "action": 2,
+        "path": [
+          0,
+          2
+        ],
+        "predicted_total_cost": 277.8609477884836,
+        "probability": 0.14780173015741424,
+        "predicted_rank": 3,
+        "exact_total_cost": 299.52843782156043,
+        "exact_path": [
+          0,
+          2,
+          5,
+          1,
+          3,
+          6,
+          4,
+          0
+        ],
+        "prediction_residual": 21.66749003307683,
+        "gain_vs_predicted_first": -11.276302698615382,
+        "lower_half_by_prediction": false
+      },
+      {
+        "action": 5,
+        "path": [
+          0,
+          5
+        ],
+        "predicted_total_cost": 297.2417108566688,
+        "probability": 0.1071247207844437,
+        "predicted_rank": 4,
+        "exact_total_cost": 288.25213512294505,
+        "exact_path": [
+          0,
+          5,
+          2,
+          1,
+          3,
+          6,
+          4,
+          0
+        ],
+        "prediction_residual": -8.989575733723768,
+        "gain_vs_predicted_first": 0.0,
+        "lower_half_by_prediction": true
+      },
+      {
+        "action": 6,
+        "path": [
+          0,
+          6
+        ],
+        "predicted_total_cost": 307.4628770601091,
+        "probability": 0.09039956591433475,
+        "predicted_rank": 5,
+        "exact_total_cost": 309.7349152039791,
+        "exact_path": [
+          0,
+          6,
+          3,
+          2,
+          5,
+          1,
+          4,
+          0
+        ],
+        "prediction_residual": 2.2720381438699633,
+        "gain_vs_predicted_first": -21.482780081034036,
+        "lower_half_by_prediction": true
+      },
+      {
+        "action": 3,
+        "path": [
+          0,
+          3
+        ],
+        "predicted_total_cost": 351.33862953943236,
+        "probability": 0.04362131546186695,
+        "predicted_rank": 6,
+        "exact_total_cost": 334.43960654830875,
+        "exact_path": [
+          0,
+          3,
+          6,
+          4,
+          1,
+          2,
+          5,
+          0
+        ],
+        "prediction_residual": -16.899022991123616,
+        "gain_vs_predicted_first": -46.1874714253637,
+        "lower_half_by_prediction": true
+      }
+    ]
+  },
+  "istanza_seed_51": {
+    "reference_cost": 309.5578531020773,
+    "reference_is_certified_optimum": true,
+    "reference_method": "branch_and_bound_and_enumeration",
+    "independent_enumeration_cost": 309.55785310207733,
+    "reference_stats": {
+      "states_examined": 1289,
+      "states_expanded": 1041,
+      "model_evaluations": 0,
+      "diversification_candidates_scanned": 0,
+      "states_pruned": 0,
+      "states_pruned_before_push": 454,
+      "pending_states": 0,
+      "active_frontier_size": 0,
+      "completed_tours": 248,
+      "horizon_size": 702
+    },
+    "temperature": 60.06167978243387,
+    "alternatives": [
+      {
+        "action": 6,
+        "path": [
+          0,
+          6
+        ],
+        "predicted_total_cost": 256.4480712987704,
+        "probability": 0.2683737446386717,
+        "predicted_rank": 1,
+        "exact_total_cost": 331.2731403441238,
+        "exact_path": [
+          0,
+          6,
+          4,
+          5,
+          2,
+          3,
+          1,
+          0
+        ],
+        "prediction_residual": 74.82506904535342,
+        "gain_vs_predicted_first": 0.0,
+        "lower_half_by_prediction": false
+      },
+      {
+        "action": 1,
+        "path": [
+          0,
+          1
+        ],
+        "predicted_total_cost": 264.364365619978,
+        "probability": 0.2352333105788795,
+        "predicted_rank": 2,
+        "exact_total_cost": 309.55785310207733,
+        "exact_path": [
+          0,
+          1,
+          3,
+          2,
+          6,
+          5,
+          4,
+          0
+        ],
+        "prediction_residual": 45.19348748209933,
+        "gain_vs_predicted_first": 21.715287242046486,
+        "lower_half_by_prediction": false
+      },
+      {
+        "action": 3,
+        "path": [
+          0,
+          3
+        ],
+        "predicted_total_cost": 268.0863327632922,
+        "probability": 0.2210985988966715,
+        "predicted_rank": 3,
+        "exact_total_cost": 318.78448071058494,
+        "exact_path": [
+          0,
+          3,
+          1,
+          2,
+          6,
+          5,
+          4,
+          0
+        ],
+        "prediction_residual": 50.69814794729274,
+        "gain_vs_predicted_first": 12.488659633538873,
+        "lower_half_by_prediction": false
+      },
+      {
+        "action": 2,
+        "path": [
+          0,
+          2
+        ],
+        "predicted_total_cost": 296.3765793028574,
+        "probability": 0.1380462603119478,
+        "predicted_rank": 4,
+        "exact_total_cost": 327.2975865407839,
+        "exact_path": [
+          0,
+          2,
+          3,
+          1,
+          6,
+          5,
+          4,
+          0
+        ],
+        "prediction_residual": 30.921007237926517,
+        "gain_vs_predicted_first": 3.975553803339892,
+        "lower_half_by_prediction": true
+      },
+      {
+        "action": 4,
+        "path": [
+          0,
+          4
+        ],
+        "predicted_total_cost": 325.7617857161395,
+        "probability": 0.08463419288261316,
+        "predicted_rank": 5,
+        "exact_total_cost": 309.55785310207733,
+        "exact_path": [
+          0,
+          4,
+          5,
+          6,
+          2,
+          3,
+          1,
+          0
+        ],
+        "prediction_residual": -16.203932614062182,
+        "gain_vs_predicted_first": 21.715287242046486,
+        "lower_half_by_prediction": true
+      },
+      {
+        "action": 5,
+        "path": [
+          0,
+          5
+        ],
+        "predicted_total_cost": 354.3125948037841,
+        "probability": 0.05261389269121633,
+        "predicted_rank": 6,
+        "exact_total_cost": 331.21606079884623,
+        "exact_path": [
+          0,
+          5,
+          4,
+          6,
+          2,
+          3,
+          1,
+          0
+        ],
+        "prediction_residual": -23.096534004937894,
+        "gain_vs_predicted_first": 0.057079545277588295,
+        "lower_half_by_prediction": true
+      }
+    ]
+  },
+  "istanza_seed_52": {
+    "reference_cost": 259.8961290457147,
+    "reference_is_certified_optimum": true,
+    "reference_method": "branch_and_bound_and_enumeration",
+    "independent_enumeration_cost": 259.8961290457147,
+    "reference_stats": {
+      "states_examined": 867,
+      "states_expanded": 726,
+      "model_evaluations": 0,
+      "diversification_candidates_scanned": 0,
+      "states_pruned": 0,
+      "states_pruned_before_push": 464,
+      "pending_states": 0,
+      "active_frontier_size": 0,
+      "completed_tours": 141,
+      "horizon_size": 605
+    },
+    "temperature": 56.21499248022962,
+    "alternatives": [
+      {
+        "action": 6,
+        "path": [
+          0,
+          6
+        ],
+        "predicted_total_cost": 246.68851158725116,
+        "probability": 0.32291167173968327,
+        "predicted_rank": 1,
+        "exact_total_cost": 259.89612904571476,
+        "exact_path": [
+          0,
+          6,
+          2,
+          3,
+          5,
+          4,
+          1,
+          0
+        ],
+        "prediction_residual": 13.207617458463602,
+        "gain_vs_predicted_first": 0.0,
+        "lower_half_by_prediction": false
+      },
+      {
+        "action": 2,
+        "path": [
+          0,
+          2
+        ],
+        "predicted_total_cost": 272.9543199127837,
+        "probability": 0.202378626495433,
+        "predicted_rank": 2,
+        "exact_total_cost": 277.85192746713864,
+        "exact_path": [
+          0,
+          2,
+          3,
+          5,
+          4,
+          1,
+          6,
+          0
+        ],
+        "prediction_residual": 4.89760755435492,
+        "gain_vs_predicted_first": -17.95579842142388,
+        "lower_half_by_prediction": false
+      },
+      {
+        "action": 4,
+        "path": [
+          0,
+          4
+        ],
+        "predicted_total_cost": 287.3453283930812,
+        "probability": 0.15666987083619777,
+        "predicted_rank": 3,
+        "exact_total_cost": 264.6006406502464,
+        "exact_path": [
+          0,
+          4,
+          1,
+          5,
+          3,
+          2,
+          6,
+          0
+        ],
+        "prediction_residual": -22.7446877428348,
+        "gain_vs_predicted_first": -4.70451160453166,
+        "lower_half_by_prediction": false
+      },
+      {
+        "action": 3,
+        "path": [
+          0,
+          3
+        ],
+        "predicted_total_cost": 302.5887093368598,
+        "probability": 0.11945965025414813,
+        "predicted_rank": 4,
+        "exact_total_cost": 288.76045929213115,
+        "exact_path": [
+          0,
+          3,
+          5,
+          1,
+          4,
+          2,
+          6,
+          0
+        ],
+        "prediction_residual": -13.828250044728634,
+        "gain_vs_predicted_first": -28.864330246416387,
+        "lower_half_by_prediction": true
+      },
+      {
+        "action": 1,
+        "path": [
+          0,
+          1
+        ],
+        "predicted_total_cost": 311.3430281952858,
+        "probability": 0.10223247691213942,
+        "predicted_rank": 5,
+        "exact_total_cost": 259.8961290457147,
+        "exact_path": [
+          0,
+          1,
+          4,
+          5,
+          3,
+          2,
+          6,
+          0
+        ],
+        "prediction_residual": -51.446899149571095,
+        "gain_vs_predicted_first": 5.684341886080802e-14,
+        "lower_half_by_prediction": true
+      },
+      {
+        "action": 5,
+        "path": [
+          0,
+          5
+        ],
+        "predicted_total_cost": 314.67578141208594,
+        "probability": 0.0963477037623984,
+        "predicted_rank": 6,
+        "exact_total_cost": 293.4247943095383,
+        "exact_path": [
+          0,
+          5,
+          3,
+          1,
+          4,
+          2,
+          6,
+          0
+        ],
+        "prediction_residual": -21.25098710254764,
+        "gain_vs_predicted_first": -33.52866526382354,
+        "lower_half_by_prediction": true
+      }
+    ]
+  },
+  "istanza_seed_53": {
+    "reference_cost": 349.5802890878655,
+    "reference_is_certified_optimum": true,
+    "reference_method": "branch_and_bound_and_enumeration",
+    "independent_enumeration_cost": 349.5802890878655,
+    "reference_stats": {
+      "states_examined": 1269,
+      "states_expanded": 1042,
+      "model_evaluations": 0,
+      "diversification_candidates_scanned": 0,
+      "states_pruned": 0,
+      "states_pruned_before_push": 479,
+      "pending_states": 0,
+      "active_frontier_size": 0,
+      "completed_tours": 227,
+      "horizon_size": 706
+    },
+    "temperature": 68.3745141286808,
+    "alternatives": [
+      {
+        "action": 2,
+        "path": [
+          0,
+          2
+        ],
+        "predicted_total_cost": 280.3981513300786,
+        "probability": 0.27007426977680943,
+        "predicted_rank": 1,
+        "exact_total_cost": 354.9915838284796,
+        "exact_path": [
+          0,
+          2,
+          6,
+          1,
+          4,
+          3,
+          5,
+          0
+        ],
+        "prediction_residual": 74.593432498401,
+        "gain_vs_predicted_first": 0.0,
+        "lower_half_by_prediction": false
+      },
+      {
+        "action": 4,
+        "path": [
+          0,
+          4
+        ],
+        "predicted_total_cost": 304.5141663688856,
+        "probability": 0.18980405626234834,
+        "predicted_rank": 2,
+        "exact_total_cost": 396.49996265842856,
+        "exact_path": [
+          0,
+          4,
+          1,
+          6,
+          2,
+          3,
+          5,
+          0
+        ],
+        "prediction_residual": 91.98579628954298,
+        "gain_vs_predicted_first": -41.50837882994898,
+        "lower_half_by_prediction": false
+      },
+      {
+        "action": 1,
+        "path": [
+          0,
+          1
+        ],
+        "predicted_total_cost": 318.88208513994334,
+        "probability": 0.15383131864164196,
+        "predicted_rank": 3,
+        "exact_total_cost": 386.59051892110296,
+        "exact_path": [
+          0,
+          1,
+          6,
+          2,
+          4,
+          3,
+          5,
+          0
+        ],
+        "prediction_residual": 67.70843378115961,
+        "gain_vs_predicted_first": -31.59893509262338,
+        "lower_half_by_prediction": false
+      },
+      {
+        "action": 3,
+        "path": [
+          0,
+          3
+        ],
+        "predicted_total_cost": 323.9284790894875,
+        "probability": 0.14288662439975156,
+        "predicted_rank": 4,
+        "exact_total_cost": 407.1533483053622,
+        "exact_path": [
+          0,
+          3,
+          4,
+          1,
+          6,
+          2,
+          5,
+          0
+        ],
+        "prediction_residual": 83.22486921587472,
+        "gain_vs_predicted_first": -52.16176447688264,
+        "lower_half_by_prediction": true
+      },
+      {
+        "action": 5,
+        "path": [
+          0,
+          5
+        ],
+        "predicted_total_cost": 330.00003634785054,
+        "probability": 0.1307455327563637,
+        "predicted_rank": 5,
+        "exact_total_cost": 349.58028908786554,
+        "exact_path": [
+          0,
+          5,
+          3,
+          4,
+          1,
+          2,
+          6,
+          0
+        ],
+        "prediction_residual": 19.580252740015,
+        "gain_vs_predicted_first": 5.411294740614039,
+        "lower_half_by_prediction": true
+      },
+      {
+        "action": 6,
+        "path": [
+          0,
+          6
+        ],
+        "predicted_total_cost": 340.18062518914405,
+        "probability": 0.11265819816308507,
+        "predicted_rank": 6,
+        "exact_total_cost": 349.5802890878655,
+        "exact_path": [
+          0,
+          6,
+          2,
+          1,
+          4,
+          3,
+          5,
+          0
+        ],
+        "prediction_residual": 9.399663898721428,
+        "gain_vs_predicted_first": 5.411294740614096,
+        "lower_half_by_prediction": true
+      }
+    ]
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "weights": [
+    6.027693153747717,
+    0.017960226265055203,
+    -1.5974341447178366,
+    1.6679372818611569
+  ],
+  "intercept": 163.64569769533114,
+  "deliveries": 100,
+  "training_metrics": {
+    "training_instances": [
+      "allenamento_01",
+      "allenamento_02",
+      "allenamento_03",
+      "allenamento_04",
+      "allenamento_05",
+      "allenamento_06",
+      "allenamento_07",
+      "allenamento_08",
+      "allenamento_09",
+      "allenamento_10",
+      "allenamento_11",
+      "allenamento_12"
+    ],
+    "test_instances": [
+      "prova_01",
+      "prova_02",
+      "prova_03"
+    ],
+    "training_examples": 480,
+    "test_examples": 120,
+    "model_mae": 49.39104752626392,
+    "constant_mae": 184.68359304717953,
+    "python_version": "3.14.6",
+    "scikit_learn_version": "1.9.1",
+    "target_metadata": {
+      "deliveries_per_map": 100,
+      "target_method": "nearest_neighbor_3_starts_2opt_6_passes",
+      "targets_are_certified": false,
+      "examples_per_map": 40,
+      "training_seeds": [
+        10000,
+        10001,
+        10002,
+        10003,
+        10004,
+        10005,
+        10006,
+        10007,
+        10008,
+        10009,
+        10010,
+        10011
+      ],
+      "test_seeds": [
+        20000,
+        20001,
+        20002
+      ]
+    }
+  }
+}

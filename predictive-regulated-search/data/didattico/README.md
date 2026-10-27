@@ -24,6 +24,12 @@ Questo dataset serve a capire l'allenamento. Con sole quattro consegne molti
 budget del confronto consentono di completare la ricerca; non e un benchmark
 sufficiente per valutare il regolatore con soglia 100.
 
-Per rigenerare gli esempi, scegli `MODE = "generate"`. Per allenare, scegli
-`MODE = "train"`. In entrambi i casi esegui `python3 -m src.main` dalla radice
-di `predictive-regulated-search`.
+Per riprodurre generazione, allenamento e confronto:
+
+```sh
+python3 -m src.main --mode all --teaching
+```
+
+Esegui dalla radice di `predictive-regulated-search`. I budget predefiniti sono
+5, 10, 20 e 50; anche probabilità, massa irrisolta e diagnosi vengono salvate
+separatamente in `results/didattico/`. La soglia 100 non interviene a questi budget.

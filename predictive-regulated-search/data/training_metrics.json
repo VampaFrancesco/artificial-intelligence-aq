@@ -1,0 +1,22 @@
+{
+  "training_instances": [
+    "istanza_seed_42",
+    "istanza_seed_43",
+    "istanza_seed_44",
+    "istanza_seed_45",
+    "istanza_seed_46",
+    "istanza_seed_47",
+    "istanza_seed_48",
+    "istanza_seed_49"
+  ],
+  "test_instances": [
+    "istanza_seed_50",
+    "istanza_seed_51"
+  ],
+  "training_examples": 15648,
+  "test_examples": 3912,
+  "model_mae": 21.123080262314446,
+  "constant_mae": 44.568956287153696,
+  "python_version": "3.14.6",
+  "scikit_learn_version": "1.9.1"
+}

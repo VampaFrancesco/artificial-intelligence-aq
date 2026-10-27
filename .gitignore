@@ -3,6 +3,8 @@ tex_files/build/*
 .vscode/
 delivery_search/
 *.bib
+!tex_files/bibliografia.bib
+.venv/
 src/.venv/
 __pycache__/
 *.pyc

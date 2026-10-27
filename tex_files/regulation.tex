@@ -1,72 +1,21 @@
 \section{Regolazione della ricerca predittiva}
-\label{sec:regulation}
 
-Il sistema C conserva il modello, l'ordinamento locale dei successori e
-la potatura del sistema B. Introduce una scelta adattiva dello stato da
-estrarre dalla pila, basata sull'assenza di miglioramenti del miglior
-giro completo trovato. Il regolatore è una regola esplicita, non un
-secondo modello appreso.
+Il sistema C usa lo stesso modello di B e osserva due contatori:
+$q$, estrazioni dall'ultimo miglioramento del giro, e $c$, estrazioni
+ordinarie dall'ultima diversificazione. Quando entrambi raggiungono la
+soglia fissata, il regolatore sceglie dalla pila lo stato con costo
+parziale $g$ minimo, al posto della normale estrazione LIFO.
+Il candidato scelto riceve la successiva unità di calcolo; gli altri
+rimangono disponibili. Non vengono introdotte potature basate sul modello.
 
-\subsection{Osservazioni e decisione computazionale}
+Un giro migliore azzera $q$; una diversificazione azzera $c$.
+Prima del primo giro, $q$ conta le estrazioni dall'avvio. Il secondo
+contatore distanzia gli interventi, lasciando spazio alla ricerca predittiva.
+La corrispondenza richiesta dall'assignment è dunque: osservazioni
+$O=(q,c)$, regola sulle soglie, decisione di cambiare il prossimo stato.
 
-Prima di ogni estrazione si osservano due contatori, inizializzati a zero:
-\begin{itemize}
-    \item $q_t$: stati estratti dall'ultimo miglioramento del costo del
-    miglior giro; aumenta a ogni estrazione e viene azzerato quando si
-    trova un giro strettamente migliore, incluso il primo giro;
-    \item $c_t$: estrazioni ordinarie effettuate dall'ultima diversificazione;
-    aumenta solo quando si usa la normale estrazione LIFO e viene
-    azzerato quando interviene il regolatore.
-\end{itemize}
-Prima del primo giro, $q_t$ conta le estrazioni dall'inizio della ricerca.
-I conteggi comprendono anche stati terminali e stati poi potati.
-Con soglia $P=100$, la condizione di intervento è
-\[
-    q_t\geq P \quad\land\quad c_t\geq P.
-\]
-Il primo requisito segnala stagnazione; il secondo introduce una pausa
-di almeno $100$ estrazioni ordinarie tra due interventi. Un miglioramento
-del giro azzera $q_t$, ma non $c_t$: i due contatori misurano eventi diversi.
-
-Indicando con $S_t$ la pila degli stati pendenti, si seleziona
-\[
-    s_t=
-    \begin{cases}
-        \displaystyle\arg\min_{s\in S_t} g(s),
-            & q_t\geq P\ \land\ c_t\geq P,\\[2mm]
-        \operatorname{ultimo}(S_t), & \text{altrimenti}.
-    \end{cases}
-\]
-Nella scansione del minimo, a parità di costo viene mantenuta la prima
-posizione incontrata. Il candidato selezionato viene rimosso dalla pila;
-gli altri rimangono disponibili. Dopo la selezione si applicano le stesse
-condizioni di potatura e completamento del sistema B. In particolare,
-se uno stato pendente non è più attivo perché $g(s)\geq G_{\mathrm{best}}$,
-viene potato al momento dell'estrazione. La diversificazione non elimina
-alternative e non introduce potature basate sulle previsioni.
-
-La relazione richiesta dalla consegna è quindi
-\[
-    O_t=(q_t,c_t)\ \xrightarrow{R}\
-    U_t=\text{criterio di scelta del prossimo stato}.
-\]
-Ogni scelta assegna la successiva unità del budget a un candidato.
-Il costo ottimo di riferimento non è un'osservazione del regolatore:
-resta riservato alla valutazione. Il contatore
-\texttt{diversification\_steps} registra una unità per ogni estrazione
-decisa con il criterio del minimo costo parziale.
-
-\subsection{Motivazione e limiti della politica}
-
-La diversificazione cerca di interrompere una sequenza di esplorazione
-che non migliora il risultato, assegnando calcolo a un'alternativa con
-minor costo già sostenuto. Un costo parziale basso non garantisce però
-un buon completamento: può identificare uno stato poco profondo con
-molte consegne ancora da visitare. La pausa evita che il criterio sul
-costo parziale sostituisca continuamente quello predittivo.
-
-La soglia è una scelta sperimentale e non un valore dimostrato ottimale.
-La stagnazione non misura direttamente l'errore del predittore né
-l'incertezza del singolo stato. La ricerca del minimo richiede una
-scansione di $|S_t|$ elementi a ogni intervento; il relativo costo non
-è rappresentato dal solo conteggio delle estrazioni.
+La stagnazione motiva un tentativo in una direzione diversa, ma non
+dimostra che la previsione sia sbagliata. Anche un costo parziale basso
+può condurre a un giro lungo. Inoltre, cercare il minimo nella pila
+richiede una scansione: il regolatore aggiunge lavoro e può far crescere
+la frontiera senza migliorare il risultato.

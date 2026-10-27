@@ -1,111 +1,96 @@
 \section{Esperimento}
-\label{sec:experiments}
 
-\subsection{Protocollo e separazione del costo offline}
+\textbf{Task e dati.} Ogni task è una mappa: il sistema deve costruire
+un giro che parta dal deposito, visiti tutte le consegne e torni al deposito.
+L'esperimento principale usa mappe con $100$ consegne e deposito in $(0,0)$,
+con coordinate generate uniformemente in $[0,100]^2$. Il dataset salvato
+contiene $12$ mappe per allenare e $3$ mappe nuove per provare il sistema.
+Campioniamo $40$ stati per mappa: $480$ esempi di allenamento e $120$ di prova.
+Nel confronto principale il modello viene allenato una volta e rimane fisso durante i task di prova.
 
-Sono confrontati A (DFS con branch-and-bound), B (ricerca con ordinamento
-predittivo) e C (ricerca predittiva con regolatore e soglia $P=100$).
-Ogni esecuzione parte dal deposito, con percorso $p=(0)$, sei consegne
-da visitare e costo accumulato nullo. I tre metodi ricevono la stessa
-matrice e lo stesso budget $B\in\{50,100,200,500\}$ di stati estratti.
-Ogni prova riparte da zero: i budget maggiori non riprendono una pila
-lasciata dalle prove precedenti.
+\textbf{Protocollo.} Su ciascuna delle tre mappe confrontiamo A, baseline;
+B, predittiva; C, predittiva regolata. Tutti partono dal deposito, senza
+soluzioni iniziali, e ogni esecuzione riparte da zero. La soglia del
+regolatore è $100$, fissata nelle prove preliminari. L'insegnante usa tre
+partenze e sei passate di 2-opt; il riferimento finale usa dodici partenze
+e venti passate. Questi riferimenti sono calcolati offline e non vengono
+passati alle ricerche online come soluzioni iniziali o suggerimenti.
 
-Il modello principale è quello addestrato sui seed $42$--$49$.
-I seed $50$ e $51$, esclusi dall'addestramento dei pesi, sono stati usati
-anche per esaminare e modificare la politica di regolazione: vanno quindi
-considerati casi di sviluppo della politica. Sono state successivamente
-generate due nuove istanze, con seed $52$ e $53$, mantenendo fissi modello,
-soglia e regola. Queste istanze sono usate soltanto per la valutazione,
-senza generare ulteriori esempi di allenamento o riaddestrare il modello.
-
-La generazione dei target e l'addestramento sono operazioni offline.
-Anche l'ottimo di riferimento è calcolato separatamente, una volta per
-istanza, con B\&B e budget $100\,000$. La ricerca di riferimento termina
-in tutti e quattro i casi. I costi ottimi sono rispettivamente
-$288{,}252135$, $309{,}557853$, $259{,}896129$ e $349{,}580289$ per i
-seed $50$, $51$, $52$ e $53$. Servono soltanto per valutare i risultati:
-non inizializzano la migliore soluzione e non guidano i metodi online.
-
-Il budget misura estrazioni, comprendendo stati terminali e stati poi
-potati, non soltanto espansioni. B e C richiedono anche valutazioni del
-modello; C esegue inoltre scansioni della pila durante la diversificazione.
-Lo stesso numero di estrazioni non implica uguale tempo di esecuzione.
-Non sono riportate misure temporali, quindi il confronto riguarda la
-qualità a parità di estrazioni e non dimostra un vantaggio di velocità.
-
-\subsection{Misure di qualità e risultati A/B/C}
-
-Per ogni esecuzione si registrano il miglior costo totale $G_B$, il
-percorso, il completamento della ricerca, le statistiche di frontiera e
-potatura e, per C, il numero di diversificazioni. La qualità è misurata
-anche tramite il divario percentuale dall'ottimo:
-\[
-    \operatorname{gap}_{\%}=100\,\frac{G_B-G^*}{G^*}.
-\]
-Il divario viene calcolato soltanto se è disponibile un giro e il
-riferimento è certificato. Il codice gestisce il caso di ottimo nullo
-evitando la divisione per zero.
+Facciamo due confronti: $5\,000$ estrazioni per metodo e un secondo di
+ricerca per metodo. Il primo pareggia gli stati esaminati; il secondo
+il tempo assegnato al ciclo di ricerca. Preparazione dei dati, riferimenti
+e raccolta finale delle statistiche sono esterni al limite temporale.
+Il tempo è controllato fra iterazioni e può essere superato dall'ultima
+iterazione. I risultati temporizzati possono cambiare fra esecuzioni.
 
 \begin{table}[htbp]
 \centering
 \small
-\caption{Costi totali su sei consegne, incluso il ritorno al deposito.
-A: baseline; B: predittiva; C: predittiva regolata.
-$D_C$ conta le estrazioni di diversificazione.}
-\label{tab:search-results}
-\begin{tabular}{rrrrrr}
+\caption{Distanza totale dei giri trovati: un valore minore è migliore.
+La seconda prova assegna un secondo di ricerca a ogni metodo.}
+\label{tab:results}
+\begin{tabular}{llrrr}
 \toprule
-Seed & Budget & Costo A & Costo B & Costo C & $D_C$\\
+Budget & Mappa & A & B & C\\
 \midrule
-50 & 50  & $384{,}226$ & $309{,}735$ & $309{,}735$ & 0\\
-50 & 100 & $380{,}162$ & $309{,}735$ & $309{,}735$ & 0\\
-50 & 200 & $309{,}735$ & $288{,}252$ & $288{,}252$ & 0\\
-50 & 500 & $288{,}252$ & $288{,}252$ & $288{,}252$ & 3\\
+$5\,000$ stati & 1 & $5236{,}435$ & $1434{,}007$ & $1311{,}845$\\
+$5\,000$ stati & 2 & $5453{,}993$ & $1346{,}243$ & $1270{,}629$\\
+$5\,000$ stati & 3 & $5029{,}908$ & $1395{,}538$ & $1373{,}503$\\
 \midrule
-51 & 50  & $336{,}449$ & $369{,}651$ & $369{,}651$ & 0\\
-51 & 100 & $331{,}273$ & $364{,}901$ & $364{,}901$ & 0\\
-51 & 200 & $331{,}273$ & $331{,}273$ & $309{,}558$ & 1\\
-51 & 500 & $309{,}558$ & $309{,}558$ & $309{,}558$ & 4\\
-\midrule
-52 & 50  & $296{,}682$ & $259{,}896$ & $259{,}896$ & 0\\
-52 & 100 & $296{,}682$ & $259{,}896$ & $259{,}896$ & 0\\
-52 & 200 & $278{,}501$ & $259{,}896$ & $259{,}896$ & 1\\
-52 & 500 & $259{,}896$ & $259{,}896$ & $259{,}896$ & 4\\
-\midrule
-53 & 50  & $425{,}883$ & $403{,}590$ & $403{,}590$ & 0\\
-53 & 100 & $425{,}883$ & $381{,}082$ & $381{,}082$ & 0\\
-53 & 200 & $394{,}277$ & $354{,}992$ & $354{,}992$ & 0\\
-53 & 500 & $349{,}580$ & $354{,}992$ & $349{,}580$ & 2\\
+1 secondo & 1 & $5134{,}219$ & $1434{,}007$ & $1311{,}845$\\
+1 secondo & 2 & $5295{,}162$ & $1308{,}793$ & $1306{,}856$\\
+1 secondo & 3 & $4864{,}579$ & $1386{,}645$ & $1380{,}646$\\
 \bottomrule
 \end{tabular}
 \end{table}
 
-Le sedici righe rappresentano $48$ esecuzioni. In tutte, il numero di
-stati estratti è pari al budget e la pila non è vuota all'arresto:
-\texttt{is\_complete=False}. Sono comunque disponibili giri completi.
-Un costo uguale all'ottimo di riferimento identifica un giro ottimo,
-entro la precisione numerica, ma non una certificazione ottenuta dal
-metodo online: trovare l'ottimo e completare la ricerca sono eventi distinti.
+Il MAE rispetto ai target di prova è $49{,}391$ per il modello e $184{,}684$ per la previsione costante. Si misura
+la coerenza con i completamenti euristici, non l'errore esatto dall'ottimo.
+Il riferimento finale trova distanze rispettivamente pari a
+$866{,}325$, $832{,}224$ e $867{,}337$: non sono ottimi certificati e
+non calcoliamo un gap dall'ottimo su queste mappe.
 
-Sul seed $51$ a budget $200$, A e B hanno gap $7{,}01\%$, mentre C
-raggiunge l'ottimo con una diversificazione. Sul seed $52$, B trova
-l'ottimo già entro $50$ estrazioni e C non migliora ulteriormente il costo.
-Sul seed $53$, a budget $200$ i gap di A e B sono rispettivamente
-$12{,}79\%$ e $1{,}55\%$; C non è ancora intervenuto. A budget $500$,
-B resta all'$1{,}55\%$, mentre A e C raggiungono l'ottimo; C effettua
-due diversificazioni. In questo caso il guadagno della regolazione è
-rispetto a B, mentre il costo finale coincide con quello di A.
+Con il budget di stati i tempi medi osservati, compreso il resoconto finale, sono circa $0{,}015$, $0{,}054$ e $1{,}455$ secondi per A, B e C.
+La distanza migliore di C non implica quindi maggiore velocità.
+Nel confronto temporizzato C trova ancora giri migliori di B nei tre casi
+osservati, con differenze ridotte nelle ultime due mappe. La frontiera di C
+cresce molto e la scansione richiesta dalle diversificazioni è costosa.
+La massa irrisolta resta circa $1$ per tutti: a questi budget ogni prima
+scelta conserva almeno un candidato attivo. È un limite informativo
+della misura, non una certificazione che i giri siano sbagliati.
 
-\subsection{Controllo separato su istanze didattiche}
+\textbf{Cambio del modello su una mappa personale.} Su un'ulteriore
+mappa da $100$ consegne inserita a mano, esclusa dall'allenamento, confrontiamo
+i due modelli disponibili. Manteniamo le stesse coordinate, soglia $100$
+e limite nominale di un secondo per ogni ricerca.
 
-Il modello didattico della Sezione~\ref{sec:teaching-data} è stato
-verificato separatamente su mappe con quattro consegne, usando budget
-$\{5,10,20,50\}$. Sulla mappa \texttt{test\_irregolare}, l'ottimo di
-riferimento è $15{,}512156$. A budget $5$, A trova costo $19{,}196$
-(gap $23{,}75\%$) e B costo $17{,}997$ (gap $16{,}02\%$). Entro $10$
-estrazioni B raggiunge l'ottimo; A resta a $19{,}196$ anche a budget
-$20$ e raggiunge l'ottimo entro $50$. C coincide con B: con soglia $100$
-non interviene in queste prove. Questo controllo illustra l'effetto
-dell'ordinamento appreso, ma non costituisce una valutazione della
-regolazione né sostituisce l'esperimento principale su sei consegne.
+\begin{table}[htbp]
+\centering
+\small
+\caption{Stessa mappa personale, due modelli. B è la ricerca predittiva;
+C aggiunge il regolatore.}
+\label{tab:personal-models}
+\begin{tabular}{lrr}
+\toprule
+Allenamento del modello & Costo B & Costo C\\
+\midrule
+6 consegne & $3594{,}661$ & $3513{,}976$\\
+100 consegne & $3150{,}594$ & $3206{,}702$\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+La sostituzione del modello riduce il costo trovato da B del $12{,}35\%$.
+Con il nuovo modello, però, C trova un giro più lungo di B dell'$1{,}78\%$:
+la regolazione qui peggiora il risultato finale. Le diversificazioni possono
+interrompere un'esplorazione utile o consumare tempo, ma questa prova non
+identifica quale causa prevalga. Il confronto riguarda questi due modelli
+specifici; una singola esecuzione non dimostra un vantaggio generale.
+
+\textbf{Un caso verificabile di ricerca utile.} In una prova separata
+con sei consegne e un modello distinto, il ramo classificato ultimo
+contiene un giro ottimo. Con $500$ estrazioni B non lo visita e trova
+costo $354{,}992$; C lo apre al passo $387$ e trova costo $349{,}580$
+al passo $421$. L'enumerazione indipendente conferma l'ottimo.
+È un caso concreto di ricerca utile oltre la preferenza iniziale,
+senza dimostrare che la stagnazione individui sempre il ramo giusto.

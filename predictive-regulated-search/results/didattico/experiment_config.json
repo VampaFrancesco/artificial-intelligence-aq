@@ -1,0 +1,31 @@
+{
+  "teaching_data": true,
+  "initial_path": [
+    0
+  ],
+  "budgets": [
+    5,
+    10,
+    20,
+    50
+  ],
+  "regulator_patience": 100,
+  "teacher_budget": 100000,
+  "test_instances": [
+    "test_triangolo",
+    "test_irregolare"
+  ],
+  "temperature_rule": "mean_pairwise_distance_or_1_if_zero",
+  "probability_meaning": "fixed_preference_over_next_deliveries",
+  "timing": "single_run_including_monitoring_excluding_offline_references_and_distribution",
+  "python_version": "3.14.6",
+  "model_parameters": {
+    "weights": [
+      0.5308326399233366,
+      0.28455062329282943,
+      -1.6199359243290663,
+      2.5891031074952786
+    ],
+    "intercept": 2.025911453346452
+  }
+}

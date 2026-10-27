@@ -1,6 +1,5 @@
 [
   {
-    "instance_id": "test_triangolo",
     "initial_path": [
       0
     ],
@@ -18,18 +17,100 @@
     "optimal_cost": 11.63441361516796,
     "gap_percent": 0.0,
     "is_complete": false,
+    "elapsed_seconds": 1.9249999922976713e-05,
     "stats": {
       "states_examined": 5,
+      "states_expanded": 4,
+      "model_evaluations": 0,
+      "diversification_candidates_scanned": 0,
       "states_pruned": 0,
       "states_pruned_before_push": 0,
       "pending_states": 6,
       "active_frontier_size": 6,
       "completed_tours": 1,
-      "horizon_size": 7
-    }
+      "horizon_size": 7,
+      "root_choice": {
+        "temperature": 2.88809512154194,
+        "alternatives": [
+          {
+            "action": 1,
+            "path": [
+              0,
+              1
+            ],
+            "predicted_total_cost": 9.332665331314253,
+            "probability": 0.41505578159550194,
+            "predicted_rank": 1,
+            "states_examined": 0,
+            "best_cost": null,
+            "active_pending_states": 1,
+            "unresolved": true
+          },
+          {
+            "action": 2,
+            "path": [
+              0,
+              2
+            ],
+            "predicted_total_cost": 13.083677732040575,
+            "probability": 0.11325350282925124,
+            "predicted_rank": 4,
+            "states_examined": 0,
+            "best_cost": null,
+            "active_pending_states": 1,
+            "unresolved": true
+          },
+          {
+            "action": 3,
+            "path": [
+              0,
+              3
+            ],
+            "predicted_total_cost": 12.834121393677673,
+            "probability": 0.12347482911004141,
+            "predicted_rank": 3,
+            "states_examined": 0,
+            "best_cost": null,
+            "active_pending_states": 1,
+            "unresolved": true
+          },
+          {
+            "action": 4,
+            "path": [
+              0,
+              4
+            ],
+            "predicted_total_cost": 9.839786744601259,
+            "probability": 0.34821588646520535,
+            "predicted_rank": 2,
+            "states_examined": 4,
+            "best_cost": 11.63441361516796,
+            "active_pending_states": 3,
+            "unresolved": true
+          }
+        ],
+        "unresolved_probability_mass": 1.0,
+        "diversification_events": [],
+        "improvements": [
+          {
+            "step": 5,
+            "best_cost": 11.63441361516796,
+            "path": [
+              0,
+              4,
+              3,
+              2,
+              1,
+              0
+            ],
+            "root_action": 4
+          }
+        ]
+      }
+    },
+    "instance_id": "test_triangolo"
   },
   {
-    "instance_id": "test_triangolo",
     "initial_path": [
       0
     ],
@@ -47,19 +128,101 @@
     "optimal_cost": 11.63441361516796,
     "gap_percent": 21.05689556817203,
     "is_complete": false,
+    "elapsed_seconds": 2.8166999982204288e-05,
     "stats": {
       "states_examined": 5,
+      "states_expanded": 4,
+      "model_evaluations": 9,
+      "diversification_candidates_scanned": 0,
       "states_pruned": 0,
       "states_pruned_before_push": 0,
       "pending_states": 6,
       "active_frontier_size": 6,
       "completed_tours": 1,
       "horizon_size": 7,
-      "diversification_steps": 0
-    }
+      "diversification_steps": 0,
+      "root_choice": {
+        "temperature": 2.88809512154194,
+        "alternatives": [
+          {
+            "action": 1,
+            "path": [
+              0,
+              1
+            ],
+            "predicted_total_cost": 9.332665331314253,
+            "probability": 0.41505578159550194,
+            "predicted_rank": 1,
+            "states_examined": 4,
+            "best_cost": 14.084259940083065,
+            "active_pending_states": 3,
+            "unresolved": true
+          },
+          {
+            "action": 2,
+            "path": [
+              0,
+              2
+            ],
+            "predicted_total_cost": 13.083677732040575,
+            "probability": 0.11325350282925124,
+            "predicted_rank": 4,
+            "states_examined": 0,
+            "best_cost": null,
+            "active_pending_states": 1,
+            "unresolved": true
+          },
+          {
+            "action": 3,
+            "path": [
+              0,
+              3
+            ],
+            "predicted_total_cost": 12.834121393677673,
+            "probability": 0.12347482911004141,
+            "predicted_rank": 3,
+            "states_examined": 0,
+            "best_cost": null,
+            "active_pending_states": 1,
+            "unresolved": true
+          },
+          {
+            "action": 4,
+            "path": [
+              0,
+              4
+            ],
+            "predicted_total_cost": 9.839786744601259,
+            "probability": 0.34821588646520535,
+            "predicted_rank": 2,
+            "states_examined": 0,
+            "best_cost": null,
+            "active_pending_states": 1,
+            "unresolved": true
+          }
+        ],
+        "unresolved_probability_mass": 1.0,
+        "diversification_events": [],
+        "improvements": [
+          {
+            "step": 5,
+            "best_cost": 14.084259940083065,
+            "path": [
+              0,
+              1,
+              2,
+              4,
+              3,
+              0
+            ],
+            "root_action": 1
+          }
+        ]
+      }
+    },
+    "instance_id": "test_triangolo"
   },
   {
-    "instance_id": "test_triangolo",
     "initial_path": [
       0
     ],
@@ -77,19 +240,101 @@
     "optimal_cost": 11.63441361516796,
     "gap_percent": 21.05689556817203,
     "is_complete": false,
+    "elapsed_seconds": 2.0708999954877072e-05,
     "stats": {
       "states_examined": 5,
+      "states_expanded": 4,
+      "model_evaluations": 9,
+      "diversification_candidates_scanned": 0,
       "states_pruned": 0,
       "states_pruned_before_push": 0,
       "pending_states": 6,
       "active_frontier_size": 6,
       "completed_tours": 1,
       "horizon_size": 7,
-      "diversification_steps": 0
-    }
+      "diversification_steps": 0,
+      "root_choice": {
+        "temperature": 2.88809512154194,
+        "alternatives": [
+          {
+            "action": 1,
+            "path": [
+              0,
+              1
+            ],
+            "predicted_total_cost": 9.332665331314253,
+            "probability": 0.41505578159550194,
+            "predicted_rank": 1,
+            "states_examined": 4,
+            "best_cost": 14.084259940083065,
+            "active_pending_states": 3,
+            "unresolved": true
+          },
+          {
+            "action": 2,
+            "path": [
+              0,
+              2
+            ],
+            "predicted_total_cost": 13.083677732040575,
+            "probability": 0.11325350282925124,
+            "predicted_rank": 4,
+            "states_examined": 0,
+            "best_cost": null,
+            "active_pending_states": 1,
+            "unresolved": true
+          },
+          {
+            "action": 3,
+            "path": [
+              0,
+              3
+            ],
+            "predicted_total_cost": 12.834121393677673,
+            "probability": 0.12347482911004141,
+            "predicted_rank": 3,
+            "states_examined": 0,
+            "best_cost": null,
+            "active_pending_states": 1,
+            "unresolved": true
+          },
+          {
+            "action": 4,
+            "path": [
+              0,
+              4
+            ],
+            "predicted_total_cost": 9.839786744601259,
+            "probability": 0.34821588646520535,
+            "predicted_rank": 2,
+            "states_examined": 0,
+            "best_cost": null,
+            "active_pending_states": 1,
+            "unresolved": true
+          }
+        ],
+        "unresolved_probability_mass": 1.0,
+        "diversification_events": [],
+        "improvements": [
+          {
+            "step": 5,
+            "best_cost": 14.084259940083065,
+            "path": [
+              0,
+              1,
+              2,
+              4,
+              3,
+              0
+            ],
+            "root_action": 1
+          }
+        ]
+      }
+    },
+    "instance_id": "test_triangolo"
   },
   {
-    "instance_id": "test_triangolo",
     "initial_path": [
       0
     ],
@@ -107,18 +352,100 @@
     "optimal_cost": 11.63441361516796,
     "gap_percent": 0.0,
     "is_complete": false,
+    "elapsed_seconds": 1.5749999874969944e-05,
     "stats": {
       "states_examined": 10,
+      "states_expanded": 8,
+      "model_evaluations": 0,
+      "diversification_candidates_scanned": 0,
       "states_pruned": 0,
       "states_pruned_before_push": 1,
       "pending_states": 5,
       "active_frontier_size": 5,
       "completed_tours": 2,
-      "horizon_size": 8
-    }
+      "horizon_size": 8,
+      "root_choice": {
+        "temperature": 2.88809512154194,
+        "alternatives": [
+          {
+            "action": 1,
+            "path": [
+              0,
+              1
+            ],
+            "predicted_total_cost": 9.332665331314253,
+            "probability": 0.41505578159550194,
+            "predicted_rank": 1,
+            "states_examined": 0,
+            "best_cost": null,
+            "active_pending_states": 1,
+            "unresolved": true
+          },
+          {
+            "action": 2,
+            "path": [
+              0,
+              2
+            ],
+            "predicted_total_cost": 13.083677732040575,
+            "probability": 0.11325350282925124,
+            "predicted_rank": 4,
+            "states_examined": 0,
+            "best_cost": null,
+            "active_pending_states": 1,
+            "unresolved": true
+          },
+          {
+            "action": 3,
+            "path": [
+              0,
+              3
+            ],
+            "predicted_total_cost": 12.834121393677673,
+            "probability": 0.12347482911004141,
+            "predicted_rank": 3,
+            "states_examined": 0,
+            "best_cost": null,
+            "active_pending_states": 1,
+            "unresolved": true
+          },
+          {
+            "action": 4,
+            "path": [
+              0,
+              4
+            ],
+            "predicted_total_cost": 9.839786744601259,
+            "probability": 0.34821588646520535,
+            "predicted_rank": 2,
+            "states_examined": 9,
+            "best_cost": 11.63441361516796,
+            "active_pending_states": 2,
+            "unresolved": true
+          }
+        ],
+        "unresolved_probability_mass": 1.0,
+        "diversification_events": [],
+        "improvements": [
+          {
+            "step": 5,
+            "best_cost": 11.63441361516796,
+            "path": [
+              0,
+              4,
+              3,
+              2,
+              1,
+              0
+            ],
+            "root_action": 4
+          }
+        ]
+      }
+    },
+    "instance_id": "test_triangolo"
   },
   {
-    "instance_id": "test_triangolo",
     "initial_path": [
       0
     ],
@@ -136,19 +463,114 @@
     "optimal_cost": 11.63441361516796,
     "gap_percent": 0.0,
     "is_complete": false,
+    "elapsed_seconds": 2.524999990782817e-05,
     "stats": {
       "states_examined": 10,
+      "states_expanded": 7,
+      "model_evaluations": 11,
+      "diversification_candidates_scanned": 0,
       "states_pruned": 0,
       "states_pruned_before_push": 0,
       "pending_states": 5,
       "active_frontier_size": 5,
       "completed_tours": 3,
       "horizon_size": 8,
-      "diversification_steps": 0
-    }
+      "diversification_steps": 0,
+      "root_choice": {
+        "temperature": 2.88809512154194,
+        "alternatives": [
+          {
+            "action": 1,
+            "path": [
+              0,
+              1
+            ],
+            "predicted_total_cost": 9.332665331314253,
+            "probability": 0.41505578159550194,
+            "predicted_rank": 1,
+            "states_examined": 9,
+            "best_cost": 11.63441361516796,
+            "active_pending_states": 2,
+            "unresolved": true
+          },
+          {
+            "action": 2,
+            "path": [
+              0,
+              2
+            ],
+            "predicted_total_cost": 13.083677732040575,
+            "probability": 0.11325350282925124,
+            "predicted_rank": 4,
+            "states_examined": 0,
+            "best_cost": null,
+            "active_pending_states": 1,
+            "unresolved": true
+          },
+          {
+            "action": 3,
+            "path": [
+              0,
+              3
+            ],
+            "predicted_total_cost": 12.834121393677673,
+            "probability": 0.12347482911004141,
+            "predicted_rank": 3,
+            "states_examined": 0,
+            "best_cost": null,
+            "active_pending_states": 1,
+            "unresolved": true
+          },
+          {
+            "action": 4,
+            "path": [
+              0,
+              4
+            ],
+            "predicted_total_cost": 9.839786744601259,
+            "probability": 0.34821588646520535,
+            "predicted_rank": 2,
+            "states_examined": 0,
+            "best_cost": null,
+            "active_pending_states": 1,
+            "unresolved": true
+          }
+        ],
+        "unresolved_probability_mass": 1.0,
+        "diversification_events": [],
+        "improvements": [
+          {
+            "step": 5,
+            "best_cost": 14.084259940083065,
+            "path": [
+              0,
+              1,
+              2,
+              4,
+              3,
+              0
+            ],
+            "root_action": 1
+          },
+          {
+            "step": 7,
+            "best_cost": 11.63441361516796,
+            "path": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              0
+            ],
+            "root_action": 1
+          }
+        ]
+      }
+    },
+    "instance_id": "test_triangolo"
   },
   {
-    "instance_id": "test_triangolo",
     "initial_path": [
       0
     ],
@@ -166,19 +588,114 @@
     "optimal_cost": 11.63441361516796,
     "gap_percent": 0.0,
     "is_complete": false,
+    "elapsed_seconds": 2.34579999869311e-05,
     "stats": {
       "states_examined": 10,
+      "states_expanded": 7,
+      "model_evaluations": 11,
+      "diversification_candidates_scanned": 0,
       "states_pruned": 0,
       "states_pruned_before_push": 0,
       "pending_states": 5,
       "active_frontier_size": 5,
       "completed_tours": 3,
       "horizon_size": 8,
-      "diversification_steps": 0
-    }
+      "diversification_steps": 0,
+      "root_choice": {
+        "temperature": 2.88809512154194,
+        "alternatives": [
+          {
+            "action": 1,
+            "path": [
+              0,
+              1
+            ],
+            "predicted_total_cost": 9.332665331314253,
+            "probability": 0.41505578159550194,
+            "predicted_rank": 1,
+            "states_examined": 9,
+            "best_cost": 11.63441361516796,
+            "active_pending_states": 2,
+            "unresolved": true
+          },
+          {
+            "action": 2,
+            "path": [
+              0,
+              2
+            ],
+            "predicted_total_cost": 13.083677732040575,
+            "probability": 0.11325350282925124,
+            "predicted_rank": 4,
+            "states_examined": 0,
+            "best_cost": null,
+            "active_pending_states": 1,
+            "unresolved": true
+          },
+          {
+            "action": 3,
+            "path": [
+              0,
+              3
+            ],
+            "predicted_total_cost": 12.834121393677673,
+            "probability": 0.12347482911004141,
+            "predicted_rank": 3,
+            "states_examined": 0,
+            "best_cost": null,
+            "active_pending_states": 1,
+            "unresolved": true
+          },
+          {
+            "action": 4,
+            "path": [
+              0,
+              4
+            ],
+            "predicted_total_cost": 9.839786744601259,
+            "probability": 0.34821588646520535,
+            "predicted_rank": 2,
+            "states_examined": 0,
+            "best_cost": null,
+            "active_pending_states": 1,
+            "unresolved": true
+          }
+        ],
+        "unresolved_probability_mass": 1.0,
+        "diversification_events": [],
+        "improvements": [
+          {
+            "step": 5,
+            "best_cost": 14.084259940083065,
+            "path": [
+              0,
+              1,
+              2,
+              4,
+              3,
+              0
+            ],
+            "root_action": 1
+          },
+          {
+            "step": 7,
+            "best_cost": 11.63441361516796,
+            "path": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              0
+            ],
+            "root_action": 1
+          }
+        ]
+      }
+    },
+    "instance_id": "test_triangolo"
   },
   {
-    "instance_id": "test_triangolo",
     "initial_path": [
       0
     ],
@@ -196,18 +713,100 @@
     "optimal_cost": 11.63441361516796,
     "gap_percent": 0.0,
     "is_complete": false,
+    "elapsed_seconds": 2.199999994445534e-05,
     "stats": {
       "states_examined": 20,
+      "states_expanded": 15,
+      "model_evaluations": 0,
+      "diversification_candidates_scanned": 0,
       "states_pruned": 0,
       "states_pruned_before_push": 2,
       "pending_states": 5,
       "active_frontier_size": 5,
       "completed_tours": 5,
-      "horizon_size": 12
-    }
+      "horizon_size": 12,
+      "root_choice": {
+        "temperature": 2.88809512154194,
+        "alternatives": [
+          {
+            "action": 1,
+            "path": [
+              0,
+              1
+            ],
+            "predicted_total_cost": 9.332665331314253,
+            "probability": 0.41505578159550194,
+            "predicted_rank": 1,
+            "states_examined": 0,
+            "best_cost": null,
+            "active_pending_states": 1,
+            "unresolved": true
+          },
+          {
+            "action": 2,
+            "path": [
+              0,
+              2
+            ],
+            "predicted_total_cost": 13.083677732040575,
+            "probability": 0.11325350282925124,
+            "predicted_rank": 4,
+            "states_examined": 0,
+            "best_cost": null,
+            "active_pending_states": 1,
+            "unresolved": true
+          },
+          {
+            "action": 3,
+            "path": [
+              0,
+              3
+            ],
+            "predicted_total_cost": 12.834121393677673,
+            "probability": 0.12347482911004141,
+            "predicted_rank": 3,
+            "states_examined": 4,
+            "best_cost": null,
+            "active_pending_states": 3,
+            "unresolved": true
+          },
+          {
+            "action": 4,
+            "path": [
+              0,
+              4
+            ],
+            "predicted_total_cost": 9.839786744601259,
+            "probability": 0.34821588646520535,
+            "predicted_rank": 2,
+            "states_examined": 15,
+            "best_cost": 11.63441361516796,
+            "active_pending_states": 0,
+            "unresolved": false
+          }
+        ],
+        "unresolved_probability_mass": 0.6517841135347946,
+        "diversification_events": [],
+        "improvements": [
+          {
+            "step": 5,
+            "best_cost": 11.63441361516796,
+            "path": [
+              0,
+              4,
+              3,
+              2,
+              1,
+              0
+            ],
+            "root_action": 4
+          }
+        ]
+      }
+    },
+    "instance_id": "test_triangolo"
   },
   {
-    "instance_id": "test_triangolo",
     "initial_path": [
       0
     ],
@@ -225,19 +824,114 @@
     "optimal_cost": 11.63441361516796,
     "gap_percent": 0.0,
     "is_complete": false,
+    "elapsed_seconds": 3.870899990943144e-05,
     "stats": {
       "states_examined": 20,
+      "states_expanded": 14,
+      "model_evaluations": 18,
+      "diversification_candidates_scanned": 0,
       "states_pruned": 0,
       "states_pruned_before_push": 1,
       "pending_states": 5,
       "active_frontier_size": 5,
       "completed_tours": 6,
       "horizon_size": 12,
-      "diversification_steps": 0
-    }
+      "diversification_steps": 0,
+      "root_choice": {
+        "temperature": 2.88809512154194,
+        "alternatives": [
+          {
+            "action": 1,
+            "path": [
+              0,
+              1
+            ],
+            "predicted_total_cost": 9.332665331314253,
+            "probability": 0.41505578159550194,
+            "predicted_rank": 1,
+            "states_examined": 15,
+            "best_cost": 11.63441361516796,
+            "active_pending_states": 0,
+            "unresolved": false
+          },
+          {
+            "action": 2,
+            "path": [
+              0,
+              2
+            ],
+            "predicted_total_cost": 13.083677732040575,
+            "probability": 0.11325350282925124,
+            "predicted_rank": 4,
+            "states_examined": 0,
+            "best_cost": null,
+            "active_pending_states": 1,
+            "unresolved": true
+          },
+          {
+            "action": 3,
+            "path": [
+              0,
+              3
+            ],
+            "predicted_total_cost": 12.834121393677673,
+            "probability": 0.12347482911004141,
+            "predicted_rank": 3,
+            "states_examined": 0,
+            "best_cost": null,
+            "active_pending_states": 1,
+            "unresolved": true
+          },
+          {
+            "action": 4,
+            "path": [
+              0,
+              4
+            ],
+            "predicted_total_cost": 9.839786744601259,
+            "probability": 0.34821588646520535,
+            "predicted_rank": 2,
+            "states_examined": 4,
+            "best_cost": 13.877054302287245,
+            "active_pending_states": 3,
+            "unresolved": true
+          }
+        ],
+        "unresolved_probability_mass": 0.584944218404498,
+        "diversification_events": [],
+        "improvements": [
+          {
+            "step": 5,
+            "best_cost": 14.084259940083065,
+            "path": [
+              0,
+              1,
+              2,
+              4,
+              3,
+              0
+            ],
+            "root_action": 1
+          },
+          {
+            "step": 7,
+            "best_cost": 11.63441361516796,
+            "path": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              0
+            ],
+            "root_action": 1
+          }
+        ]
+      }
+    },
+    "instance_id": "test_triangolo"
   },
   {
-    "instance_id": "test_triangolo",
     "initial_path": [
       0
     ],
@@ -255,19 +949,114 @@
     "optimal_cost": 11.63441361516796,
     "gap_percent": 0.0,
     "is_complete": false,
+    "elapsed_seconds": 3.725000010490476e-05,
     "stats": {
       "states_examined": 20,
+      "states_expanded": 14,
+      "model_evaluations": 18,
+      "diversification_candidates_scanned": 0,
       "states_pruned": 0,
       "states_pruned_before_push": 1,
       "pending_states": 5,
       "active_frontier_size": 5,
       "completed_tours": 6,
       "horizon_size": 12,
-      "diversification_steps": 0
-    }
+      "diversification_steps": 0,
+      "root_choice": {
+        "temperature": 2.88809512154194,
+        "alternatives": [
+          {
+            "action": 1,
+            "path": [
+              0,
+              1
+            ],
+            "predicted_total_cost": 9.332665331314253,
+            "probability": 0.41505578159550194,
+            "predicted_rank": 1,
+            "states_examined": 15,
+            "best_cost": 11.63441361516796,
+            "active_pending_states": 0,
+            "unresolved": false
+          },
+          {
+            "action": 2,
+            "path": [
+              0,
+              2
+            ],
+            "predicted_total_cost": 13.083677732040575,
+            "probability": 0.11325350282925124,
+            "predicted_rank": 4,
+            "states_examined": 0,
+            "best_cost": null,
+            "active_pending_states": 1,
+            "unresolved": true
+          },
+          {
+            "action": 3,
+            "path": [
+              0,
+              3
+            ],
+            "predicted_total_cost": 12.834121393677673,
+            "probability": 0.12347482911004141,
+            "predicted_rank": 3,
+            "states_examined": 0,
+            "best_cost": null,
+            "active_pending_states": 1,
+            "unresolved": true
+          },
+          {
+            "action": 4,
+            "path": [
+              0,
+              4
+            ],
+            "predicted_total_cost": 9.839786744601259,
+            "probability": 0.34821588646520535,
+            "predicted_rank": 2,
+            "states_examined": 4,
+            "best_cost": 13.877054302287245,
+            "active_pending_states": 3,
+            "unresolved": true
+          }
+        ],
+        "unresolved_probability_mass": 0.584944218404498,
+        "diversification_events": [],
+        "improvements": [
+          {
+            "step": 5,
+            "best_cost": 14.084259940083065,
+            "path": [
+              0,
+              1,
+              2,
+              4,
+              3,
+              0
+            ],
+            "root_action": 1
+          },
+          {
+            "step": 7,
+            "best_cost": 11.63441361516796,
+            "path": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              0
+            ],
+            "root_action": 1
+          }
+        ]
+      }
+    },
+    "instance_id": "test_triangolo"
   },
   {
-    "instance_id": "test_triangolo",
     "initial_path": [
       0
     ],
@@ -285,18 +1074,100 @@
     "optimal_cost": 11.63441361516796,
     "gap_percent": 0.0,
     "is_complete": false,
+    "elapsed_seconds": 4.637500001081207e-05,
     "stats": {
       "states_examined": 50,
+      "states_expanded": 39,
+      "model_evaluations": 0,
+      "diversification_candidates_scanned": 0,
       "states_pruned": 0,
       "states_pruned_before_push": 11,
       "pending_states": 2,
       "active_frontier_size": 2,
       "completed_tours": 11,
-      "horizon_size": 24
-    }
+      "horizon_size": 24,
+      "root_choice": {
+        "temperature": 2.88809512154194,
+        "alternatives": [
+          {
+            "action": 1,
+            "path": [
+              0,
+              1
+            ],
+            "predicted_total_cost": 9.332665331314253,
+            "probability": 0.41505578159550194,
+            "predicted_rank": 1,
+            "states_examined": 11,
+            "best_cost": 13.63441361516796,
+            "active_pending_states": 2,
+            "unresolved": true
+          },
+          {
+            "action": 2,
+            "path": [
+              0,
+              2
+            ],
+            "predicted_total_cost": 13.083677732040575,
+            "probability": 0.11325350282925124,
+            "predicted_rank": 4,
+            "states_examined": 12,
+            "best_cost": 13.63441361516796,
+            "active_pending_states": 0,
+            "unresolved": false
+          },
+          {
+            "action": 3,
+            "path": [
+              0,
+              3
+            ],
+            "predicted_total_cost": 12.834121393677673,
+            "probability": 0.12347482911004141,
+            "predicted_rank": 3,
+            "states_examined": 11,
+            "best_cost": 14.714776642118863,
+            "active_pending_states": 0,
+            "unresolved": false
+          },
+          {
+            "action": 4,
+            "path": [
+              0,
+              4
+            ],
+            "predicted_total_cost": 9.839786744601259,
+            "probability": 0.34821588646520535,
+            "predicted_rank": 2,
+            "states_examined": 15,
+            "best_cost": 11.63441361516796,
+            "active_pending_states": 0,
+            "unresolved": false
+          }
+        ],
+        "unresolved_probability_mass": 0.41505578159550194,
+        "diversification_events": [],
+        "improvements": [
+          {
+            "step": 5,
+            "best_cost": 11.63441361516796,
+            "path": [
+              0,
+              4,
+              3,
+              2,
+              1,
+              0
+            ],
+            "root_action": 4
+          }
+        ]
+      }
+    },
+    "instance_id": "test_triangolo"
   },
   {
-    "instance_id": "test_triangolo",
     "initial_path": [
       0
     ],
@@ -314,19 +1185,114 @@
     "optimal_cost": 11.63441361516796,
     "gap_percent": 0.0,
     "is_complete": false,
+    "elapsed_seconds": 8.212500006266055e-05,
     "stats": {
       "states_examined": 50,
+      "states_expanded": 37,
+      "model_evaluations": 38,
+      "diversification_candidates_scanned": 0,
       "states_pruned": 0,
       "states_pruned_before_push": 8,
       "pending_states": 2,
       "active_frontier_size": 2,
       "completed_tours": 13,
       "horizon_size": 23,
-      "diversification_steps": 0
-    }
+      "diversification_steps": 0,
+      "root_choice": {
+        "temperature": 2.88809512154194,
+        "alternatives": [
+          {
+            "action": 1,
+            "path": [
+              0,
+              1
+            ],
+            "predicted_total_cost": 9.332665331314253,
+            "probability": 0.41505578159550194,
+            "predicted_rank": 1,
+            "states_examined": 15,
+            "best_cost": 11.63441361516796,
+            "active_pending_states": 0,
+            "unresolved": false
+          },
+          {
+            "action": 2,
+            "path": [
+              0,
+              2
+            ],
+            "predicted_total_cost": 13.083677732040575,
+            "probability": 0.11325350282925124,
+            "predicted_rank": 4,
+            "states_examined": 8,
+            "best_cost": 13.63441361516796,
+            "active_pending_states": 2,
+            "unresolved": true
+          },
+          {
+            "action": 3,
+            "path": [
+              0,
+              3
+            ],
+            "predicted_total_cost": 12.834121393677673,
+            "probability": 0.12347482911004141,
+            "predicted_rank": 3,
+            "states_examined": 11,
+            "best_cost": 14.714776642118863,
+            "active_pending_states": 0,
+            "unresolved": false
+          },
+          {
+            "action": 4,
+            "path": [
+              0,
+              4
+            ],
+            "predicted_total_cost": 9.839786744601259,
+            "probability": 0.34821588646520535,
+            "predicted_rank": 2,
+            "states_examined": 15,
+            "best_cost": 11.63441361516796,
+            "active_pending_states": 0,
+            "unresolved": false
+          }
+        ],
+        "unresolved_probability_mass": 0.11325350282925124,
+        "diversification_events": [],
+        "improvements": [
+          {
+            "step": 5,
+            "best_cost": 14.084259940083065,
+            "path": [
+              0,
+              1,
+              2,
+              4,
+              3,
+              0
+            ],
+            "root_action": 1
+          },
+          {
+            "step": 7,
+            "best_cost": 11.63441361516796,
+            "path": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              0
+            ],
+            "root_action": 1
+          }
+        ]
+      }
+    },
+    "instance_id": "test_triangolo"
   },
   {
-    "instance_id": "test_triangolo",
     "initial_path": [
       0
     ],
@@ -344,19 +1310,114 @@
     "optimal_cost": 11.63441361516796,
     "gap_percent": 0.0,
     "is_complete": false,
+    "elapsed_seconds": 8.233299990934029e-05,
     "stats": {
       "states_examined": 50,
+      "states_expanded": 37,
+      "model_evaluations": 38,
+      "diversification_candidates_scanned": 0,
       "states_pruned": 0,
       "states_pruned_before_push": 8,
       "pending_states": 2,
       "active_frontier_size": 2,
       "completed_tours": 13,
       "horizon_size": 23,
-      "diversification_steps": 0
-    }
+      "diversification_steps": 0,
+      "root_choice": {
+        "temperature": 2.88809512154194,
+        "alternatives": [
+          {
+            "action": 1,
+            "path": [
+              0,
+              1
+            ],
+            "predicted_total_cost": 9.332665331314253,
+            "probability": 0.41505578159550194,
+            "predicted_rank": 1,
+            "states_examined": 15,
+            "best_cost": 11.63441361516796,
+            "active_pending_states": 0,
+            "unresolved": false
+          },
+          {
+            "action": 2,
+            "path": [
+              0,
+              2
+            ],
+            "predicted_total_cost": 13.083677732040575,
+            "probability": 0.11325350282925124,
+            "predicted_rank": 4,
+            "states_examined": 8,
+            "best_cost": 13.63441361516796,
+            "active_pending_states": 2,
+            "unresolved": true
+          },
+          {
+            "action": 3,
+            "path": [
+              0,
+              3
+            ],
+            "predicted_total_cost": 12.834121393677673,
+            "probability": 0.12347482911004141,
+            "predicted_rank": 3,
+            "states_examined": 11,
+            "best_cost": 14.714776642118863,
+            "active_pending_states": 0,
+            "unresolved": false
+          },
+          {
+            "action": 4,
+            "path": [
+              0,
+              4
+            ],
+            "predicted_total_cost": 9.839786744601259,
+            "probability": 0.34821588646520535,
+            "predicted_rank": 2,
+            "states_examined": 15,
+            "best_cost": 11.63441361516796,
+            "active_pending_states": 0,
+            "unresolved": false
+          }
+        ],
+        "unresolved_probability_mass": 0.11325350282925124,
+        "diversification_events": [],
+        "improvements": [
+          {
+            "step": 5,
+            "best_cost": 14.084259940083065,
+            "path": [
+              0,
+              1,
+              2,
+              4,
+              3,
+              0
+            ],
+            "root_action": 1
+          },
+          {
+            "step": 7,
+            "best_cost": 11.63441361516796,
+            "path": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              0
+            ],
+            "root_action": 1
+          }
+        ]
+      }
+    },
+    "instance_id": "test_triangolo"
   },
   {
-    "instance_id": "test_irregolare",
     "initial_path": [
       0
     ],
@@ -374,18 +1435,100 @@
     "optimal_cost": 15.5121560482004,
     "gap_percent": 23.749891253753102,
     "is_complete": false,
+    "elapsed_seconds": 1.137499998549174e-05,
     "stats": {
       "states_examined": 5,
+      "states_expanded": 4,
+      "model_evaluations": 0,
+      "diversification_candidates_scanned": 0,
       "states_pruned": 0,
       "states_pruned_before_push": 0,
       "pending_states": 6,
       "active_frontier_size": 6,
       "completed_tours": 1,
-      "horizon_size": 7
-    }
+      "horizon_size": 7,
+      "root_choice": {
+        "temperature": 3.959799470717786,
+        "alternatives": [
+          {
+            "action": 1,
+            "path": [
+              0,
+              1
+            ],
+            "predicted_total_cost": 13.191310928682505,
+            "probability": 0.303771375727821,
+            "predicted_rank": 2,
+            "states_examined": 0,
+            "best_cost": null,
+            "active_pending_states": 1,
+            "unresolved": true
+          },
+          {
+            "action": 2,
+            "path": [
+              0,
+              2
+            ],
+            "predicted_total_cost": 12.20977075624083,
+            "probability": 0.38922267026610097,
+            "predicted_rank": 1,
+            "states_examined": 0,
+            "best_cost": null,
+            "active_pending_states": 1,
+            "unresolved": true
+          },
+          {
+            "action": 3,
+            "path": [
+              0,
+              3
+            ],
+            "predicted_total_cost": 15.415490616349295,
+            "probability": 0.1732239705073891,
+            "predicted_rank": 3,
+            "states_examined": 0,
+            "best_cost": null,
+            "active_pending_states": 1,
+            "unresolved": true
+          },
+          {
+            "action": 4,
+            "path": [
+              0,
+              4
+            ],
+            "predicted_total_cost": 16.438599441884563,
+            "probability": 0.13378198349868883,
+            "predicted_rank": 4,
+            "states_examined": 4,
+            "best_cost": 19.19627624076048,
+            "active_pending_states": 3,
+            "unresolved": true
+          }
+        ],
+        "unresolved_probability_mass": 0.9999999999999999,
+        "diversification_events": [],
+        "improvements": [
+          {
+            "step": 5,
+            "best_cost": 19.19627624076048,
+            "path": [
+              0,
+              4,
+              3,
+              2,
+              1,
+              0
+            ],
+            "root_action": 4
+          }
+        ]
+      }
+    },
+    "instance_id": "test_irregolare"
   },
   {
-    "instance_id": "test_irregolare",
     "initial_path": [
       0
     ],
@@ -403,19 +1546,101 @@
     "optimal_cost": 15.5121560482004,
     "gap_percent": 16.019503750632552,
     "is_complete": false,
+    "elapsed_seconds": 1.84170000920858e-05,
     "stats": {
       "states_examined": 5,
+      "states_expanded": 4,
+      "model_evaluations": 9,
+      "diversification_candidates_scanned": 0,
       "states_pruned": 0,
       "states_pruned_before_push": 0,
       "pending_states": 6,
       "active_frontier_size": 6,
       "completed_tours": 1,
       "horizon_size": 7,
-      "diversification_steps": 0
-    }
+      "diversification_steps": 0,
+      "root_choice": {
+        "temperature": 3.959799470717786,
+        "alternatives": [
+          {
+            "action": 1,
+            "path": [
+              0,
+              1
+            ],
+            "predicted_total_cost": 13.191310928682505,
+            "probability": 0.303771375727821,
+            "predicted_rank": 2,
+            "states_examined": 0,
+            "best_cost": null,
+            "active_pending_states": 1,
+            "unresolved": true
+          },
+          {
+            "action": 2,
+            "path": [
+              0,
+              2
+            ],
+            "predicted_total_cost": 12.20977075624083,
+            "probability": 0.38922267026610097,
+            "predicted_rank": 1,
+            "states_examined": 4,
+            "best_cost": 17.997126468145836,
+            "active_pending_states": 3,
+            "unresolved": true
+          },
+          {
+            "action": 3,
+            "path": [
+              0,
+              3
+            ],
+            "predicted_total_cost": 15.415490616349295,
+            "probability": 0.1732239705073891,
+            "predicted_rank": 3,
+            "states_examined": 0,
+            "best_cost": null,
+            "active_pending_states": 1,
+            "unresolved": true
+          },
+          {
+            "action": 4,
+            "path": [
+              0,
+              4
+            ],
+            "predicted_total_cost": 16.438599441884563,
+            "probability": 0.13378198349868883,
+            "predicted_rank": 4,
+            "states_examined": 0,
+            "best_cost": null,
+            "active_pending_states": 1,
+            "unresolved": true
+          }
+        ],
+        "unresolved_probability_mass": 0.9999999999999999,
+        "diversification_events": [],
+        "improvements": [
+          {
+            "step": 5,
+            "best_cost": 17.997126468145836,
+            "path": [
+              0,
+              2,
+              1,
+              4,
+              3,
+              0
+            ],
+            "root_action": 2
+          }
+        ]
+      }
+    },
+    "instance_id": "test_irregolare"
   },
   {
-    "instance_id": "test_irregolare",
     "initial_path": [
       0
     ],
@@ -433,19 +1658,101 @@
     "optimal_cost": 15.5121560482004,
     "gap_percent": 16.019503750632552,
     "is_complete": false,
+    "elapsed_seconds": 1.683300001786847e-05,
     "stats": {
       "states_examined": 5,
+      "states_expanded": 4,
+      "model_evaluations": 9,
+      "diversification_candidates_scanned": 0,
       "states_pruned": 0,
       "states_pruned_before_push": 0,
       "pending_states": 6,
       "active_frontier_size": 6,
       "completed_tours": 1,
       "horizon_size": 7,
-      "diversification_steps": 0
-    }
+      "diversification_steps": 0,
+      "root_choice": {
+        "temperature": 3.959799470717786,
+        "alternatives": [
+          {
+            "action": 1,
+            "path": [
+              0,
+              1
+            ],
+            "predicted_total_cost": 13.191310928682505,
+            "probability": 0.303771375727821,
+            "predicted_rank": 2,
+            "states_examined": 0,
+            "best_cost": null,
+            "active_pending_states": 1,
+            "unresolved": true
+          },
+          {
+            "action": 2,
+            "path": [
+              0,
+              2
+            ],
+            "predicted_total_cost": 12.20977075624083,
+            "probability": 0.38922267026610097,
+            "predicted_rank": 1,
+            "states_examined": 4,
+            "best_cost": 17.997126468145836,
+            "active_pending_states": 3,
+            "unresolved": true
+          },
+          {
+            "action": 3,
+            "path": [
+              0,
+              3
+            ],
+            "predicted_total_cost": 15.415490616349295,
+            "probability": 0.1732239705073891,
+            "predicted_rank": 3,
+            "states_examined": 0,
+            "best_cost": null,
+            "active_pending_states": 1,
+            "unresolved": true
+          },
+          {
+            "action": 4,
+            "path": [
+              0,
+              4
+            ],
+            "predicted_total_cost": 16.438599441884563,
+            "probability": 0.13378198349868883,
+            "predicted_rank": 4,
+            "states_examined": 0,
+            "best_cost": null,
+            "active_pending_states": 1,
+            "unresolved": true
+          }
+        ],
+        "unresolved_probability_mass": 0.9999999999999999,
+        "diversification_events": [],
+        "improvements": [
+          {
+            "step": 5,
+            "best_cost": 17.997126468145836,
+            "path": [
+              0,
+              2,
+              1,
+              4,
+              3,
+              0
+            ],
+            "root_action": 2
+          }
+        ]
+      }
+    },
+    "instance_id": "test_irregolare"
   },
   {
-    "instance_id": "test_irregolare",
     "initial_path": [
       0
     ],
@@ -463,18 +1770,100 @@
     "optimal_cost": 15.5121560482004,
     "gap_percent": 23.749891253753102,
     "is_complete": false,
+    "elapsed_seconds": 1.3374999980442226e-05,
     "stats": {
       "states_examined": 10,
+      "states_expanded": 7,
+      "model_evaluations": 0,
+      "diversification_candidates_scanned": 0,
       "states_pruned": 0,
       "states_pruned_before_push": 0,
       "pending_states": 5,
       "active_frontier_size": 5,
       "completed_tours": 3,
-      "horizon_size": 8
-    }
+      "horizon_size": 8,
+      "root_choice": {
+        "temperature": 3.959799470717786,
+        "alternatives": [
+          {
+            "action": 1,
+            "path": [
+              0,
+              1
+            ],
+            "predicted_total_cost": 13.191310928682505,
+            "probability": 0.303771375727821,
+            "predicted_rank": 2,
+            "states_examined": 0,
+            "best_cost": null,
+            "active_pending_states": 1,
+            "unresolved": true
+          },
+          {
+            "action": 2,
+            "path": [
+              0,
+              2
+            ],
+            "predicted_total_cost": 12.20977075624083,
+            "probability": 0.38922267026610097,
+            "predicted_rank": 1,
+            "states_examined": 0,
+            "best_cost": null,
+            "active_pending_states": 1,
+            "unresolved": true
+          },
+          {
+            "action": 3,
+            "path": [
+              0,
+              3
+            ],
+            "predicted_total_cost": 15.415490616349295,
+            "probability": 0.1732239705073891,
+            "predicted_rank": 3,
+            "states_examined": 0,
+            "best_cost": null,
+            "active_pending_states": 1,
+            "unresolved": true
+          },
+          {
+            "action": 4,
+            "path": [
+              0,
+              4
+            ],
+            "predicted_total_cost": 16.438599441884563,
+            "probability": 0.13378198349868883,
+            "predicted_rank": 4,
+            "states_examined": 9,
+            "best_cost": 19.19627624076048,
+            "active_pending_states": 2,
+            "unresolved": true
+          }
+        ],
+        "unresolved_probability_mass": 0.9999999999999999,
+        "diversification_events": [],
+        "improvements": [
+          {
+            "step": 5,
+            "best_cost": 19.19627624076048,
+            "path": [
+              0,
+              4,
+              3,
+              2,
+              1,
+              0
+            ],
+            "root_action": 4
+          }
+        ]
+      }
+    },
+    "instance_id": "test_irregolare"
   },
   {
-    "instance_id": "test_irregolare",
     "initial_path": [
       0
     ],
@@ -492,19 +1881,114 @@
     "optimal_cost": 15.5121560482004,
     "gap_percent": 0.0,
     "is_complete": false,
+    "elapsed_seconds": 2.2958000045036897e-05,
     "stats": {
       "states_examined": 10,
+      "states_expanded": 7,
+      "model_evaluations": 11,
+      "diversification_candidates_scanned": 0,
       "states_pruned": 0,
       "states_pruned_before_push": 0,
       "pending_states": 5,
       "active_frontier_size": 5,
       "completed_tours": 3,
       "horizon_size": 8,
-      "diversification_steps": 0
-    }
+      "diversification_steps": 0,
+      "root_choice": {
+        "temperature": 3.959799470717786,
+        "alternatives": [
+          {
+            "action": 1,
+            "path": [
+              0,
+              1
+            ],
+            "predicted_total_cost": 13.191310928682505,
+            "probability": 0.303771375727821,
+            "predicted_rank": 2,
+            "states_examined": 0,
+            "best_cost": null,
+            "active_pending_states": 1,
+            "unresolved": true
+          },
+          {
+            "action": 2,
+            "path": [
+              0,
+              2
+            ],
+            "predicted_total_cost": 12.20977075624083,
+            "probability": 0.38922267026610097,
+            "predicted_rank": 1,
+            "states_examined": 9,
+            "best_cost": 15.5121560482004,
+            "active_pending_states": 2,
+            "unresolved": true
+          },
+          {
+            "action": 3,
+            "path": [
+              0,
+              3
+            ],
+            "predicted_total_cost": 15.415490616349295,
+            "probability": 0.1732239705073891,
+            "predicted_rank": 3,
+            "states_examined": 0,
+            "best_cost": null,
+            "active_pending_states": 1,
+            "unresolved": true
+          },
+          {
+            "action": 4,
+            "path": [
+              0,
+              4
+            ],
+            "predicted_total_cost": 16.438599441884563,
+            "probability": 0.13378198349868883,
+            "predicted_rank": 4,
+            "states_examined": 0,
+            "best_cost": null,
+            "active_pending_states": 1,
+            "unresolved": true
+          }
+        ],
+        "unresolved_probability_mass": 0.9999999999999999,
+        "diversification_events": [],
+        "improvements": [
+          {
+            "step": 5,
+            "best_cost": 17.997126468145836,
+            "path": [
+              0,
+              2,
+              1,
+              4,
+              3,
+              0
+            ],
+            "root_action": 2
+          },
+          {
+            "step": 10,
+            "best_cost": 15.5121560482004,
+            "path": [
+              0,
+              2,
+              3,
+              4,
+              1,
+              0
+            ],
+            "root_action": 2
+          }
+        ]
+      }
+    },
+    "instance_id": "test_irregolare"
   },
   {
-    "instance_id": "test_irregolare",
     "initial_path": [
       0
     ],
@@ -522,19 +2006,114 @@
     "optimal_cost": 15.5121560482004,
     "gap_percent": 0.0,
     "is_complete": false,
+    "elapsed_seconds": 2.2790999992139405e-05,
     "stats": {
       "states_examined": 10,
+      "states_expanded": 7,
+      "model_evaluations": 11,
+      "diversification_candidates_scanned": 0,
       "states_pruned": 0,
       "states_pruned_before_push": 0,
       "pending_states": 5,
       "active_frontier_size": 5,
       "completed_tours": 3,
       "horizon_size": 8,
-      "diversification_steps": 0
-    }
+      "diversification_steps": 0,
+      "root_choice": {
+        "temperature": 3.959799470717786,
+        "alternatives": [
+          {
+            "action": 1,
+            "path": [
+              0,
+              1
+            ],
+            "predicted_total_cost": 13.191310928682505,
+            "probability": 0.303771375727821,
+            "predicted_rank": 2,
+            "states_examined": 0,
+            "best_cost": null,
+            "active_pending_states": 1,
+            "unresolved": true
+          },
+          {
+            "action": 2,
+            "path": [
+              0,
+              2
+            ],
+            "predicted_total_cost": 12.20977075624083,
+            "probability": 0.38922267026610097,
+            "predicted_rank": 1,
+            "states_examined": 9,
+            "best_cost": 15.5121560482004,
+            "active_pending_states": 2,
+            "unresolved": true
+          },
+          {
+            "action": 3,
+            "path": [
+              0,
+              3
+            ],
+            "predicted_total_cost": 15.415490616349295,
+            "probability": 0.1732239705073891,
+            "predicted_rank": 3,
+            "states_examined": 0,
+            "best_cost": null,
+            "active_pending_states": 1,
+            "unresolved": true
+          },
+          {
+            "action": 4,
+            "path": [
+              0,
+              4
+            ],
+            "predicted_total_cost": 16.438599441884563,
+            "probability": 0.13378198349868883,
+            "predicted_rank": 4,
+            "states_examined": 0,
+            "best_cost": null,
+            "active_pending_states": 1,
+            "unresolved": true
+          }
+        ],
+        "unresolved_probability_mass": 0.9999999999999999,
+        "diversification_events": [],
+        "improvements": [
+          {
+            "step": 5,
+            "best_cost": 17.997126468145836,
+            "path": [
+              0,
+              2,
+              1,
+              4,
+              3,
+              0
+            ],
+            "root_action": 2
+          },
+          {
+            "step": 10,
+            "best_cost": 15.5121560482004,
+            "path": [
+              0,
+              2,
+              3,
+              4,
+              1,
+              0
+            ],
+            "root_action": 2
+          }
+        ]
+      }
+    },
+    "instance_id": "test_irregolare"
   },
   {
-    "instance_id": "test_irregolare",
     "initial_path": [
       0
     ],
@@ -552,18 +2131,100 @@
     "optimal_cost": 15.5121560482004,
     "gap_percent": 23.749891253753102,
     "is_complete": false,
+    "elapsed_seconds": 2.0875000018349965e-05,
     "stats": {
       "states_examined": 20,
+      "states_expanded": 14,
+      "model_evaluations": 0,
+      "diversification_candidates_scanned": 0,
       "states_pruned": 0,
       "states_pruned_before_push": 0,
       "pending_states": 6,
       "active_frontier_size": 6,
       "completed_tours": 6,
-      "horizon_size": 12
-    }
+      "horizon_size": 12,
+      "root_choice": {
+        "temperature": 3.959799470717786,
+        "alternatives": [
+          {
+            "action": 1,
+            "path": [
+              0,
+              1
+            ],
+            "predicted_total_cost": 13.191310928682505,
+            "probability": 0.303771375727821,
+            "predicted_rank": 2,
+            "states_examined": 0,
+            "best_cost": null,
+            "active_pending_states": 1,
+            "unresolved": true
+          },
+          {
+            "action": 2,
+            "path": [
+              0,
+              2
+            ],
+            "predicted_total_cost": 12.20977075624083,
+            "probability": 0.38922267026610097,
+            "predicted_rank": 1,
+            "states_examined": 0,
+            "best_cost": null,
+            "active_pending_states": 1,
+            "unresolved": true
+          },
+          {
+            "action": 3,
+            "path": [
+              0,
+              3
+            ],
+            "predicted_total_cost": 15.415490616349295,
+            "probability": 0.1732239705073891,
+            "predicted_rank": 3,
+            "states_examined": 3,
+            "best_cost": null,
+            "active_pending_states": 4,
+            "unresolved": true
+          },
+          {
+            "action": 4,
+            "path": [
+              0,
+              4
+            ],
+            "predicted_total_cost": 16.438599441884563,
+            "probability": 0.13378198349868883,
+            "predicted_rank": 4,
+            "states_examined": 16,
+            "best_cost": 19.19627624076048,
+            "active_pending_states": 0,
+            "unresolved": false
+          }
+        ],
+        "unresolved_probability_mass": 0.866218016501311,
+        "diversification_events": [],
+        "improvements": [
+          {
+            "step": 5,
+            "best_cost": 19.19627624076048,
+            "path": [
+              0,
+              4,
+              3,
+              2,
+              1,
+              0
+            ],
+            "root_action": 4
+          }
+        ]
+      }
+    },
+    "instance_id": "test_irregolare"
   },
   {
-    "instance_id": "test_irregolare",
     "initial_path": [
       0
     ],
@@ -581,19 +2242,114 @@
     "optimal_cost": 15.5121560482004,
     "gap_percent": 0.0,
     "is_complete": false,
+    "elapsed_seconds": 3.7834000067960005e-05,
     "stats": {
       "states_examined": 20,
+      "states_expanded": 14,
+      "model_evaluations": 18,
+      "diversification_candidates_scanned": 0,
       "states_pruned": 0,
       "states_pruned_before_push": 0,
       "pending_states": 6,
       "active_frontier_size": 6,
       "completed_tours": 6,
       "horizon_size": 12,
-      "diversification_steps": 0
-    }
+      "diversification_steps": 0,
+      "root_choice": {
+        "temperature": 3.959799470717786,
+        "alternatives": [
+          {
+            "action": 1,
+            "path": [
+              0,
+              1
+            ],
+            "predicted_total_cost": 13.191310928682505,
+            "probability": 0.303771375727821,
+            "predicted_rank": 2,
+            "states_examined": 3,
+            "best_cost": null,
+            "active_pending_states": 4,
+            "unresolved": true
+          },
+          {
+            "action": 2,
+            "path": [
+              0,
+              2
+            ],
+            "predicted_total_cost": 12.20977075624083,
+            "probability": 0.38922267026610097,
+            "predicted_rank": 1,
+            "states_examined": 16,
+            "best_cost": 15.5121560482004,
+            "active_pending_states": 0,
+            "unresolved": false
+          },
+          {
+            "action": 3,
+            "path": [
+              0,
+              3
+            ],
+            "predicted_total_cost": 15.415490616349295,
+            "probability": 0.1732239705073891,
+            "predicted_rank": 3,
+            "states_examined": 0,
+            "best_cost": null,
+            "active_pending_states": 1,
+            "unresolved": true
+          },
+          {
+            "action": 4,
+            "path": [
+              0,
+              4
+            ],
+            "predicted_total_cost": 16.438599441884563,
+            "probability": 0.13378198349868883,
+            "predicted_rank": 4,
+            "states_examined": 0,
+            "best_cost": null,
+            "active_pending_states": 1,
+            "unresolved": true
+          }
+        ],
+        "unresolved_probability_mass": 0.610777329733899,
+        "diversification_events": [],
+        "improvements": [
+          {
+            "step": 5,
+            "best_cost": 17.997126468145836,
+            "path": [
+              0,
+              2,
+              1,
+              4,
+              3,
+              0
+            ],
+            "root_action": 2
+          },
+          {
+            "step": 10,
+            "best_cost": 15.5121560482004,
+            "path": [
+              0,
+              2,
+              3,
+              4,
+              1,
+              0
+            ],
+            "root_action": 2
+          }
+        ]
+      }
+    },
+    "instance_id": "test_irregolare"
   },
   {
-    "instance_id": "test_irregolare",
     "initial_path": [
       0
     ],
@@ -611,19 +2367,114 @@
     "optimal_cost": 15.5121560482004,
     "gap_percent": 0.0,
     "is_complete": false,
+    "elapsed_seconds": 3.691599999910977e-05,
     "stats": {
       "states_examined": 20,
+      "states_expanded": 14,
+      "model_evaluations": 18,
+      "diversification_candidates_scanned": 0,
       "states_pruned": 0,
       "states_pruned_before_push": 0,
       "pending_states": 6,
       "active_frontier_size": 6,
       "completed_tours": 6,
       "horizon_size": 12,
-      "diversification_steps": 0
-    }
+      "diversification_steps": 0,
+      "root_choice": {
+        "temperature": 3.959799470717786,
+        "alternatives": [
+          {
+            "action": 1,
+            "path": [
+              0,
+              1
+            ],
+            "predicted_total_cost": 13.191310928682505,
+            "probability": 0.303771375727821,
+            "predicted_rank": 2,
+            "states_examined": 3,
+            "best_cost": null,
+            "active_pending_states": 4,
+            "unresolved": true
+          },
+          {
+            "action": 2,
+            "path": [
+              0,
+              2
+            ],
+            "predicted_total_cost": 12.20977075624083,
+            "probability": 0.38922267026610097,
+            "predicted_rank": 1,
+            "states_examined": 16,
+            "best_cost": 15.5121560482004,
+            "active_pending_states": 0,
+            "unresolved": false
+          },
+          {
+            "action": 3,
+            "path": [
+              0,
+              3
+            ],
+            "predicted_total_cost": 15.415490616349295,
+            "probability": 0.1732239705073891,
+            "predicted_rank": 3,
+            "states_examined": 0,
+            "best_cost": null,
+            "active_pending_states": 1,
+            "unresolved": true
+          },
+          {
+            "action": 4,
+            "path": [
+              0,
+              4
+            ],
+            "predicted_total_cost": 16.438599441884563,
+            "probability": 0.13378198349868883,
+            "predicted_rank": 4,
+            "states_examined": 0,
+            "best_cost": null,
+            "active_pending_states": 1,
+            "unresolved": true
+          }
+        ],
+        "unresolved_probability_mass": 0.610777329733899,
+        "diversification_events": [],
+        "improvements": [
+          {
+            "step": 5,
+            "best_cost": 17.997126468145836,
+            "path": [
+              0,
+              2,
+              1,
+              4,
+              3,
+              0
+            ],
+            "root_action": 2
+          },
+          {
+            "step": 10,
+            "best_cost": 15.5121560482004,
+            "path": [
+              0,
+              2,
+              3,
+              4,
+              1,
+              0
+            ],
+            "root_action": 2
+          }
+        ]
+      }
+    },
+    "instance_id": "test_irregolare"
   },
   {
-    "instance_id": "test_irregolare",
     "initial_path": [
       0
     ],
@@ -641,18 +2492,139 @@
     "optimal_cost": 15.5121560482004,
     "gap_percent": 0.0,
     "is_complete": false,
+    "elapsed_seconds": 4.5208000074126176e-05,
     "stats": {
       "states_examined": 50,
+      "states_expanded": 32,
+      "model_evaluations": 0,
+      "diversification_candidates_scanned": 0,
       "states_pruned": 0,
       "states_pruned_before_push": 0,
       "pending_states": 3,
       "active_frontier_size": 3,
       "completed_tours": 18,
-      "horizon_size": 21
-    }
+      "horizon_size": 21,
+      "root_choice": {
+        "temperature": 3.959799470717786,
+        "alternatives": [
+          {
+            "action": 1,
+            "path": [
+              0,
+              1
+            ],
+            "predicted_total_cost": 13.191310928682505,
+            "probability": 0.303771375727821,
+            "predicted_rank": 2,
+            "states_examined": 1,
+            "best_cost": null,
+            "active_pending_states": 3,
+            "unresolved": true
+          },
+          {
+            "action": 2,
+            "path": [
+              0,
+              2
+            ],
+            "predicted_total_cost": 12.20977075624083,
+            "probability": 0.38922267026610097,
+            "predicted_rank": 1,
+            "states_examined": 16,
+            "best_cost": 15.5121560482004,
+            "active_pending_states": 0,
+            "unresolved": false
+          },
+          {
+            "action": 3,
+            "path": [
+              0,
+              3
+            ],
+            "predicted_total_cost": 15.415490616349295,
+            "probability": 0.1732239705073891,
+            "predicted_rank": 3,
+            "states_examined": 16,
+            "best_cost": 17.99712646814584,
+            "active_pending_states": 0,
+            "unresolved": false
+          },
+          {
+            "action": 4,
+            "path": [
+              0,
+              4
+            ],
+            "predicted_total_cost": 16.438599441884563,
+            "probability": 0.13378198349868883,
+            "predicted_rank": 4,
+            "states_examined": 16,
+            "best_cost": 19.19627624076048,
+            "active_pending_states": 0,
+            "unresolved": false
+          }
+        ],
+        "unresolved_probability_mass": 0.303771375727821,
+        "diversification_events": [],
+        "improvements": [
+          {
+            "step": 5,
+            "best_cost": 19.19627624076048,
+            "path": [
+              0,
+              4,
+              3,
+              2,
+              1,
+              0
+            ],
+            "root_action": 4
+          },
+          {
+            "step": 23,
+            "best_cost": 17.99712646814584,
+            "path": [
+              0,
+              3,
+              4,
+              1,
+              2,
+              0
+            ],
+            "root_action": 3
+          },
+          {
+            "step": 37,
+            "best_cost": 17.767662514521152,
+            "path": [
+              0,
+              2,
+              4,
+              3,
+              1,
+              0
+            ],
+            "root_action": 2
+          },
+          {
+            "step": 42,
+            "best_cost": 15.5121560482004,
+            "path": [
+              0,
+              2,
+              3,
+              4,
+              1,
+              0
+            ],
+            "root_action": 2
+          }
+        ]
+      }
+    },
+    "instance_id": "test_irregolare"
   },
   {
-    "instance_id": "test_irregolare",
     "initial_path": [
       0
     ],
@@ -670,19 +2642,114 @@
     "optimal_cost": 15.5121560482004,
     "gap_percent": 0.0,
     "is_complete": false,
+    "elapsed_seconds": 7.9334000020026e-05,
     "stats": {
       "states_examined": 50,
+      "states_expanded": 35,
+      "model_evaluations": 36,
+      "diversification_candidates_scanned": 0,
       "states_pruned": 0,
       "states_pruned_before_push": 5,
       "pending_states": 2,
       "active_frontier_size": 2,
       "completed_tours": 15,
       "horizon_size": 22,
-      "diversification_steps": 0
-    }
+      "diversification_steps": 0,
+      "root_choice": {
+        "temperature": 3.959799470717786,
+        "alternatives": [
+          {
+            "action": 1,
+            "path": [
+              0,
+              1
+            ],
+            "predicted_total_cost": 13.191310928682505,
+            "probability": 0.303771375727821,
+            "predicted_rank": 2,
+            "states_examined": 16,
+            "best_cost": 15.5121560482004,
+            "active_pending_states": 0,
+            "unresolved": false
+          },
+          {
+            "action": 2,
+            "path": [
+              0,
+              2
+            ],
+            "predicted_total_cost": 12.20977075624083,
+            "probability": 0.38922267026610097,
+            "predicted_rank": 1,
+            "states_examined": 16,
+            "best_cost": 15.5121560482004,
+            "active_pending_states": 0,
+            "unresolved": false
+          },
+          {
+            "action": 3,
+            "path": [
+              0,
+              3
+            ],
+            "predicted_total_cost": 15.415490616349295,
+            "probability": 0.1732239705073891,
+            "predicted_rank": 3,
+            "states_examined": 12,
+            "best_cost": 17.99712646814584,
+            "active_pending_states": 0,
+            "unresolved": false
+          },
+          {
+            "action": 4,
+            "path": [
+              0,
+              4
+            ],
+            "predicted_total_cost": 16.438599441884563,
+            "probability": 0.13378198349868883,
+            "predicted_rank": 4,
+            "states_examined": 5,
+            "best_cost": 19.19627624076048,
+            "active_pending_states": 2,
+            "unresolved": true
+          }
+        ],
+        "unresolved_probability_mass": 0.13378198349868883,
+        "diversification_events": [],
+        "improvements": [
+          {
+            "step": 5,
+            "best_cost": 17.997126468145836,
+            "path": [
+              0,
+              2,
+              1,
+              4,
+              3,
+              0
+            ],
+            "root_action": 2
+          },
+          {
+            "step": 10,
+            "best_cost": 15.5121560482004,
+            "path": [
+              0,
+              2,
+              3,
+              4,
+              1,
+              0
+            ],
+            "root_action": 2
+          }
+        ]
+      }
+    },
+    "instance_id": "test_irregolare"
   },
   {
-    "instance_id": "test_irregolare",
     "initial_path": [
       0
     ],
@@ -700,15 +2767,111 @@
     "optimal_cost": 15.5121560482004,
     "gap_percent": 0.0,
     "is_complete": false,
+    "elapsed_seconds": 7.874999982959707e-05,
     "stats": {
       "states_examined": 50,
+      "states_expanded": 35,
+      "model_evaluations": 36,
+      "diversification_candidates_scanned": 0,
       "states_pruned": 0,
       "states_pruned_before_push": 5,
       "pending_states": 2,
       "active_frontier_size": 2,
       "completed_tours": 15,
       "horizon_size": 22,
-      "diversification_steps": 0
-    }
+      "diversification_steps": 0,
+      "root_choice": {
+        "temperature": 3.959799470717786,
+        "alternatives": [
+          {
+            "action": 1,
+            "path": [
+              0,
+              1
+            ],
+            "predicted_total_cost": 13.191310928682505,
+            "probability": 0.303771375727821,
+            "predicted_rank": 2,
+            "states_examined": 16,
+            "best_cost": 15.5121560482004,
+            "active_pending_states": 0,
+            "unresolved": false
+          },
+          {
+            "action": 2,
+            "path": [
+              0,
+              2
+            ],
+            "predicted_total_cost": 12.20977075624083,
+            "probability": 0.38922267026610097,
+            "predicted_rank": 1,
+            "states_examined": 16,
+            "best_cost": 15.5121560482004,
+            "active_pending_states": 0,
+            "unresolved": false
+          },
+          {
+            "action": 3,
+            "path": [
+              0,
+              3
+            ],
+            "predicted_total_cost": 15.415490616349295,
+            "probability": 0.1732239705073891,
+            "predicted_rank": 3,
+            "states_examined": 12,
+            "best_cost": 17.99712646814584,
+            "active_pending_states": 0,
+            "unresolved": false
+          },
+          {
+            "action": 4,
+            "path": [
+              0,
+              4
+            ],
+            "predicted_total_cost": 16.438599441884563,
+            "probability": 0.13378198349868883,
+            "predicted_rank": 4,
+            "states_examined": 5,
+            "best_cost": 19.19627624076048,
+            "active_pending_states": 2,
+            "unresolved": true
+          }
+        ],
+        "unresolved_probability_mass": 0.13378198349868883,
+        "diversification_events": [],
+        "improvements": [
+          {
+            "step": 5,
+            "best_cost": 17.997126468145836,
+            "path": [
+              0,
+              2,
+              1,
+              4,
+              3,
+              0
+            ],
+            "root_action": 2
+          },
+          {
+            "step": 10,
+            "best_cost": 15.5121560482004,
+            "path": [
+              0,
+              2,
+              3,
+              4,
+              1,
+              0
+            ],
+            "root_action": 2
+          }
+        ]
+      }
+    },
+    "instance_id": "test_irregolare"
   }
 ]

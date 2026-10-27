@@ -1,0 +1,122 @@
+[
+  {
+    "budget": 5,
+    "method": "Branch and Bound",
+    "instances": 2,
+    "tours_found": 2,
+    "mean_gap_percent": 11.874945626876551,
+    "optimal_tours_found": 1,
+    "mean_unresolved_probability_mass": 1.0,
+    "mean_elapsed_seconds": 1.5312499954234227e-05
+  },
+  {
+    "budget": 5,
+    "method": "Predittiva",
+    "instances": 2,
+    "tours_found": 2,
+    "mean_gap_percent": 18.53819965940229,
+    "optimal_tours_found": 0,
+    "mean_unresolved_probability_mass": 1.0,
+    "mean_elapsed_seconds": 2.3292000037145044e-05
+  },
+  {
+    "budget": 5,
+    "method": "Regolata",
+    "instances": 2,
+    "tours_found": 2,
+    "mean_gap_percent": 18.53819965940229,
+    "optimal_tours_found": 0,
+    "mean_unresolved_probability_mass": 1.0,
+    "mean_elapsed_seconds": 1.877099998637277e-05
+  },
+  {
+    "budget": 10,
+    "method": "Branch and Bound",
+    "instances": 2,
+    "tours_found": 2,
+    "mean_gap_percent": 11.874945626876551,
+    "optimal_tours_found": 1,
+    "mean_unresolved_probability_mass": 1.0,
+    "mean_elapsed_seconds": 1.4562499927706085e-05
+  },
+  {
+    "budget": 10,
+    "method": "Predittiva",
+    "instances": 2,
+    "tours_found": 2,
+    "mean_gap_percent": 0.0,
+    "optimal_tours_found": 2,
+    "mean_unresolved_probability_mass": 1.0,
+    "mean_elapsed_seconds": 2.4103999976432533e-05
+  },
+  {
+    "budget": 10,
+    "method": "Regolata",
+    "instances": 2,
+    "tours_found": 2,
+    "mean_gap_percent": 0.0,
+    "optimal_tours_found": 2,
+    "mean_unresolved_probability_mass": 1.0,
+    "mean_elapsed_seconds": 2.3124499989535252e-05
+  },
+  {
+    "budget": 20,
+    "method": "Branch and Bound",
+    "instances": 2,
+    "tours_found": 2,
+    "mean_gap_percent": 11.874945626876551,
+    "optimal_tours_found": 1,
+    "mean_unresolved_probability_mass": 0.7590010650180528,
+    "mean_elapsed_seconds": 2.1437499981402652e-05
+  },
+  {
+    "budget": 20,
+    "method": "Predittiva",
+    "instances": 2,
+    "tours_found": 2,
+    "mean_gap_percent": 0.0,
+    "optimal_tours_found": 2,
+    "mean_unresolved_probability_mass": 0.5978607740691985,
+    "mean_elapsed_seconds": 3.827149998869572e-05
+  },
+  {
+    "budget": 20,
+    "method": "Regolata",
+    "instances": 2,
+    "tours_found": 2,
+    "mean_gap_percent": 0.0,
+    "optimal_tours_found": 2,
+    "mean_unresolved_probability_mass": 0.5978607740691985,
+    "mean_elapsed_seconds": 3.7083000052007264e-05
+  },
+  {
+    "budget": 50,
+    "method": "Branch and Bound",
+    "instances": 2,
+    "tours_found": 2,
+    "mean_gap_percent": 0.0,
+    "optimal_tours_found": 2,
+    "mean_unresolved_probability_mass": 0.35941357866166146,
+    "mean_elapsed_seconds": 4.5791500042469124e-05
+  },
+  {
+    "budget": 50,
+    "method": "Predittiva",
+    "instances": 2,
+    "tours_found": 2,
+    "mean_gap_percent": 0.0,
+    "optimal_tours_found": 2,
+    "mean_unresolved_probability_mass": 0.12351774316397005,
+    "mean_elapsed_seconds": 8.072950004134327e-05
+  },
+  {
+    "budget": 50,
+    "method": "Regolata",
+    "instances": 2,
+    "tours_found": 2,
+    "mean_gap_percent": 0.0,
+    "optimal_tours_found": 2,
+    "mean_unresolved_probability_mass": 0.12351774316397005,
+    "mean_elapsed_seconds": 8.054149986946868e-05
+  }
+]

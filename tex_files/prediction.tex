@@ -1,60 +1,12 @@
 \section{Introduzione della previsione}
-\label{sec:prediction}
 
-Il componente appreso stima il \emph{cost-to-go}: il costo minimo ancora
-necessario per visitare le consegne rimaste e tornare al deposito,
-condizionatamente al percorso parziale già compiuto. La previsione
-$\widehat h_\theta(s)$ non comprende il costo accumulato $g(s)$.
-Il modello riceve quattro feature dello stato; i target usati per
-addestrarlo sono descritti nella Sezione~\ref{sec:targets}.
+Il modello prevede il \emph{costo rimanente}: la distanza necessaria per
+completare un percorso parziale e tornare al deposito. Il costo già percorso
+è noto e non deve essere previsto. Indichiamo la stima con $\widehat h(s)$.
 
-\subsection{Feature e modello appreso}
-
-Indicando con $u$ il nodo corrente e con $d$ il deposito, lo stato viene
-trasformato nel vettore $x(s)$ di quattro feature:
-\begin{align*}
-    x_1(s) &= |N|, &
-    x_2(s) &= \operatorname{dist}(u,d),\\
-    x_3(s) &= \min_{v\in N}\operatorname{dist}(u,v), &
-    x_4(s) &= \frac{1}{|N|}\sum_{v\in N}\operatorname{dist}(u,v).
-\end{align*}
-Se $N=\emptyset$, si assegnano $x_3=x_4=0$. Queste quantità descrivono
-quante consegne restano e alcune distanze utili a stimarne il costo.
-Non rappresentano l'intera geometria delle consegne: stati diversi possono
-avere le stesse feature e costi rimanenti differenti.
-
-Si utilizza una regressione lineare di \texttt{scikit-learn}:
-\[
-    \widehat h_\theta(s)=b+\sum_{j=1}^{4}w_jx_j(s).
-\]
-L'addestramento, effettuato tramite \texttt{LinearRegression.fit}, determina
-i pesi e l'intercetta minimizzando la somma dei residui quadratici sui dati
-di addestramento. La metrica di valutazione descritta sotto è invece
-l'errore assoluto medio. I parametri correnti, arrotondati solo qui per
-la presentazione, sono:
-\begin{align*}
-    b &= 42{,}322615,\\
-    (w_1,w_2,w_3,w_4) &\simeq
-    (12{,}192801,\;0{,}305191,\;-1{,}284745,\;2{,}194347).
-\end{align*}
-Un peso negativo non stabilisce una relazione causale tra quella feature
-e il costo: i coefficienti sono stimati congiuntamente su feature correlate.
-
-Questi parametri appartengono al modello principale su sei consegne.
-I valori numerici originali sono salvati in \texttt{data/model.json},
-nei campi \texttt{weights} e \texttt{intercept}. La funzione di previsione
-può così applicare la formula dopo aver riletto i parametri, senza
-riaddestrare il modello. La corrispondenza con \texttt{model.predict} è
-stata verificata: sul primo esempio di test entrambe le modalità
-restituiscono circa $223{,}523423$, con sole differenze di arrotondamento
-in virgola mobile. Il file \texttt{data/result.json} conserva invece le
-feature, i target e gli identificativi delle istanze; non è il file del
-modello addestrato.
-
-Il dataset didattico utilizza la stessa definizione delle feature e la
-stessa procedura di regressione, ma produce un modello distinto in
-\path{data/didattico/model.json}. La sua intercetta è circa $2{,}025911$
-e i coefficienti sono
-$(0{,}530833,\,0{,}284551,\,-1{,}619936,\,2{,}589103)$.
-Questo secondo addestramento non sostituisce i parametri del modello
-principale usato nel confronto sui seed $50$--$53$.
+Usiamo una regressione lineare con quattro informazioni dello stato:
+numero di consegne rimaste, distanza dal deposito, distanza dalla consegna
+rimasta più vicina e distanza media dalle consegne rimaste. Il modello
+impara quattro pesi e un'intercetta. È semplice da leggere, ma queste
+informazioni riassuntive non descrivono tutta la geometria della mappa.
+Perciò la stima può sbagliare e non viene trattata come un limite sicuro.
