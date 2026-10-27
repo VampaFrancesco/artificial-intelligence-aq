@@ -1,6 +1,7 @@
 from .predictor import extract_features, predict_remaining_cost
 from ..models.state import State
 from ..models.tsp import successors
+from .regulator import should_diversify
 
 def estimated_total_cost(state, matrix, model_data):
     if len(state.unvisited) == 0:
@@ -11,7 +12,7 @@ def estimated_total_cost(state, matrix, model_data):
     return state.cost + remaining_cost
 
 
-def predictiveSearch(initial_state, matrix, max_states, model_data):
+def predictiveSearch(initial_state, matrix, max_states, model_data, patience=None):
     """Restituisce il miglior giro, il completamento della ricerca e le statistiche."""
     stack = [initial_state]
     best_cost = float("inf")
@@ -20,10 +21,32 @@ def predictiveSearch(initial_state, matrix, max_states, model_data):
     states_pruned = 0
     states_pruned_before_push = 0
     completed_tours = 0
+    states_since_improvements = 0
+    diversification_steps = 0
+    states_since_diversification = 0
+    
+
 
     while stack and states_examined < max_states:
-        state = stack.pop()
+        if (
+            patience is not None
+            and should_diversify(states_since_improvements, patience)
+            and states_since_diversification >= patience
+        ):
+            lowest_cost_index = 0
+            for index in range(len(stack)):
+                if stack[index].cost < stack[lowest_cost_index].cost:
+                    lowest_cost_index = index
+
+            state = stack.pop(lowest_cost_index)
+            diversification_steps+=1
+            states_since_diversification = 0
+        else:
+            state = stack.pop()
+            states_since_diversification += 1
+        
         states_examined += 1
+        states_since_improvements += 1
 
         if state.cost >= best_cost:
             states_pruned += 1
@@ -35,6 +58,7 @@ def predictiveSearch(initial_state, matrix, max_states, model_data):
 
             if total_cost < best_cost:
                 best_cost = total_cost
+                states_since_improvements = 0
                 best_state = State(
                     path=state.path + (0,),
                     unvisited=state.unvisited,
@@ -71,6 +95,7 @@ def predictiveSearch(initial_state, matrix, max_states, model_data):
         "active_frontier_size": active_frontier_size,
         "completed_tours": completed_tours,
         "horizon_size": horizon_size,
+        "diversification_steps": diversification_steps
     }
     return best_state, not stack, stats
 

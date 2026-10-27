@@ -1,0 +1,714 @@
+[
+  {
+    "instance_id": "test_triangolo",
+    "initial_path": [
+      0
+    ],
+    "budget": 5,
+    "method": "Branch and Bound",
+    "best_cost": 11.63441361516796,
+    "best_path": [
+      0,
+      4,
+      3,
+      2,
+      1,
+      0
+    ],
+    "optimal_cost": 11.63441361516796,
+    "gap_percent": 0.0,
+    "is_complete": false,
+    "stats": {
+      "states_examined": 5,
+      "states_pruned": 0,
+      "states_pruned_before_push": 0,
+      "pending_states": 6,
+      "active_frontier_size": 6,
+      "completed_tours": 1,
+      "horizon_size": 7
+    }
+  },
+  {
+    "instance_id": "test_triangolo",
+    "initial_path": [
+      0
+    ],
+    "budget": 5,
+    "method": "Predittiva",
+    "best_cost": 14.084259940083065,
+    "best_path": [
+      0,
+      1,
+      2,
+      4,
+      3,
+      0
+    ],
+    "optimal_cost": 11.63441361516796,
+    "gap_percent": 21.05689556817203,
+    "is_complete": false,
+    "stats": {
+      "states_examined": 5,
+      "states_pruned": 0,
+      "states_pruned_before_push": 0,
+      "pending_states": 6,
+      "active_frontier_size": 6,
+      "completed_tours": 1,
+      "horizon_size": 7,
+      "diversification_steps": 0
+    }
+  },
+  {
+    "instance_id": "test_triangolo",
+    "initial_path": [
+      0
+    ],
+    "budget": 5,
+    "method": "Regolata",
+    "best_cost": 14.084259940083065,
+    "best_path": [
+      0,
+      1,
+      2,
+      4,
+      3,
+      0
+    ],
+    "optimal_cost": 11.63441361516796,
+    "gap_percent": 21.05689556817203,
+    "is_complete": false,
+    "stats": {
+      "states_examined": 5,
+      "states_pruned": 0,
+      "states_pruned_before_push": 0,
+      "pending_states": 6,
+      "active_frontier_size": 6,
+      "completed_tours": 1,
+      "horizon_size": 7,
+      "diversification_steps": 0
+    }
+  },
+  {
+    "instance_id": "test_triangolo",
+    "initial_path": [
+      0
+    ],
+    "budget": 10,
+    "method": "Branch and Bound",
+    "best_cost": 11.63441361516796,
+    "best_path": [
+      0,
+      4,
+      3,
+      2,
+      1,
+      0
+    ],
+    "optimal_cost": 11.63441361516796,
+    "gap_percent": 0.0,
+    "is_complete": false,
+    "stats": {
+      "states_examined": 10,
+      "states_pruned": 0,
+      "states_pruned_before_push": 1,
+      "pending_states": 5,
+      "active_frontier_size": 5,
+      "completed_tours": 2,
+      "horizon_size": 8
+    }
+  },
+  {
+    "instance_id": "test_triangolo",
+    "initial_path": [
+      0
+    ],
+    "budget": 10,
+    "method": "Predittiva",
+    "best_cost": 11.63441361516796,
+    "best_path": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      0
+    ],
+    "optimal_cost": 11.63441361516796,
+    "gap_percent": 0.0,
+    "is_complete": false,
+    "stats": {
+      "states_examined": 10,
+      "states_pruned": 0,
+      "states_pruned_before_push": 0,
+      "pending_states": 5,
+      "active_frontier_size": 5,
+      "completed_tours": 3,
+      "horizon_size": 8,
+      "diversification_steps": 0
+    }
+  },
+  {
+    "instance_id": "test_triangolo",
+    "initial_path": [
+      0
+    ],
+    "budget": 10,
+    "method": "Regolata",
+    "best_cost": 11.63441361516796,
+    "best_path": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      0
+    ],
+    "optimal_cost": 11.63441361516796,
+    "gap_percent": 0.0,
+    "is_complete": false,
+    "stats": {
+      "states_examined": 10,
+      "states_pruned": 0,
+      "states_pruned_before_push": 0,
+      "pending_states": 5,
+      "active_frontier_size": 5,
+      "completed_tours": 3,
+      "horizon_size": 8,
+      "diversification_steps": 0
+    }
+  },
+  {
+    "instance_id": "test_triangolo",
+    "initial_path": [
+      0
+    ],
+    "budget": 20,
+    "method": "Branch and Bound",
+    "best_cost": 11.63441361516796,
+    "best_path": [
+      0,
+      4,
+      3,
+      2,
+      1,
+      0
+    ],
+    "optimal_cost": 11.63441361516796,
+    "gap_percent": 0.0,
+    "is_complete": false,
+    "stats": {
+      "states_examined": 20,
+      "states_pruned": 0,
+      "states_pruned_before_push": 2,
+      "pending_states": 5,
+      "active_frontier_size": 5,
+      "completed_tours": 5,
+      "horizon_size": 12
+    }
+  },
+  {
+    "instance_id": "test_triangolo",
+    "initial_path": [
+      0
+    ],
+    "budget": 20,
+    "method": "Predittiva",
+    "best_cost": 11.63441361516796,
+    "best_path": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      0
+    ],
+    "optimal_cost": 11.63441361516796,
+    "gap_percent": 0.0,
+    "is_complete": false,
+    "stats": {
+      "states_examined": 20,
+      "states_pruned": 0,
+      "states_pruned_before_push": 1,
+      "pending_states": 5,
+      "active_frontier_size": 5,
+      "completed_tours": 6,
+      "horizon_size": 12,
+      "diversification_steps": 0
+    }
+  },
+  {
+    "instance_id": "test_triangolo",
+    "initial_path": [
+      0
+    ],
+    "budget": 20,
+    "method": "Regolata",
+    "best_cost": 11.63441361516796,
+    "best_path": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      0
+    ],
+    "optimal_cost": 11.63441361516796,
+    "gap_percent": 0.0,
+    "is_complete": false,
+    "stats": {
+      "states_examined": 20,
+      "states_pruned": 0,
+      "states_pruned_before_push": 1,
+      "pending_states": 5,
+      "active_frontier_size": 5,
+      "completed_tours": 6,
+      "horizon_size": 12,
+      "diversification_steps": 0
+    }
+  },
+  {
+    "instance_id": "test_triangolo",
+    "initial_path": [
+      0
+    ],
+    "budget": 50,
+    "method": "Branch and Bound",
+    "best_cost": 11.63441361516796,
+    "best_path": [
+      0,
+      4,
+      3,
+      2,
+      1,
+      0
+    ],
+    "optimal_cost": 11.63441361516796,
+    "gap_percent": 0.0,
+    "is_complete": false,
+    "stats": {
+      "states_examined": 50,
+      "states_pruned": 0,
+      "states_pruned_before_push": 11,
+      "pending_states": 2,
+      "active_frontier_size": 2,
+      "completed_tours": 11,
+      "horizon_size": 24
+    }
+  },
+  {
+    "instance_id": "test_triangolo",
+    "initial_path": [
+      0
+    ],
+    "budget": 50,
+    "method": "Predittiva",
+    "best_cost": 11.63441361516796,
+    "best_path": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      0
+    ],
+    "optimal_cost": 11.63441361516796,
+    "gap_percent": 0.0,
+    "is_complete": false,
+    "stats": {
+      "states_examined": 50,
+      "states_pruned": 0,
+      "states_pruned_before_push": 8,
+      "pending_states": 2,
+      "active_frontier_size": 2,
+      "completed_tours": 13,
+      "horizon_size": 23,
+      "diversification_steps": 0
+    }
+  },
+  {
+    "instance_id": "test_triangolo",
+    "initial_path": [
+      0
+    ],
+    "budget": 50,
+    "method": "Regolata",
+    "best_cost": 11.63441361516796,
+    "best_path": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      0
+    ],
+    "optimal_cost": 11.63441361516796,
+    "gap_percent": 0.0,
+    "is_complete": false,
+    "stats": {
+      "states_examined": 50,
+      "states_pruned": 0,
+      "states_pruned_before_push": 8,
+      "pending_states": 2,
+      "active_frontier_size": 2,
+      "completed_tours": 13,
+      "horizon_size": 23,
+      "diversification_steps": 0
+    }
+  },
+  {
+    "instance_id": "test_irregolare",
+    "initial_path": [
+      0
+    ],
+    "budget": 5,
+    "method": "Branch and Bound",
+    "best_cost": 19.19627624076048,
+    "best_path": [
+      0,
+      4,
+      3,
+      2,
+      1,
+      0
+    ],
+    "optimal_cost": 15.5121560482004,
+    "gap_percent": 23.749891253753102,
+    "is_complete": false,
+    "stats": {
+      "states_examined": 5,
+      "states_pruned": 0,
+      "states_pruned_before_push": 0,
+      "pending_states": 6,
+      "active_frontier_size": 6,
+      "completed_tours": 1,
+      "horizon_size": 7
+    }
+  },
+  {
+    "instance_id": "test_irregolare",
+    "initial_path": [
+      0
+    ],
+    "budget": 5,
+    "method": "Predittiva",
+    "best_cost": 17.997126468145836,
+    "best_path": [
+      0,
+      2,
+      1,
+      4,
+      3,
+      0
+    ],
+    "optimal_cost": 15.5121560482004,
+    "gap_percent": 16.019503750632552,
+    "is_complete": false,
+    "stats": {
+      "states_examined": 5,
+      "states_pruned": 0,
+      "states_pruned_before_push": 0,
+      "pending_states": 6,
+      "active_frontier_size": 6,
+      "completed_tours": 1,
+      "horizon_size": 7,
+      "diversification_steps": 0
+    }
+  },
+  {
+    "instance_id": "test_irregolare",
+    "initial_path": [
+      0
+    ],
+    "budget": 5,
+    "method": "Regolata",
+    "best_cost": 17.997126468145836,
+    "best_path": [
+      0,
+      2,
+      1,
+      4,
+      3,
+      0
+    ],
+    "optimal_cost": 15.5121560482004,
+    "gap_percent": 16.019503750632552,
+    "is_complete": false,
+    "stats": {
+      "states_examined": 5,
+      "states_pruned": 0,
+      "states_pruned_before_push": 0,
+      "pending_states": 6,
+      "active_frontier_size": 6,
+      "completed_tours": 1,
+      "horizon_size": 7,
+      "diversification_steps": 0
+    }
+  },
+  {
+    "instance_id": "test_irregolare",
+    "initial_path": [
+      0
+    ],
+    "budget": 10,
+    "method": "Branch and Bound",
+    "best_cost": 19.19627624076048,
+    "best_path": [
+      0,
+      4,
+      3,
+      2,
+      1,
+      0
+    ],
+    "optimal_cost": 15.5121560482004,
+    "gap_percent": 23.749891253753102,
+    "is_complete": false,
+    "stats": {
+      "states_examined": 10,
+      "states_pruned": 0,
+      "states_pruned_before_push": 0,
+      "pending_states": 5,
+      "active_frontier_size": 5,
+      "completed_tours": 3,
+      "horizon_size": 8
+    }
+  },
+  {
+    "instance_id": "test_irregolare",
+    "initial_path": [
+      0
+    ],
+    "budget": 10,
+    "method": "Predittiva",
+    "best_cost": 15.5121560482004,
+    "best_path": [
+      0,
+      2,
+      3,
+      4,
+      1,
+      0
+    ],
+    "optimal_cost": 15.5121560482004,
+    "gap_percent": 0.0,
+    "is_complete": false,
+    "stats": {
+      "states_examined": 10,
+      "states_pruned": 0,
+      "states_pruned_before_push": 0,
+      "pending_states": 5,
+      "active_frontier_size": 5,
+      "completed_tours": 3,
+      "horizon_size": 8,
+      "diversification_steps": 0
+    }
+  },
+  {
+    "instance_id": "test_irregolare",
+    "initial_path": [
+      0
+    ],
+    "budget": 10,
+    "method": "Regolata",
+    "best_cost": 15.5121560482004,
+    "best_path": [
+      0,
+      2,
+      3,
+      4,
+      1,
+      0
+    ],
+    "optimal_cost": 15.5121560482004,
+    "gap_percent": 0.0,
+    "is_complete": false,
+    "stats": {
+      "states_examined": 10,
+      "states_pruned": 0,
+      "states_pruned_before_push": 0,
+      "pending_states": 5,
+      "active_frontier_size": 5,
+      "completed_tours": 3,
+      "horizon_size": 8,
+      "diversification_steps": 0
+    }
+  },
+  {
+    "instance_id": "test_irregolare",
+    "initial_path": [
+      0
+    ],
+    "budget": 20,
+    "method": "Branch and Bound",
+    "best_cost": 19.19627624076048,
+    "best_path": [
+      0,
+      4,
+      3,
+      2,
+      1,
+      0
+    ],
+    "optimal_cost": 15.5121560482004,
+    "gap_percent": 23.749891253753102,
+    "is_complete": false,
+    "stats": {
+      "states_examined": 20,
+      "states_pruned": 0,
+      "states_pruned_before_push": 0,
+      "pending_states": 6,
+      "active_frontier_size": 6,
+      "completed_tours": 6,
+      "horizon_size": 12
+    }
+  },
+  {
+    "instance_id": "test_irregolare",
+    "initial_path": [
+      0
+    ],
+    "budget": 20,
+    "method": "Predittiva",
+    "best_cost": 15.5121560482004,
+    "best_path": [
+      0,
+      2,
+      3,
+      4,
+      1,
+      0
+    ],
+    "optimal_cost": 15.5121560482004,
+    "gap_percent": 0.0,
+    "is_complete": false,
+    "stats": {
+      "states_examined": 20,
+      "states_pruned": 0,
+      "states_pruned_before_push": 0,
+      "pending_states": 6,
+      "active_frontier_size": 6,
+      "completed_tours": 6,
+      "horizon_size": 12,
+      "diversification_steps": 0
+    }
+  },
+  {
+    "instance_id": "test_irregolare",
+    "initial_path": [
+      0
+    ],
+    "budget": 20,
+    "method": "Regolata",
+    "best_cost": 15.5121560482004,
+    "best_path": [
+      0,
+      2,
+      3,
+      4,
+      1,
+      0
+    ],
+    "optimal_cost": 15.5121560482004,
+    "gap_percent": 0.0,
+    "is_complete": false,
+    "stats": {
+      "states_examined": 20,
+      "states_pruned": 0,
+      "states_pruned_before_push": 0,
+      "pending_states": 6,
+      "active_frontier_size": 6,
+      "completed_tours": 6,
+      "horizon_size": 12,
+      "diversification_steps": 0
+    }
+  },
+  {
+    "instance_id": "test_irregolare",
+    "initial_path": [
+      0
+    ],
+    "budget": 50,
+    "method": "Branch and Bound",
+    "best_cost": 15.5121560482004,
+    "best_path": [
+      0,
+      2,
+      3,
+      4,
+      1,
+      0
+    ],
+    "optimal_cost": 15.5121560482004,
+    "gap_percent": 0.0,
+    "is_complete": false,
+    "stats": {
+      "states_examined": 50,
+      "states_pruned": 0,
+      "states_pruned_before_push": 0,
+      "pending_states": 3,
+      "active_frontier_size": 3,
+      "completed_tours": 18,
+      "horizon_size": 21
+    }
+  },
+  {
+    "instance_id": "test_irregolare",
+    "initial_path": [
+      0
+    ],
+    "budget": 50,
+    "method": "Predittiva",
+    "best_cost": 15.5121560482004,
+    "best_path": [
+      0,
+      2,
+      3,
+      4,
+      1,
+      0
+    ],
+    "optimal_cost": 15.5121560482004,
+    "gap_percent": 0.0,
+    "is_complete": false,
+    "stats": {
+      "states_examined": 50,
+      "states_pruned": 0,
+      "states_pruned_before_push": 5,
+      "pending_states": 2,
+      "active_frontier_size": 2,
+      "completed_tours": 15,
+      "horizon_size": 22,
+      "diversification_steps": 0
+    }
+  },
+  {
+    "instance_id": "test_irregolare",
+    "initial_path": [
+      0
+    ],
+    "budget": 50,
+    "method": "Regolata",
+    "best_cost": 15.5121560482004,
+    "best_path": [
+      0,
+      2,
+      3,
+      4,
+      1,
+      0
+    ],
+    "optimal_cost": 15.5121560482004,
+    "gap_percent": 0.0,
+    "is_complete": false,
+    "stats": {
+      "states_examined": 50,
+      "states_pruned": 0,
+      "states_pruned_before_push": 5,
+      "pending_states": 2,
+      "active_frontier_size": 2,
+      "completed_tours": 15,
+      "horizon_size": 22,
+      "diversification_steps": 0
+    }
+  }
+]

@@ -1,6 +1,6 @@
 \section{Registro delle decisioni supportate da AI}
 
-Sono riportate quattro interazioni che hanno influito sul sistema.
+Sono riportate cinque interazioni che hanno influito sul sistema.
 Le richieste sono sintetizzate; le motivazioni esplicitano il criterio
 tecnico delle scelte adottate.
 
@@ -40,4 +40,15 @@ tecnico delle scelte adottate.
     Motivazione: distinguere la qualità del giro trovato dalla
     certificazione di ottimalità e confrontare i metodi sullo stesso
     budget online, senza usare l'ottimo per guidarli.
+    \item \textbf{Regolazione mediante stagnazione e diversificazione.}
+    Richiesta: introdurre un regolatore e comprendere come cambiasse
+    la scelta dello stato dalla pila. Proposta: dopo una sequenza senza
+    miglioramenti, estrarre lo stato pendente con costo parziale minimo.
+    Esito: proposta modificata dopo le prove sui seed $50$ e $51$,
+    introducendo un secondo contatore e una pausa tra gli interventi;
+    la versione con soglia $100$ è stata poi valutata sui seed $52$ e $53$.
+    Motivazione: intervenire continuamente può favorire stati poco
+    profondi; distanziare le deviazioni conserva spazio per la ricerca
+    guidata dal predittore. La separazione dei due contatori distingue
+    un miglioramento del giro da un semplice cambio di esplorazione.
 \end{enumerate}

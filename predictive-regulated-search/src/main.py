@@ -22,13 +22,21 @@ from .models.tsp import distance_matrix
 # "compare": legge i file esistenti e confronta le due ricerche.
 MODE = "compare"
 
+# True: piccole mappe disegnate a mano per capire l'allenamento.
+# False: torna alle istanze casuali dell'esperimento precedente.
+USE_TEACHING_DATA = False
+
 N_DELIVERIES = 6
 DATASET_SEEDS = range(42, 52)
 TEACHER_BUDGET = 100_000  # Budget offline, per ottenere i target del dataset.
 
 # Queste istanze sono escluse dall'addestramento e usate per la verifica.
-TEST_INSTANCE_IDS = ("istanza_seed_50", "istanza_seed_51")
-SEARCH_BUDGETS = (50, 100, 200, 500)  # Budget online, uguale per i due metodi.
+TEST_INSTANCE_IDS = (
+    ("test_triangolo", "test_irregolare")
+    if USE_TEACHING_DATA
+    else ("istanza_seed_50", "istanza_seed_51")
+)
+SEARCH_BUDGETS = (50, 100, 200, 500) # Budget online, uguale per i due metodi.
 
 # Stato da cui iniziare ogni ricerca: deposito, nessuna consegna effettuata.
 # Per ripetere la prova con la prima consegna gia' scelta, usa (0, 2).
@@ -39,6 +47,10 @@ START_PATH = (0,)
 PROJECT_DIR = Path(__file__).resolve().parent.parent
 DATA_DIR = PROJECT_DIR / "data"
 RESULTS_DIR = PROJECT_DIR / "results"
+if USE_TEACHING_DATA:
+    # Dataset, modello e risultati didattici hanno una cartella separata.
+    DATA_DIR = DATA_DIR / "didattico"
+    RESULTS_DIR = RESULTS_DIR / "didattico"
 
 
 def save_json(file_path, data):
@@ -70,17 +82,24 @@ def generate_dataset():
     """Fase offline: genera le istanze e calcola i target con il B&B insegnante."""
     dataset = {"instances": {}, "examples": []}
 
-    for seed in DATASET_SEEDS:
-        instance_id = f"istanza_seed_{seed}"
-        locations = generate_locations(n_deliveries=N_DELIVERIES, seed=seed)
-        dataset["instances"][instance_id] = [
-            {"x": node.x, "y": node.y} for node in locations
-        ]
+    if USE_TEACHING_DATA:
+        # Queste coordinate sono scelte a mano e si possono leggere e modificare.
+        with open(DATA_DIR / "instances.json", "r", encoding="utf-8") as file:
+            dataset["instances"] = json.load(file)
+    else:
+        for seed in DATASET_SEEDS:
+            locations = generate_locations(n_deliveries=N_DELIVERIES, seed=seed)
+            dataset["instances"][f"istanza_seed_{seed}"] = [
+                {"x": node.x, "y": node.y} for node in locations
+            ]
+
+    for instance_id, coordinates in dataset["instances"].items():
+        locations = [Node(x=point["x"], y=point["y"]) for point in coordinates]
         examples = collect_examples(
             locations,
             instance_id=instance_id,
             max_states=TEACHER_BUDGET,
-            max_depth=N_DELIVERIES,
+            max_depth=len(locations) - 1,
         )
         dataset["examples"].extend(examples)
         print(f"{instance_id}: {len(examples)} esempi raccolti")
@@ -148,7 +167,7 @@ def train_and_evaluate(dataset):
     print(f"Esempi per verificare: {len(test_features)}")
     print(f"Errore assoluto medio del predittore: {model_error:.3f}")
     print(f"Errore assoluto medio della previsione costante: {constant_error:.3f}")
-    print("Parametri salvati in data/model.json")
+    print(f"Parametri salvati in {DATA_DIR / 'model.json'}")
 
     # Controlla la lettura dei parametri sullo stesso esempio usato da model.predict.
     loaded_parameters = load_model_parameters(DATA_DIR / "model.json")
@@ -186,12 +205,22 @@ def compare_searches(dataset):
         raise FileNotFoundError('Modello mancante: esegui prima con MODE = "train".')
     model_data = load_model_parameters(model_path)
     matrices = build_matrices(dataset)
+    test_instance_ids = list(TEST_INSTANCE_IDS)
+
+    if not USE_TEACHING_DATA:
+        # Nuove mappe solo per la verifica: il modello resta quello gia allenato.
+        for seed in (52, 53):
+            instance_id = f"istanza_seed_{seed}"
+            locations = generate_locations(n_deliveries=N_DELIVERIES, seed=seed)
+            matrices[instance_id] = distance_matrix(locations)
+            test_instance_ids.append(instance_id)
+
     results = []
 
     print(f"Percorso iniziale: {START_PATH}")
     print("I costi stampati sono totali, compreso il ritorno al deposito.")
 
-    for instance_id in TEST_INSTANCE_IDS:
+    for instance_id in test_instance_ids:
         matrix = matrices[instance_id]
         initial_state = make_initial_state(matrix)
         reference_best, reference_complete, reference_stats = BranchAndBound(
@@ -217,6 +246,7 @@ def compare_searches(dataset):
             runs = [
                 ("Branch and Bound", BranchAndBound(initial_state, matrix, budget)),
                 ("Predittiva", predictiveSearch(initial_state, matrix, budget, model_data)),
+                ("Regolata", predictiveSearch(initial_state, matrix, budget, model_data, patience=100)),
             ]
             for method, (best_state, is_complete, stats) in runs:
                 # Il divario e' disponibile solo con un giro e un ottimo certificato.
@@ -227,6 +257,8 @@ def compare_searches(dataset):
                     elif best_state.cost == 0:
                         gap_percent = 0.0
                 gap_label = f"{gap_percent:.2f}%" if gap_percent is not None else "-"
+                if method == "Regolata":
+                    print(stats["diversification_steps"])
 
                 # Nessun giro trovato e ricerca incompleta sono due situazioni diverse.
                 cost_label = f"{best_state.cost:.3f}" if best_state is not None else "Nessun giro"
@@ -249,7 +281,7 @@ def compare_searches(dataset):
                 })
 
     save_json(RESULTS_DIR / "search_comparison.json", results)
-    print("\nRisultati e statistiche salvati in results/search_comparison.json")
+    print(f"\nRisultati e statistiche salvati in {RESULTS_DIR / 'search_comparison.json'}")
 
 
 def main():

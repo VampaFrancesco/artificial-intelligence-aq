@@ -20,7 +20,7 @@ Il target è dunque certificato dalla ricerca insegnante, non ricavato
 dalla previsione del modello. Il ritorno al deposito è incluso anche
 quando $N=\emptyset$.
 
-Il dataset corrente comprende dieci istanze, generate con seed da $42$ a
+Il dataset principale comprende dieci istanze, generate con seed da $42$ a
 $51$. Ogni istanza contiene sei consegne con coordinate uniformi in
 $[0,100]^2$ e deposito fisso in $(0,0)$. Si raccolgono gli stati dopo
 una, due, fino a sei consegne, senza includere lo stato iniziale.
@@ -45,3 +45,43 @@ $3\,912$ esempi di verifica. Stati dello stesso problema non vengono
 distribuiti tra i due gruppi. Gli esempi derivati da una stessa istanza
 restano comunque correlati: il numero di esempi non equivale al numero
 di problemi indipendenti osservati.
+
+I seed $52$ e $53$ sono generati successivamente soltanto per il confronto
+online: non fanno parte di questi $19\,560$ esempi e non modificano il
+modello. L'uso dei seed $50$ e $51$ nello sviluppo del regolatore è
+distinto dalla separazione usata per apprendere i pesi, come precisato
+nella Sezione~\ref{sec:experiments}.
+
+\subsection{Dataset didattico separato}
+\label{sec:teaching-data}
+
+Un secondo dataset contiene dieci mappe disegnate a mano, ciascuna con
+quattro consegne e deposito in $(0,0)$. Le coordinate intere descrivono
+forme semplici, quali linea, croce, rettangolo e gruppi di punti: sono
+esempi artificiali in unità arbitrarie, non registrazioni di consegne
+reali. La raccolta usa lo stesso insegnante e comprende
+\[
+    \sum_{k=1}^{4}\frac{4!}{(4-k)!}=64
+\]
+stati per mappa, per un totale di $640$ esempi. Le otto mappe con
+prefisso \texttt{train} forniscono $512$ esempi. Le altre due mappe
+forniscono i $128$ esempi di verifica e sono escluse dall'addestramento;
+sono identificate come \path{test_triangolo} e \path{test_irregolare}.
+
+Per esempio, nella mappa in linea il deposito e le consegne hanno
+coordinate
+\[
+    (0,0),\ (1,0),\ (2,0),\ (3,0),\ (4,0).
+\]
+Lo stato con percorso
+$p=(0,4)$ ha costo accumulato $4$ e consegne residue $\{1,2,3\}$.
+Il completamento $4\to3\to2\to1\to0$ costa ancora $4$: il target è
+$h^*(s)=4$, mentre il costo totale del giro è $8$. Il corrispondente
+vettore di feature è $x(s)=(3,4,1,2)$.
+
+Le mappe e gli esempi sono conservati in
+\path{data/didattico/instances.json} e
+\path{data/didattico/examples.json}. Anche il modello e le feature
+preparate sono salvati in questa cartella, separatamente dal modello
+principale. Tutti i $640$ target sono stati controllati confrontandoli
+con l'enumerazione degli ordini possibili delle consegne residue.

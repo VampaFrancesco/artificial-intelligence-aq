@@ -3,41 +3,61 @@
 
 \subsection{Guadagno dalla previsione e dalla regolazione}
 
-Sul seed $50$, l'ordinamento predittivo produce giri migliori ai tre
-budget più piccoli e raggiunge l'ottimo già a $200$ estrazioni. Sul seed
-$51$, invece, peggiora il risultato ai budget $50$ e $100$, mentre a
-$200$ e $500$ i costi coincidono. Il miglioramento del MAE rispetto alla
-previsione costante non si traduce quindi in un miglioramento uniforme
-dell'ordine di ricerca: stime inaccurate possono indirizzare
-prima verso rami meno utili.
+Il guadagno della previsione si misura confrontando B con A. Sui seed
+$50$ e $52$, B raggiunge l'ottimo con budget inferiori tra quelli provati.
+Sul seed $51$, invece, peggiora il risultato a budget $50$ e $100$;
+sul seed $53$ è migliore ai budget piccoli, ma a $500$ rimane sopra
+l'ottimo che A trova. Un MAE inferiore a quello della previsione costante
+non implica quindi un miglioramento uniforme dell'ordine di ricerca.
 
-Questa evidenza riguarda soltanto due istanze della stessa dimensione
-e distribuzione delle istanze di addestramento. Non permette di stabilire
-un vantaggio generale, né un comportamento su problemi più grandi.
-Per una valutazione finale serviranno ulteriori istanze; eventuali scelte
-del regolatore e dei suoi parametri dovranno essere effettuate su dati di
-sviluppo separati dalle istanze riservate al test finale.
+Il guadagno aggiuntivo della regolazione si misura confrontando C con B.
+Sul seed $51$, una diversificazione permette di raggiungere l'ottimo
+entro $200$ estrazioni, contro il gap del $7{,}01\%$ di B. Sul seed $53$,
+due diversificazioni consentono a C di raggiungere l'ottimo entro $500$
+estrazioni, mentre B conserva un gap dell'$1{,}55\%$. Sui seed $50$ e
+$52$ C non migliora il costo trovato da B ai budget osservati. Un
+intervento non equivale quindi a un guadagno: può avvenire quando il giro
+ottimo è già stato trovato, senza che la ricerca lo abbia certificato.
 
-Il beneficio osservato della previsione dipende dall'istanza e dal budget:
-non emerge un vantaggio uniforme. Non essendo disponibile un sistema C,
-il contributo aggiuntivo della regolazione non è misurabile in questi
-esperimenti. Un numero maggiore di giri valutati o di stati potati non
-costituisce da solo una qualità decisionale migliore: la misura principale
-rimane il costo del miglior giro, valutato rispetto all'ottimo.
+La politica effettua deviazioni distanziate anziché sostituire
+continuamente l'ordinamento predittivo con il minimo costo parziale.
+Il criterio può tuttavia favorire stati poco profondi: il costo già
+sostenuto non descrive quello ancora necessario. La stagnazione segnala
+un andamento della ricerca, ma non dimostra che il modello stia sbagliando
+né identifica quale candidato produrrà un miglioramento.
+
+\subsection{Limiti della valutazione}
+
+I seed $50$ e $51$ hanno contribuito allo sviluppo della politica e
+non sono un test indipendente delle scelte del regolatore. I seed $52$
+e $53$ sono stati valutati mantenendo fisse tali scelte, ma costituiscono
+soltanto due nuovi casi della stessa dimensione e distribuzione dei dati
+di addestramento. L'evidenza è preliminare: non dimostra un vantaggio
+generale o un comportamento su problemi più grandi. La soglia $100$
+non è stata selezionata tramite una ricerca sistematica con un insieme
+di validazione dedicato.
+
+Le estrazioni hanno costi diversi tra i metodi: feature, previsioni,
+ordinamenti e scansioni della pila richiedono lavoro aggiuntivo. Senza
+misure temporali non si può concludere che C sia più veloce. Inoltre,
+la scelta del regolatore dipende dal modello, dalla distribuzione dei
+dati e dal budget. Il dataset didattico è separato e serve a verificare
+il procedimento su esempi leggibili; i suoi errori assoluti non sono
+direttamente confrontabili con quelli delle mappe di scala maggiore.
 
 \subsection{Alternative poco promettenti e utilità di ulteriore ricerca}
 
-Il sistema distingue l'orizzonte dalla frontiera attiva e conserva, fino
-all'arresto, candidati ancora ammissibili secondo il limite sul costo
-accumulato. Una previsione elevata ne ritarda l'esplorazione, ma non ne
-certifica l'inutilità. La sottostima o sovrastima del modello può quindi
-modificare quali rami vengono esaminati prima dell'esaurimento del budget.
+Una previsione elevata può ritardare un candidato, ma non ne certifica
+l'inutilità: la potatura resta basata sul costo accumulato. La
+diversificazione può assegnare calcolo a candidati diversi da quelli
+che sarebbero estratti normalmente. Il risultato sul seed $53$ mostra
+un beneficio del cambiamento di esplorazione rispetto a B.
 
-I risultati aggregati non registrano, per ogni ramo, la previsione iniziale
-e il miglioramento prodotto dalla successiva esplorazione. Non consentono
-pertanto di identificare sistematicamente gli stati in cui ulteriore
-ricerca è preziosa nonostante una previsione poco interessante. Questa
-limitazione impedisce di rispondere sperimentalmente all'ultima domanda
-della consegna. Analogamente, l'assenza della distribuzione sulle
-alternative impedisce un'interpretazione del risultato in termini di
-massa probabilistica irrisolta.
+I dati aggregati non registrano però, per ogni candidato, la previsione
+originaria e il miglioramento prodotto dal suo completamento. Non
+permettono quindi di identificare sistematicamente stati che apparivano
+poco interessanti ma richiedevano ulteriore ricerca: l'ultima domanda
+della consegna non è ancora verificata a livello di singolo stato.
+Analogamente, il sistema non definisce ancora una distribuzione sulle
+alternative né una massa probabilistica irrisolta. Questi aspetti restano
+limiti espliciti dell'implementazione, non risultati già misurati.

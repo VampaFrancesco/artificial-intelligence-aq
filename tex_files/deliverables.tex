@@ -6,40 +6,62 @@
 Il punto di ingresso è \texttt{src/main.py}. La variabile \texttt{MODE}
 seleziona tre operazioni distinte:
 \begin{itemize}
-    \item \texttt{generate}: crea il dataset con i seed e il budget
-    dell'insegnante specificati nella configurazione;
+    \item \texttt{generate}: crea gli esempi e i target con la ricerca
+    insegnante; le coordinate provengono dal generatore casuale o dalle
+    mappe didattiche, secondo la configurazione;
     \item \texttt{train}: legge il dataset, prepara le feature, separa
     le istanze, addestra e salva i parametri del modello;
     \item \texttt{compare}: legge dataset e modello esistenti, calcola
-    i riferimenti e confronta le ricerche sui budget scelti.
+    i riferimenti e confronta A, B e C sui budget scelti.
 \end{itemize}
 Dalla radice del sottoprogetto si esegue \texttt{python3 -m src.main}.
-La configurazione corrente usa \texttt{START\_PATH = (0,)}, le istanze
-$50$ e $51$ e i quattro budget della tabella. I risultati, inclusi
-\texttt{optimal\_cost}, \texttt{gap\_percent} e le statistiche di ciascuna
-ricerca, sono salvati in \path{results/search_comparison.json}.
+Per riprodurre l'esperimento principale si imposta
+\texttt{USE\_TEACHING\_DATA=False}, \texttt{START\_PATH=(0,)} e si usano
+sei consegne, seed di generazione $42$--$51$ e budget
+$\{50,100,200,500\}$. L'addestramento esclude i seed $50$ e $51$;
+la modalità di confronto genera inoltre le mappe $52$ e $53$ senza
+riaddestrare. Il sistema B usa \texttt{patience=None}; il sistema C
+usa \texttt{patience=100} con la pausa descritta nella
+Sezione~\ref{sec:regulation}. I risultati sono salvati in
+\path{results/search_comparison.json}.
+
+Per riprodurre il controllo didattico si imposta
+\texttt{USE\_TEACHING\_DATA=True}. La generazione legge
+\path{data/didattico/instances.json}; l'allenamento e il confronto usano
+modello e dati della medesima cartella. Per le prove riportate si scelgono
+budget $\{5,10,20,50\}$. I risultati sono separati in
+\path{results/didattico/search_comparison.json}. Il numero di consegne
+è ricavato dalle mappe: \texttt{N\_DELIVERIES} e
+\texttt{DATASET\_SEEDS} configurano soltanto il generatore casuale.
+
 Le esecuzioni riportate utilizzano Python $3.14.6$ e
 \texttt{scikit-learn} $1.9.1$. La dipendenza è elencata in
 \texttt{requirements.txt}.
 
 \subsection{Codice, dati e risultati}
 
-Il programma contiene la costruzione delle istanze e dei target, il codice
-per addestrare il predittore e il confronto sperimentale A/B. I file
-necessari a riprodurre i risultati sono organizzati come segue:
+I file necessari alla riproduzione sono organizzati come segue:
 \begin{itemize}
     \item \path{src/algorithms/baseline.py}: ricerca DFS con B\&B;
     \item \path{src/algorithms/predictor.py}: feature, addestramento,
     lettura dei parametri e previsione;
-    \item \path{src/algorithms/predictive_search.py}: ordinamento predittivo
-    dei successori e ricerca a budget limitato;
-    \item \path{src/experiments/generate_dataset.py}: istanze riproducibili
-    e produzione dei target tramite ricerca insegnante;
+    \item \path{src/algorithms/predictive_search.py}: ricerca predittiva,
+    selezione regolata e contatori degli interventi;
+    \item \path{src/algorithms/regulator.py}: condizione di stagnazione;
+    \item \path{src/experiments/generate_dataset.py}: istanze casuali
+    riproducibili e produzione dei target tramite ricerca insegnante;
     \item \path{data/examples.json}, \path{data/result.json} e
-    \path{data/model.json}: dati, feature e parametri appresi;
-    \item \path{results/search_comparison.json}: costi, percorsi, riferimenti
-    e statistiche delle sedici esecuzioni.
+    \path{data/model.json}: dati, feature e modello principali;
+    \item \path{data/didattico/}: coordinate, dataset, feature e modello
+    didattici, con le istruzioni del relativo \texttt{README.md};
+    \item \path{results/search_comparison.json}: costi, percorsi,
+    riferimenti, gap e statistiche delle $48$ esecuzioni principali;
+    \item \path{results/didattico/search_comparison.json}: risultati
+    del controllo separato sulle mappe con quattro consegne.
 \end{itemize}
-Il materiale consente di riprodurre le sedici esecuzioni A/B riportate
-nella relazione. Il registro delle interazioni AI è riportato
-nell'Allegato~A.
+Gli identificativi con seed, il generatore e la configurazione rendono
+riproducibili anche le nuove mappe $52$ e $53$. La distribuzione
+probabilistica e la massa irrisolta non sono ancora implementate;
+il materiale non viene quindi presentato come esperimento completo di
+tutte le componenti della consegna. Il registro delle interazioni AI
+è riportato nell'Allegato~A.

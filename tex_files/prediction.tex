@@ -40,6 +40,7 @@ la presentazione, sono:
 Un peso negativo non stabilisce una relazione causale tra quella feature
 e il costo: i coefficienti sono stimati congiuntamente su feature correlate.
 
+Questi parametri appartengono al modello principale su sei consegne.
 I valori numerici originali sono salvati in \texttt{data/model.json},
 nei campi \texttt{weights} e \texttt{intercept}. La funzione di previsione
 può così applicare la formula dopo aver riletto i parametri, senza
@@ -49,3 +50,11 @@ restituiscono circa $223{,}523423$, con sole differenze di arrotondamento
 in virgola mobile. Il file \texttt{data/result.json} conserva invece le
 feature, i target e gli identificativi delle istanze; non è il file del
 modello addestrato.
+
+Il dataset didattico utilizza la stessa definizione delle feature e la
+stessa procedura di regressione, ma produce un modello distinto in
+\path{data/didattico/model.json}. La sua intercetta è circa $2{,}025911$
+e i coefficienti sono
+$(0{,}530833,\,0{,}284551,\,-1{,}619936,\,2{,}589103)$.
+Questo secondo addestramento non sostituisce i parametri del modello
+principale usato nel confronto sui seed $50$--$53$.

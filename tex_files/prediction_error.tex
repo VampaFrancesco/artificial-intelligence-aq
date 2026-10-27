@@ -36,6 +36,16 @@ vicini al termine del giro rispetto agli stati iniziali. In particolare,
 include gli stati senza consegne rimaste; nella ricerca, invece, tali
 stati saranno valutati usando il costo esatto di ritorno al deposito.
 
+Sul dataset didattico separato, il MAE dei $128$ esempi di verifica è
+$1{,}318$ per il modello lineare e $2{,}466$ per la previsione costante,
+con una riduzione di circa il $46{,}54\%$. Anche qui la costante è
+calcolata solo sui target di addestramento. La previsione sul primo
+esempio di verifica, prima e dopo la rilettura dei parametri salvati,
+è circa $7{,}603719$ in entrambi i casi: questo controlla la coerenza
+del salvataggio, mentre l'accuratezza è misurata dal MAE. I due dataset
+hanno scale geometriche diverse, quindi i loro MAE assoluti non sono
+direttamente confrontabili.
+
 \subsection{Confronto con il risultato di ulteriore ricerca}
 
 Quando una ricerca aggiuntiva determina un completamento ottimo, il
@@ -58,3 +68,7 @@ esatto del predittore. Il MAE globale e il confronto ex post non
 costituiscono, da soli, una stima online del bisogno di ricerca di un
 nuovo stato. Il sistema esaminato non usa tali residui per modificare
 l'allocazione del calcolo e non comprende un secondo modello dell'errore.
+Il regolatore usa invece la stagnazione del miglior giro e la distanza
+dall'ultima diversificazione, come descritto nella
+Sezione~\ref{sec:regulation}. Questi segnali non equivalgono a una stima
+del residuo del singolo candidato.

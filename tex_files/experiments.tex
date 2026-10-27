@@ -3,73 +3,109 @@
 
 \subsection{Protocollo e separazione del costo offline}
 
-Sono confrontati i sistemi A (DFS con branch-and-bound) e B (la stessa
-ricerca con ordinamento predittivo), sulle due istanze escluse
-dall'addestramento. Ogni esecuzione parte dal deposito, con percorso
-$p=(0)$, tutte le sei consegne da visitare e costo accumulato nullo.
-Le due ricerche ricevono la stessa matrice dell'istanza e lo stesso
-budget $B\in\{50,100,200,500\}$ di stati estratti. Ogni esecuzione riparte
-da zero: i budget maggiori non riprendono una pila lasciata dalle prove
-precedenti.
+Sono confrontati A (DFS con branch-and-bound), B (ricerca con ordinamento
+predittivo) e C (ricerca predittiva con regolatore e soglia $P=100$).
+Ogni esecuzione parte dal deposito, con percorso $p=(0)$, sei consegne
+da visitare e costo accumulato nullo. I tre metodi ricevono la stessa
+matrice e lo stesso budget $B\in\{50,100,200,500\}$ di stati estratti.
+Ogni prova riparte da zero: i budget maggiori non riprendono una pila
+lasciata dalle prove precedenti.
+
+Il modello principale è quello addestrato sui seed $42$--$49$.
+I seed $50$ e $51$, esclusi dall'addestramento dei pesi, sono stati usati
+anche per esaminare e modificare la politica di regolazione: vanno quindi
+considerati casi di sviluppo della politica. Sono state successivamente
+generate due nuove istanze, con seed $52$ e $53$, mantenendo fissi modello,
+soglia e regola. Queste istanze sono usate soltanto per la valutazione,
+senza generare ulteriori esempi di allenamento o riaddestrare il modello.
 
 La generazione dei target e l'addestramento sono operazioni offline.
-Anche il costo ottimo di riferimento viene calcolato separatamente,
-una volta per istanza, con B\&B e budget $100\,000$. La ricerca di
-riferimento termina in entrambi i casi: l'ottimo è circa $288{,}252135$
-per il seed $50$ e $309{,}557853$ per il seed $51$. I costi di riferimento
-servono soltanto per valutare i risultati: non sono usati per inizializzare
-la migliore soluzione o guidare i due metodi a budget limitato.
+Anche l'ottimo di riferimento è calcolato separatamente, una volta per
+istanza, con B\&B e budget $100\,000$. La ricerca di riferimento termina
+in tutti e quattro i casi. I costi ottimi sono rispettivamente
+$288{,}252135$, $309{,}557853$, $259{,}896129$ e $349{,}580289$ per i
+seed $50$, $51$, $52$ e $53$. Servono soltanto per valutare i risultati:
+non inizializzano la migliore soluzione e non guidano i metodi online.
 
-Il budget online corrente misura estrazioni, comprendendo anche stati
-terminali o poi potati. Non coincide con il solo numero di espansioni.
-L'ordinamento predittivo richiede valutazioni delle feature e del modello,
-quindi lo stesso numero di estrazioni non implica uguale tempo di esecuzione.
-In questa fase non sono ancora riportate misure temporali: i risultati
-consentono un confronto a parità di budget di estrazioni, non una conclusione
-sulla velocità effettiva dei due metodi.
+Il budget misura estrazioni, comprendendo stati terminali e stati poi
+potati, non soltanto espansioni. B e C richiedono anche valutazioni del
+modello; C esegue inoltre scansioni della pila durante la diversificazione.
+Lo stesso numero di estrazioni non implica uguale tempo di esecuzione.
+Non sono riportate misure temporali, quindi il confronto riguarda la
+qualità a parità di estrazioni e non dimostra un vantaggio di velocità.
 
-\subsection{Misure di qualità e risultati}
+\subsection{Misure di qualità e risultati A/B/C}
 
-Per ogni esecuzione si registra il miglior costo totale $G_B$, il percorso,
-il completamento della ricerca e le statistiche di frontiera e potatura.
-La qualità è misurata anche tramite il divario percentuale dall'ottimo,
-o \emph{optimality gap}:
+Per ogni esecuzione si registrano il miglior costo totale $G_B$, il
+percorso, il completamento della ricerca, le statistiche di frontiera e
+potatura e, per C, il numero di diversificazioni. La qualità è misurata
+anche tramite il divario percentuale dall'ottimo:
 \[
-    \operatorname{gap}_{\%}
-    =100\,\frac{G_B-G^*}{G^*}.
+    \operatorname{gap}_{\%}=100\,\frac{G_B-G^*}{G^*}.
 \]
-Un divario nullo indica un giro ottimo; un valore positivo misura il
-sovracosto rispetto all'ottimo. Il divario viene calcolato soltanto se
-è disponibile un giro e il riferimento è certificato. Il codice gestisce
-anche il caso di costo ottimo nullo, evitando la divisione per zero.
+Il divario viene calcolato soltanto se è disponibile un giro e il
+riferimento è certificato. Il codice gestisce il caso di ottimo nullo
+evitando la divisione per zero.
 
 \begin{table}[htbp]
 \centering
 \small
-\caption{Risultati dal deposito su sei consegne. A: baseline; B: ricerca
-predittiva. I costi includono il ritorno al deposito.}
+\caption{Costi totali su sei consegne, incluso il ritorno al deposito.
+A: baseline; B: predittiva; C: predittiva regolata.
+$D_C$ conta le estrazioni di diversificazione.}
 \label{tab:search-results}
 \begin{tabular}{rrrrrr}
 \toprule
-Seed & Budget & Costo A & Costo B & Gap A (\%) & Gap B (\%)\\
+Seed & Budget & Costo A & Costo B & Costo C & $D_C$\\
 \midrule
-50 & 50  & $384{,}226$ & $309{,}735$ & $33{,}30$ & $7{,}45$\\
-50 & 100 & $380{,}162$ & $309{,}735$ & $31{,}89$ & $7{,}45$\\
-50 & 200 & $309{,}735$ & $288{,}252$ & $7{,}45$ & $0{,}00$\\
-50 & 500 & $288{,}252$ & $288{,}252$ & $0{,}00$ & $0{,}00$\\
+50 & 50  & $384{,}226$ & $309{,}735$ & $309{,}735$ & 0\\
+50 & 100 & $380{,}162$ & $309{,}735$ & $309{,}735$ & 0\\
+50 & 200 & $309{,}735$ & $288{,}252$ & $288{,}252$ & 0\\
+50 & 500 & $288{,}252$ & $288{,}252$ & $288{,}252$ & 3\\
 \midrule
-51 & 50  & $336{,}449$ & $369{,}651$ & $8{,}69$ & $19{,}41$\\
-51 & 100 & $331{,}273$ & $364{,}901$ & $7{,}01$ & $17{,}88$\\
-51 & 200 & $331{,}273$ & $331{,}273$ & $7{,}01$ & $7{,}01$\\
-51 & 500 & $309{,}558$ & $309{,}558$ & $0{,}00$ & $0{,}00$\\
+51 & 50  & $336{,}449$ & $369{,}651$ & $369{,}651$ & 0\\
+51 & 100 & $331{,}273$ & $364{,}901$ & $364{,}901$ & 0\\
+51 & 200 & $331{,}273$ & $331{,}273$ & $309{,}558$ & 1\\
+51 & 500 & $309{,}558$ & $309{,}558$ & $309{,}558$ & 4\\
+\midrule
+52 & 50  & $296{,}682$ & $259{,}896$ & $259{,}896$ & 0\\
+52 & 100 & $296{,}682$ & $259{,}896$ & $259{,}896$ & 0\\
+52 & 200 & $278{,}501$ & $259{,}896$ & $259{,}896$ & 1\\
+52 & 500 & $259{,}896$ & $259{,}896$ & $259{,}896$ & 4\\
+\midrule
+53 & 50  & $425{,}883$ & $403{,}590$ & $403{,}590$ & 0\\
+53 & 100 & $425{,}883$ & $381{,}082$ & $381{,}082$ & 0\\
+53 & 200 & $394{,}277$ & $354{,}992$ & $354{,}992$ & 0\\
+53 & 500 & $349{,}580$ & $354{,}992$ & $349{,}580$ & 2\\
 \bottomrule
 \end{tabular}
 \end{table}
 
-In tutte le sedici esecuzioni della Tabella~\ref{tab:search-results}, il
-numero di stati estratti è pari al budget e la pila non è vuota al termine:
-\texttt{is\_complete=False}. I metodi hanno comunque trovato giri completi.
-In particolare, a budget $500$ entrambi raggiungono un costo uguale
-all'ottimo di riferimento, entro la precisione numerica, senza aver
-certificato autonomamente l'ottimalità. Trovare l'ottimo e completare la
-ricerca che ne fornisce la certificazione sono eventi distinti.
+Le sedici righe rappresentano $48$ esecuzioni. In tutte, il numero di
+stati estratti è pari al budget e la pila non è vuota all'arresto:
+\texttt{is\_complete=False}. Sono comunque disponibili giri completi.
+Un costo uguale all'ottimo di riferimento identifica un giro ottimo,
+entro la precisione numerica, ma non una certificazione ottenuta dal
+metodo online: trovare l'ottimo e completare la ricerca sono eventi distinti.
+
+Sul seed $51$ a budget $200$, A e B hanno gap $7{,}01\%$, mentre C
+raggiunge l'ottimo con una diversificazione. Sul seed $52$, B trova
+l'ottimo già entro $50$ estrazioni e C non migliora ulteriormente il costo.
+Sul seed $53$, a budget $200$ i gap di A e B sono rispettivamente
+$12{,}79\%$ e $1{,}55\%$; C non è ancora intervenuto. A budget $500$,
+B resta all'$1{,}55\%$, mentre A e C raggiungono l'ottimo; C effettua
+due diversificazioni. In questo caso il guadagno della regolazione è
+rispetto a B, mentre il costo finale coincide con quello di A.
+
+\subsection{Controllo separato su istanze didattiche}
+
+Il modello didattico della Sezione~\ref{sec:teaching-data} è stato
+verificato separatamente su mappe con quattro consegne, usando budget
+$\{5,10,20,50\}$. Sulla mappa \texttt{test\_irregolare}, l'ottimo di
+riferimento è $15{,}512156$. A budget $5$, A trova costo $19{,}196$
+(gap $23{,}75\%$) e B costo $17{,}997$ (gap $16{,}02\%$). Entro $10$
+estrazioni B raggiunge l'ottimo; A resta a $19{,}196$ anche a budget
+$20$ e raggiunge l'ottimo entro $50$. C coincide con B: con soglia $100$
+non interviene in queste prove. Questo controllo illustra l'effetto
+dell'ordinamento appreso, ma non costituisce una valutazione della
+regolazione né sostituisce l'esperimento principale su sei consegne.

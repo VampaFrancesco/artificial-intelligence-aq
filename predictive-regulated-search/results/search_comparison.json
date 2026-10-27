@@ -58,7 +58,40 @@
       "pending_states": 11,
       "active_frontier_size": 11,
       "completed_tours": 12,
-      "horizon_size": 32
+      "horizon_size": 32,
+      "diversification_steps": 0
+    }
+  },
+  {
+    "instance_id": "istanza_seed_50",
+    "initial_path": [
+      0
+    ],
+    "budget": 50,
+    "method": "Regolata",
+    "best_cost": 309.7349152039791,
+    "best_path": [
+      0,
+      4,
+      1,
+      5,
+      2,
+      3,
+      6,
+      0
+    ],
+    "optimal_cost": 288.252135122945,
+    "gap_percent": 7.452773965358932,
+    "is_complete": false,
+    "stats": {
+      "states_examined": 50,
+      "states_pruned": 0,
+      "states_pruned_before_push": 9,
+      "pending_states": 11,
+      "active_frontier_size": 11,
+      "completed_tours": 12,
+      "horizon_size": 32,
+      "diversification_steps": 0
     }
   },
   {
@@ -120,7 +153,40 @@
       "pending_states": 9,
       "active_frontier_size": 9,
       "completed_tours": 22,
-      "horizon_size": 55
+      "horizon_size": 55,
+      "diversification_steps": 0
+    }
+  },
+  {
+    "instance_id": "istanza_seed_50",
+    "initial_path": [
+      0
+    ],
+    "budget": 100,
+    "method": "Regolata",
+    "best_cost": 309.7349152039791,
+    "best_path": [
+      0,
+      4,
+      1,
+      5,
+      2,
+      3,
+      6,
+      0
+    ],
+    "optimal_cost": 288.252135122945,
+    "gap_percent": 7.452773965358932,
+    "is_complete": false,
+    "stats": {
+      "states_examined": 100,
+      "states_pruned": 0,
+      "states_pruned_before_push": 24,
+      "pending_states": 9,
+      "active_frontier_size": 9,
+      "completed_tours": 22,
+      "horizon_size": 55,
+      "diversification_steps": 0
     }
   },
   {
@@ -182,7 +248,40 @@
       "pending_states": 10,
       "active_frontier_size": 10,
       "completed_tours": 41,
-      "horizon_size": 110
+      "horizon_size": 110,
+      "diversification_steps": 0
+    }
+  },
+  {
+    "instance_id": "istanza_seed_50",
+    "initial_path": [
+      0
+    ],
+    "budget": 200,
+    "method": "Regolata",
+    "best_cost": 288.252135122945,
+    "best_path": [
+      0,
+      4,
+      6,
+      3,
+      1,
+      2,
+      5,
+      0
+    ],
+    "optimal_cost": 288.252135122945,
+    "gap_percent": 0.0,
+    "is_complete": false,
+    "stats": {
+      "states_examined": 200,
+      "states_pruned": 0,
+      "states_pruned_before_push": 59,
+      "pending_states": 10,
+      "active_frontier_size": 10,
+      "completed_tours": 41,
+      "horizon_size": 110,
+      "diversification_steps": 0
     }
   },
   {
@@ -244,7 +343,40 @@
       "pending_states": 5,
       "active_frontier_size": 5,
       "completed_tours": 60,
-      "horizon_size": 333
+      "horizon_size": 333,
+      "diversification_steps": 0
+    }
+  },
+  {
+    "instance_id": "istanza_seed_50",
+    "initial_path": [
+      0
+    ],
+    "budget": 500,
+    "method": "Regolata",
+    "best_cost": 288.252135122945,
+    "best_path": [
+      0,
+      4,
+      6,
+      3,
+      1,
+      2,
+      5,
+      0
+    ],
+    "optimal_cost": 288.252135122945,
+    "gap_percent": 0.0,
+    "is_complete": false,
+    "stats": {
+      "states_examined": 500,
+      "states_pruned": 0,
+      "states_pruned_before_push": 224,
+      "pending_states": 20,
+      "active_frontier_size": 20,
+      "completed_tours": 68,
+      "horizon_size": 312,
+      "diversification_steps": 3
     }
   },
   {
@@ -306,7 +438,40 @@
       "pending_states": 12,
       "active_frontier_size": 12,
       "completed_tours": 13,
-      "horizon_size": 31
+      "horizon_size": 31,
+      "diversification_steps": 0
+    }
+  },
+  {
+    "instance_id": "istanza_seed_51",
+    "initial_path": [
+      0
+    ],
+    "budget": 50,
+    "method": "Regolata",
+    "best_cost": 369.6506433992207,
+    "best_path": [
+      0,
+      6,
+      3,
+      1,
+      2,
+      5,
+      4,
+      0
+    ],
+    "optimal_cost": 309.5578531020773,
+    "gap_percent": 19.412458671280334,
+    "is_complete": false,
+    "stats": {
+      "states_examined": 50,
+      "states_pruned": 0,
+      "states_pruned_before_push": 6,
+      "pending_states": 12,
+      "active_frontier_size": 12,
+      "completed_tours": 13,
+      "horizon_size": 31,
+      "diversification_steps": 0
     }
   },
   {
@@ -368,7 +533,40 @@
       "pending_states": 11,
       "active_frontier_size": 11,
       "completed_tours": 25,
-      "horizon_size": 53
+      "horizon_size": 53,
+      "diversification_steps": 0
+    }
+  },
+  {
+    "instance_id": "istanza_seed_51",
+    "initial_path": [
+      0
+    ],
+    "budget": 100,
+    "method": "Regolata",
+    "best_cost": 364.90051243138197,
+    "best_path": [
+      0,
+      6,
+      1,
+      3,
+      2,
+      5,
+      4,
+      0
+    ],
+    "optimal_cost": 309.5578531020773,
+    "gap_percent": 17.87796974772769,
+    "is_complete": false,
+    "stats": {
+      "states_examined": 100,
+      "states_pruned": 0,
+      "states_pruned_before_push": 17,
+      "pending_states": 11,
+      "active_frontier_size": 11,
+      "completed_tours": 25,
+      "horizon_size": 53,
+      "diversification_steps": 0
     }
   },
   {
@@ -430,7 +628,40 @@
       "pending_states": 9,
       "active_frontier_size": 9,
       "completed_tours": 50,
-      "horizon_size": 96
+      "horizon_size": 96,
+      "diversification_steps": 0
+    }
+  },
+  {
+    "instance_id": "istanza_seed_51",
+    "initial_path": [
+      0
+    ],
+    "budget": 200,
+    "method": "Regolata",
+    "best_cost": 309.5578531020773,
+    "best_path": [
+      0,
+      1,
+      3,
+      2,
+      6,
+      5,
+      4,
+      0
+    ],
+    "optimal_cost": 309.5578531020773,
+    "gap_percent": 0.0,
+    "is_complete": false,
+    "stats": {
+      "states_examined": 200,
+      "states_pruned": 0,
+      "states_pruned_before_push": 28,
+      "pending_states": 16,
+      "active_frontier_size": 15,
+      "completed_tours": 54,
+      "horizon_size": 98,
+      "diversification_steps": 1
     }
   },
   {
@@ -492,7 +723,800 @@
       "pending_states": 8,
       "active_frontier_size": 8,
       "completed_tours": 111,
-      "horizon_size": 248
+      "horizon_size": 248,
+      "diversification_steps": 0
+    }
+  },
+  {
+    "instance_id": "istanza_seed_51",
+    "initial_path": [
+      0
+    ],
+    "budget": 500,
+    "method": "Regolata",
+    "best_cost": 309.5578531020773,
+    "best_path": [
+      0,
+      1,
+      3,
+      2,
+      6,
+      5,
+      4,
+      0
+    ],
+    "optimal_cost": 309.5578531020773,
+    "gap_percent": 0.0,
+    "is_complete": false,
+    "stats": {
+      "states_examined": 500,
+      "states_pruned": 0,
+      "states_pruned_before_push": 95,
+      "pending_states": 31,
+      "active_frontier_size": 30,
+      "completed_tours": 122,
+      "horizon_size": 248,
+      "diversification_steps": 4
+    }
+  },
+  {
+    "instance_id": "istanza_seed_52",
+    "initial_path": [
+      0
+    ],
+    "budget": 50,
+    "method": "Branch and Bound",
+    "best_cost": 296.6817905870506,
+    "best_path": [
+      0,
+      6,
+      5,
+      3,
+      2,
+      4,
+      1,
+      0
+    ],
+    "optimal_cost": 259.8961290457147,
+    "gap_percent": 14.153985931381634,
+    "is_complete": false,
+    "stats": {
+      "states_examined": 50,
+      "states_pruned": 0,
+      "states_pruned_before_push": 0,
+      "pending_states": 11,
+      "active_frontier_size": 11,
+      "completed_tours": 17,
+      "horizon_size": 28
+    }
+  },
+  {
+    "instance_id": "istanza_seed_52",
+    "initial_path": [
+      0
+    ],
+    "budget": 50,
+    "method": "Predittiva",
+    "best_cost": 259.8961290457147,
+    "best_path": [
+      0,
+      6,
+      2,
+      3,
+      5,
+      4,
+      1,
+      0
+    ],
+    "optimal_cost": 259.8961290457147,
+    "gap_percent": 0.0,
+    "is_complete": false,
+    "stats": {
+      "states_examined": 50,
+      "states_pruned": 0,
+      "states_pruned_before_push": 0,
+      "pending_states": 11,
+      "active_frontier_size": 11,
+      "completed_tours": 17,
+      "horizon_size": 28,
+      "diversification_steps": 0
+    }
+  },
+  {
+    "instance_id": "istanza_seed_52",
+    "initial_path": [
+      0
+    ],
+    "budget": 50,
+    "method": "Regolata",
+    "best_cost": 259.8961290457147,
+    "best_path": [
+      0,
+      6,
+      2,
+      3,
+      5,
+      4,
+      1,
+      0
+    ],
+    "optimal_cost": 259.8961290457147,
+    "gap_percent": 0.0,
+    "is_complete": false,
+    "stats": {
+      "states_examined": 50,
+      "states_pruned": 0,
+      "states_pruned_before_push": 0,
+      "pending_states": 11,
+      "active_frontier_size": 11,
+      "completed_tours": 17,
+      "horizon_size": 28,
+      "diversification_steps": 0
+    }
+  },
+  {
+    "instance_id": "istanza_seed_52",
+    "initial_path": [
+      0
+    ],
+    "budget": 100,
+    "method": "Branch and Bound",
+    "best_cost": 296.6817905870506,
+    "best_path": [
+      0,
+      6,
+      5,
+      3,
+      2,
+      4,
+      1,
+      0
+    ],
+    "optimal_cost": 259.8961290457147,
+    "gap_percent": 14.153985931381634,
+    "is_complete": false,
+    "stats": {
+      "states_examined": 100,
+      "states_pruned": 0,
+      "states_pruned_before_push": 0,
+      "pending_states": 10,
+      "active_frontier_size": 10,
+      "completed_tours": 36,
+      "horizon_size": 46
+    }
+  },
+  {
+    "instance_id": "istanza_seed_52",
+    "initial_path": [
+      0
+    ],
+    "budget": 100,
+    "method": "Predittiva",
+    "best_cost": 259.8961290457147,
+    "best_path": [
+      0,
+      6,
+      2,
+      3,
+      5,
+      4,
+      1,
+      0
+    ],
+    "optimal_cost": 259.8961290457147,
+    "gap_percent": 0.0,
+    "is_complete": false,
+    "stats": {
+      "states_examined": 100,
+      "states_pruned": 0,
+      "states_pruned_before_push": 0,
+      "pending_states": 10,
+      "active_frontier_size": 10,
+      "completed_tours": 36,
+      "horizon_size": 46,
+      "diversification_steps": 0
+    }
+  },
+  {
+    "instance_id": "istanza_seed_52",
+    "initial_path": [
+      0
+    ],
+    "budget": 100,
+    "method": "Regolata",
+    "best_cost": 259.8961290457147,
+    "best_path": [
+      0,
+      6,
+      2,
+      3,
+      5,
+      4,
+      1,
+      0
+    ],
+    "optimal_cost": 259.8961290457147,
+    "gap_percent": 0.0,
+    "is_complete": false,
+    "stats": {
+      "states_examined": 100,
+      "states_pruned": 0,
+      "states_pruned_before_push": 0,
+      "pending_states": 10,
+      "active_frontier_size": 10,
+      "completed_tours": 36,
+      "horizon_size": 46,
+      "diversification_steps": 0
+    }
+  },
+  {
+    "instance_id": "istanza_seed_52",
+    "initial_path": [
+      0
+    ],
+    "budget": 200,
+    "method": "Branch and Bound",
+    "best_cost": 278.50067231688945,
+    "best_path": [
+      0,
+      6,
+      4,
+      1,
+      5,
+      3,
+      2,
+      0
+    ],
+    "optimal_cost": 259.8961290457147,
+    "gap_percent": 7.158453394241313,
+    "is_complete": false,
+    "stats": {
+      "states_examined": 200,
+      "states_pruned": 0,
+      "states_pruned_before_push": 0,
+      "pending_states": 13,
+      "active_frontier_size": 13,
+      "completed_tours": 72,
+      "horizon_size": 85
+    }
+  },
+  {
+    "instance_id": "istanza_seed_52",
+    "initial_path": [
+      0
+    ],
+    "budget": 200,
+    "method": "Predittiva",
+    "best_cost": 259.8961290457147,
+    "best_path": [
+      0,
+      6,
+      2,
+      3,
+      5,
+      4,
+      1,
+      0
+    ],
+    "optimal_cost": 259.8961290457147,
+    "gap_percent": 0.0,
+    "is_complete": false,
+    "stats": {
+      "states_examined": 200,
+      "states_pruned": 0,
+      "states_pruned_before_push": 2,
+      "pending_states": 12,
+      "active_frontier_size": 12,
+      "completed_tours": 71,
+      "horizon_size": 85,
+      "diversification_steps": 0
+    }
+  },
+  {
+    "instance_id": "istanza_seed_52",
+    "initial_path": [
+      0
+    ],
+    "budget": 200,
+    "method": "Regolata",
+    "best_cost": 259.8961290457147,
+    "best_path": [
+      0,
+      6,
+      2,
+      3,
+      5,
+      4,
+      1,
+      0
+    ],
+    "optimal_cost": 259.8961290457147,
+    "gap_percent": 0.0,
+    "is_complete": false,
+    "stats": {
+      "states_examined": 200,
+      "states_pruned": 0,
+      "states_pruned_before_push": 67,
+      "pending_states": 15,
+      "active_frontier_size": 15,
+      "completed_tours": 44,
+      "horizon_size": 126,
+      "diversification_steps": 1
+    }
+  },
+  {
+    "instance_id": "istanza_seed_52",
+    "initial_path": [
+      0
+    ],
+    "budget": 500,
+    "method": "Branch and Bound",
+    "best_cost": 259.8961290457147,
+    "best_path": [
+      0,
+      6,
+      2,
+      3,
+      5,
+      4,
+      1,
+      0
+    ],
+    "optimal_cost": 259.8961290457147,
+    "gap_percent": 0.0,
+    "is_complete": false,
+    "stats": {
+      "states_examined": 500,
+      "states_pruned": 0,
+      "states_pruned_before_push": 159,
+      "pending_states": 7,
+      "active_frontier_size": 7,
+      "completed_tours": 123,
+      "horizon_size": 289
+    }
+  },
+  {
+    "instance_id": "istanza_seed_52",
+    "initial_path": [
+      0
+    ],
+    "budget": 500,
+    "method": "Predittiva",
+    "best_cost": 259.8961290457147,
+    "best_path": [
+      0,
+      6,
+      2,
+      3,
+      5,
+      4,
+      1,
+      0
+    ],
+    "optimal_cost": 259.8961290457147,
+    "gap_percent": 0.0,
+    "is_complete": false,
+    "stats": {
+      "states_examined": 500,
+      "states_pruned": 0,
+      "states_pruned_before_push": 142,
+      "pending_states": 11,
+      "active_frontier_size": 11,
+      "completed_tours": 125,
+      "horizon_size": 278,
+      "diversification_steps": 0
+    }
+  },
+  {
+    "instance_id": "istanza_seed_52",
+    "initial_path": [
+      0
+    ],
+    "budget": 500,
+    "method": "Regolata",
+    "best_cost": 259.8961290457147,
+    "best_path": [
+      0,
+      6,
+      2,
+      3,
+      5,
+      4,
+      1,
+      0
+    ],
+    "optimal_cost": 259.8961290457147,
+    "gap_percent": 0.0,
+    "is_complete": false,
+    "stats": {
+      "states_examined": 500,
+      "states_pruned": 0,
+      "states_pruned_before_push": 314,
+      "pending_states": 20,
+      "active_frontier_size": 20,
+      "completed_tours": 55,
+      "horizon_size": 389,
+      "diversification_steps": 4
+    }
+  },
+  {
+    "instance_id": "istanza_seed_53",
+    "initial_path": [
+      0
+    ],
+    "budget": 50,
+    "method": "Branch and Bound",
+    "best_cost": 425.8834854185497,
+    "best_path": [
+      0,
+      6,
+      5,
+      3,
+      4,
+      1,
+      2,
+      0
+    ],
+    "optimal_cost": 349.5802890878655,
+    "gap_percent": 21.827087714177654,
+    "is_complete": false,
+    "stats": {
+      "states_examined": 50,
+      "states_pruned": 0,
+      "states_pruned_before_push": 0,
+      "pending_states": 11,
+      "active_frontier_size": 11,
+      "completed_tours": 17,
+      "horizon_size": 28
+    }
+  },
+  {
+    "instance_id": "istanza_seed_53",
+    "initial_path": [
+      0
+    ],
+    "budget": 50,
+    "method": "Predittiva",
+    "best_cost": 403.58980415382666,
+    "best_path": [
+      0,
+      2,
+      4,
+      1,
+      6,
+      3,
+      5,
+      0
+    ],
+    "optimal_cost": 349.5802890878655,
+    "gap_percent": 15.449817038278761,
+    "is_complete": false,
+    "stats": {
+      "states_examined": 50,
+      "states_pruned": 0,
+      "states_pruned_before_push": 3,
+      "pending_states": 13,
+      "active_frontier_size": 13,
+      "completed_tours": 15,
+      "horizon_size": 31,
+      "diversification_steps": 0
+    }
+  },
+  {
+    "instance_id": "istanza_seed_53",
+    "initial_path": [
+      0
+    ],
+    "budget": 50,
+    "method": "Regolata",
+    "best_cost": 403.58980415382666,
+    "best_path": [
+      0,
+      2,
+      4,
+      1,
+      6,
+      3,
+      5,
+      0
+    ],
+    "optimal_cost": 349.5802890878655,
+    "gap_percent": 15.449817038278761,
+    "is_complete": false,
+    "stats": {
+      "states_examined": 50,
+      "states_pruned": 0,
+      "states_pruned_before_push": 3,
+      "pending_states": 13,
+      "active_frontier_size": 13,
+      "completed_tours": 15,
+      "horizon_size": 31,
+      "diversification_steps": 0
+    }
+  },
+  {
+    "instance_id": "istanza_seed_53",
+    "initial_path": [
+      0
+    ],
+    "budget": 100,
+    "method": "Branch and Bound",
+    "best_cost": 425.8834854185497,
+    "best_path": [
+      0,
+      6,
+      5,
+      3,
+      4,
+      1,
+      2,
+      0
+    ],
+    "optimal_cost": 349.5802890878655,
+    "gap_percent": 21.827087714177654,
+    "is_complete": false,
+    "stats": {
+      "states_examined": 100,
+      "states_pruned": 0,
+      "states_pruned_before_push": 1,
+      "pending_states": 12,
+      "active_frontier_size": 12,
+      "completed_tours": 35,
+      "horizon_size": 48
+    }
+  },
+  {
+    "instance_id": "istanza_seed_53",
+    "initial_path": [
+      0
+    ],
+    "budget": 100,
+    "method": "Predittiva",
+    "best_cost": 381.08248748069303,
+    "best_path": [
+      0,
+      2,
+      1,
+      6,
+      4,
+      3,
+      5,
+      0
+    ],
+    "optimal_cost": 349.5802890878655,
+    "gap_percent": 9.01143439037251,
+    "is_complete": false,
+    "stats": {
+      "states_examined": 100,
+      "states_pruned": 0,
+      "states_pruned_before_push": 8,
+      "pending_states": 12,
+      "active_frontier_size": 12,
+      "completed_tours": 30,
+      "horizon_size": 50,
+      "diversification_steps": 0
+    }
+  },
+  {
+    "instance_id": "istanza_seed_53",
+    "initial_path": [
+      0
+    ],
+    "budget": 100,
+    "method": "Regolata",
+    "best_cost": 381.08248748069303,
+    "best_path": [
+      0,
+      2,
+      1,
+      6,
+      4,
+      3,
+      5,
+      0
+    ],
+    "optimal_cost": 349.5802890878655,
+    "gap_percent": 9.01143439037251,
+    "is_complete": false,
+    "stats": {
+      "states_examined": 100,
+      "states_pruned": 0,
+      "states_pruned_before_push": 8,
+      "pending_states": 12,
+      "active_frontier_size": 12,
+      "completed_tours": 30,
+      "horizon_size": 50,
+      "diversification_steps": 0
+    }
+  },
+  {
+    "instance_id": "istanza_seed_53",
+    "initial_path": [
+      0
+    ],
+    "budget": 200,
+    "method": "Branch and Bound",
+    "best_cost": 394.2773544976966,
+    "best_path": [
+      0,
+      6,
+      4,
+      1,
+      2,
+      3,
+      5,
+      0
+    ],
+    "optimal_cost": 349.5802890878655,
+    "gap_percent": 12.785922663562046,
+    "is_complete": false,
+    "stats": {
+      "states_examined": 200,
+      "states_pruned": 0,
+      "states_pruned_before_push": 13,
+      "pending_states": 12,
+      "active_frontier_size": 12,
+      "completed_tours": 65,
+      "horizon_size": 90
+    }
+  },
+  {
+    "instance_id": "istanza_seed_53",
+    "initial_path": [
+      0
+    ],
+    "budget": 200,
+    "method": "Predittiva",
+    "best_cost": 354.9915838284796,
+    "best_path": [
+      0,
+      2,
+      6,
+      1,
+      4,
+      3,
+      5,
+      0
+    ],
+    "optimal_cost": 349.5802890878655,
+    "gap_percent": 1.5479404616128087,
+    "is_complete": false,
+    "stats": {
+      "states_examined": 200,
+      "states_pruned": 0,
+      "states_pruned_before_push": 30,
+      "pending_states": 10,
+      "active_frontier_size": 10,
+      "completed_tours": 55,
+      "horizon_size": 95,
+      "diversification_steps": 0
+    }
+  },
+  {
+    "instance_id": "istanza_seed_53",
+    "initial_path": [
+      0
+    ],
+    "budget": 200,
+    "method": "Regolata",
+    "best_cost": 354.9915838284796,
+    "best_path": [
+      0,
+      2,
+      6,
+      1,
+      4,
+      3,
+      5,
+      0
+    ],
+    "optimal_cost": 349.5802890878655,
+    "gap_percent": 1.5479404616128087,
+    "is_complete": false,
+    "stats": {
+      "states_examined": 200,
+      "states_pruned": 0,
+      "states_pruned_before_push": 30,
+      "pending_states": 10,
+      "active_frontier_size": 10,
+      "completed_tours": 55,
+      "horizon_size": 95,
+      "diversification_steps": 0
+    }
+  },
+  {
+    "instance_id": "istanza_seed_53",
+    "initial_path": [
+      0
+    ],
+    "budget": 500,
+    "method": "Branch and Bound",
+    "best_cost": 349.5802890878655,
+    "best_path": [
+      0,
+      5,
+      3,
+      4,
+      1,
+      2,
+      6,
+      0
+    ],
+    "optimal_cost": 349.5802890878655,
+    "gap_percent": 0.0,
+    "is_complete": false,
+    "stats": {
+      "states_examined": 500,
+      "states_pruned": 0,
+      "states_pruned_before_push": 59,
+      "pending_states": 8,
+      "active_frontier_size": 8,
+      "completed_tours": 151,
+      "horizon_size": 218
+    }
+  },
+  {
+    "instance_id": "istanza_seed_53",
+    "initial_path": [
+      0
+    ],
+    "budget": 500,
+    "method": "Predittiva",
+    "best_cost": 354.9915838284796,
+    "best_path": [
+      0,
+      2,
+      6,
+      1,
+      4,
+      3,
+      5,
+      0
+    ],
+    "optimal_cost": 349.5802890878655,
+    "gap_percent": 1.5479404616128087,
+    "is_complete": false,
+    "stats": {
+      "states_examined": 500,
+      "states_pruned": 0,
+      "states_pruned_before_push": 191,
+      "pending_states": 9,
+      "active_frontier_size": 9,
+      "completed_tours": 83,
+      "horizon_size": 283,
+      "diversification_steps": 0
+    }
+  },
+  {
+    "instance_id": "istanza_seed_53",
+    "initial_path": [
+      0
+    ],
+    "budget": 500,
+    "method": "Regolata",
+    "best_cost": 349.58028908786554,
+    "best_path": [
+      0,
+      6,
+      2,
+      1,
+      4,
+      3,
+      5,
+      0
+    ],
+    "optimal_cost": 349.5802890878655,
+    "gap_percent": 1.6260475957933848e-14,
+    "is_complete": false,
+    "stats": {
+      "states_examined": 500,
+      "states_pruned": 0,
+      "states_pruned_before_push": 113,
+      "pending_states": 21,
+      "active_frontier_size": 21,
+      "completed_tours": 118,
+      "horizon_size": 252,
+      "diversification_steps": 2
     }
   }
 ]
