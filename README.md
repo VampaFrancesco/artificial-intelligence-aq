@@ -1,4 +1,4 @@
-# Predictive Regulated Search: TSP euclideo
+# Predictive Regulated Search. TSP euclideo
 
 Progetto di Artificial Intelligence: cercare un giro dal deposito che visiti
 ogni consegna e torni al punto di partenza. Confronta tre metodi:
