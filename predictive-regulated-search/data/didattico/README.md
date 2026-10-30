@@ -15,7 +15,7 @@ Esempio: in `train_linea`, il percorso `[0, 4]` costa 4. Rimangono le consegne
 Il target e quindi 4, mentre il costo totale del giro e 8.
 
 Con `USE_TEACHING_DATA = True`, `main.py` usa questa cartella anche per salvare
-il modello e le feature preparate durante l'allenamento. I risultati del
+il modello durante l'allenamento. I risultati del
 confronto vengono salvati in `results/didattico/`.
 Con `USE_TEACHING_DATA = False` torna a usare i file dell'esperimento precedente.
 `N_DELIVERIES` e `DATASET_SEEDS` configurano solo il generatore casuale.
@@ -33,3 +33,6 @@ python3 -m src.main --mode all --teaching
 Esegui dalla radice di `predictive-regulated-search`. I budget predefiniti sono
 5, 10, 20 e 50; anche probabilità, massa irrisolta e diagnosi vengono salvate
 separatamente in `results/didattico/`. La soglia 100 non interviene a questi budget.
+
+I JSON generati non sono inclusi nel repository: prima dell’uso eseguire
+`python3 -m src.main --mode all --teaching`. Solo `instances.json` è conservato.

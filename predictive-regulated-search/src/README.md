@@ -13,6 +13,7 @@
 | `algorithms/probability.py` | Softmax, tracciamento per prima scelta e massa irrisolta. |
 | `experiments/generate_dataset.py` | Coordinate riproducibili, target esatti da B&B o approssimati da 2-opt per 100 consegne. |
 | `experiments/benchmark.py` | Confronto A/B/C, riferimenti esatti sulle mappe piccole o approssimati su 100 consegne. |
+| `experiments/repeated.py` | Protocollo principale: dieci mappe, due budget temporali, tre ripetizioni e riepilogo. |
 | `utils/loader.py` | Loader del formato storico con `depot` e `deliveries`. |
 
 ## Stato e ricerca

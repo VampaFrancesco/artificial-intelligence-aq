@@ -152,7 +152,6 @@ def train_and_evaluate(dataset):
     """Fase offline: prepara le feature, addestra e valuta sulle istanze escluse."""
     matrices = build_matrices(dataset)
     train_ids, test_ids = dataset_split(dataset)
-    prepared_data = {"features": [], "target_costs": [], "instance_ids": []}
     train_features = []
     train_costs = []
     test_features = []
@@ -168,9 +167,6 @@ def train_and_evaluate(dataset):
         )
         features = extract_features(state, matrices[instance_id])
         target = example["target_cost_to_go"]
-        prepared_data["features"].append(features)
-        prepared_data["target_costs"].append(target)
-        prepared_data["instance_ids"].append(instance_id)
 
         if instance_id in test_ids:
             test_features.append(features)
@@ -184,8 +180,6 @@ def train_and_evaluate(dataset):
     if not train_features or not test_features:
         raise ValueError("Servono istanze distinte per addestramento e verifica.")
 
-    if N_DELIVERIES != 100:
-        save_json(DATA_DIR / "result.json", prepared_data)
     model = train_predictor(train_features, train_costs)
     predicted_costs = model.predict(test_features)
     model_error = mean_absolute_error(predicted_costs, test_costs)
@@ -356,7 +350,7 @@ def main(argv=None):
     global N_DELIVERIES
     global SEARCH_SECONDS
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--mode", choices=("generate", "train", "compare", "all"), default=MODE)
+    parser.add_argument("--mode", choices=("generate", "train", "compare", "all", "experiment"), default=MODE)
     parser.add_argument("--deliveries", type=int, choices=(6, 100), default=N_DELIVERIES,
                         help="Dimensione del dataset/modello; con --input sceglie il modello allenato.")
     parser.add_argument("--input", type=Path, help="Mappa personale JSON con depot e deliveries.")
@@ -367,6 +361,14 @@ def main(argv=None):
     parser.add_argument("--patience", type=int, default=REGULATOR_PATIENCE)
     parser.add_argument("--start-path", type=int, nargs="+", default=START_PATH)
     args = parser.parse_args(argv)
+    if args.mode == "experiment":
+        if (args.input is not None or args.teaching or args.seconds is not None
+                or args.budgets is not None or args.patience != 100
+                or tuple(args.start_path) != (0,)):
+            parser.error("experiment usa il protocollo fisso: 10 mappe da 100, 1/3 secondi, 3 ripetizioni, soglia 100.")
+        from .experiments.repeated import run_experiment
+        run_experiment(PROJECT_DIR)
+        return
     if args.seconds is not None and (not isfinite(args.seconds) or args.seconds <= 0):
         parser.error("Il tempo deve essere finito e positivo.")
     if args.seconds is not None and args.budgets is not None:

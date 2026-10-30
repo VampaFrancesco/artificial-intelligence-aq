@@ -1,14 +1,11 @@
 \subsection*{Riproduzione dell'esperimento}
 
-Dalla cartella del progetto Python, installate le dipendenze di
-\texttt{requirements.txt}, si riproducono le due prove con:
+Dalla cartella del progetto Python, con dati e modelli inclusi:
 \begin{verbatim}
-python3 -m src.main --deliveries 100 --mode all
-python3 -m src.main --deliveries 100 --seconds 1
+python3 -m src.main --mode experiment
 \end{verbatim}
-La modalità \texttt{all} genera il dataset e allena il modello.
-Per le mappe personali si usa l'opzione \texttt{--input}.
-Lo storico conserva coordinate, parametri e risultati in
-\path{results/storico/}.
-I comandi dettagliati e i percorsi dei dati sono nel README.
-Per il controllo ridotto basta la modalità predefinita.
+Il comando esegue le dieci mappe e il caso piccolo senza riallenare i modelli.
+Salva coordinate, parametri, percorsi, tempi e riepilogo in
+\path{results/esperimenti/}. Le tabelle provengono dall'esecuzione
+\texttt{2026-10-30\_11-42-32\_bf6d442b}. Dataset originali, comandi di
+allenamento e istruzioni per le mappe personali sono descritti nel README.

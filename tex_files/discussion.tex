@@ -1,13 +1,17 @@
 \subsection*{Interpretazione e limiti}
 
-Il confronto A--B misura il contributo della previsione; B--C quello
-aggiuntivo della regolazione. Il modello migliora l'ordine di ricerca,
-mentre il regolatore può aiutare oppure peggiorare, come nella prova
-personale con il nuovo modello. Scansioni della pila e preferenza per
-stati poco profondi limitano la scalabilità.
+A--B distingue il contributo della previsione; B--C quello aggiuntivo
+della regolazione. Su queste dieci mappe la previsione produce il beneficio
+maggiore, mentre la regolazione migliora mediamente il giro ma può peggiorarlo.
+Le scansioni della pila consumano tempo e la preferenza per costi parziali
+bassi può favorire stati poco profondi. Sono possibili spiegazioni dei
+peggioramenti; le prove non isolano quale meccanismo prevalga.
 
-Il riferimento euristico trova giri migliori dei tre sistemi.
-Il confronto principale usa soltanto tre mappe, più un caso personale;
-le esecuzioni temporizzate sono singole e dipendono dalla macchina.
-I risultati osservati non costituiscono una valutazione statistica
-né dimostrano un vantaggio generale.
+I riferimenti euristici trovano giri migliori dei tre sistemi sulle mappe
+grandi, ma non certificano l'ottimo. La massa irrisolta resta circa $1$:
+ciascuna prima scelta conserva candidati attivi, rendendo questa misura
+poco informativa ai budget considerati. Non significa che i giri siano errati.
+
+Le due esecuzioni mostrano stabilità su dieci mappe della stessa distribuzione
+dell'allenamento. Non costituiscono una dimostrazione statistica di un vantaggio
+generale, né garantiscono lo stesso comportamento su distribuzioni diverse.

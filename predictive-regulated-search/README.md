@@ -3,7 +3,7 @@
 Esperimenti su sei oppure cento consegne più un deposito. A è una DFS con
 branch-and-bound, B ordina i successori con una previsione appresa del costo
 rimanente, C cambia periodicamente il candidato dopo stagnazione. Tutti usano
-la stessa potatura sicura sul costo già sostenuto e lo stesso budget di estrazioni.
+la stessa potatura sicura sul costo già sostenuto. Il confronto principale assegna lo stesso budget temporale nominale.
 
 ## Usare le posizioni inserite a mano
 
@@ -74,8 +74,43 @@ limite; `elapsed_seconds` include anche il riepilogo finale, mentre
 dalla velocità della macchina e possono produrre risultati diversi a ogni avvio.
 I loro risultati sono salvati in `results/consegne_100_tempo.json`.
 
-Le prove sulle mappe del dataset sono gli esperimenti dell'assignment. La suite
-di test automatici del codice è stata rimossa; il confronto sperimentale rimane.
+Le prove sulle mappe del dataset sono gli esperimenti dell'assignment. Il confronto sperimentale rimane distinto dai test automatici del codice.
+
+## Esperimento ripetuto su dieci mappe nuove
+
+```sh
+python3 -m src.main --mode experiment
+```
+
+Questo comando usa il modello da 100 consegne già salvato, senza riallenarlo.
+Il protocollo è fisso: dieci mappe nuove, uniformi nello stesso intervallo delle
+mappe di allenamento, budget di 1 e 3 secondi, tre ripetizioni per metodo e soglia
+del regolatore 100. Sono 180 ricerche, circa sei minuti di sola ricerca, oltre
+alla preparazione e ai riferimenti. L'ordine dei metodi ruota: per ogni mappa e
+budget ciascun metodo occupa una volta ogni posizione. Le ricerche sono sequenziali.
+
+Ogni avvio crea una cartella distinta in `results/esperimenti/`, con:
+
+- `riepilogo.md`: costi mediani, guadagni percentuali, conteggio dei casi in cui
+  C migliora/pareggia/peggiora B e tempi effettivi;
+- `risultati.json`: coordinate delle dieci mappe, modelli, configurazione,
+  riferimenti, tutte le esecuzioni, intervalli dei costi e impronte del codice.
+
+Le coordinate vengono generate in modo riproducibile e controllate contro il
+dataset originale; sono salvate prima delle ricerche. Ogni gruppo concluso viene
+salvato subito: se si interrompe il comando, il JSON conserva le prove terminate
+con stato `running`; un nuovo avvio riparte da zero in un'altra cartella.
+I risultati completi hanno stato `completed`. Una mappa ripetuta tre volte conta
+sempre come una sola mappa indipendente. Le stesse dieci mappe vengono riusate
+anche negli avvii successivi: non costituiscono dieci nuovi casi ogni volta.
+
+Alla fine viene riprodotto il caso illustrativo da sei consegne già individuato,
+con modello piccolo e 500 estrazioni: la tabella confronta stime, costi esatti e
+rami esplorati. Non è presentato come una nuova conferma indipendente.
+Servono `model_100.json`, `model.json` e i due dataset originali per verificare
+la separazione delle mappe. Non servono nuove dipendenze e non viene modificata
+la mappa personale. Per l'esperimento usa il comando da solo: i budget e il modello
+sono fissati dal protocollo e non dalle opzioni della modalità `compare`.
 
 ## Dataset con 100 consegne
 
@@ -174,7 +209,6 @@ Gli errori esatti si conoscono dopo la ricerca e non sono osservazioni online.
 | File | Contenuto |
 | --- | --- |
 | `data/examples.json` | Coordinate, stati e target certificati. |
-| `data/result.json` | Feature, target e identificativi. |
 | `data/model.json` | Quattro pesi e intercetta. |
 | `data/training_metrics.json` | MAE, separazione dei dati e versioni. |
 | `results/search_comparison.json` | Costi, percorsi, gap, tempi, contatori, massa e tracce per A/B/C. |
@@ -199,12 +233,13 @@ Le costanti iniziali di `src/main.py` configurano generazione e modalità predef
 Il file storico `data/data.json` e il suo loader restano esempi di input separati;
 l'esperimento usa le coordinate di `examples.json` e i seed dichiarati.
 
-La baseline cresce fattorialmente. L'esperimento su sei consegne è piccolo e leggibile. La prova su cento
-consegne rimane limitata dal budget e non certifica l'ottimo. Il confronto pareggia le estrazioni, non il
-tempo: previsioni, ordinamenti e scansioni aggiungono lavoro. I tempi sono singole
-osservazioni comprensive del monitoraggio, senza riferimento offline e softmax;
-non costituiscono un benchmark affidabile di velocità. A budget 500 la baseline
-raggiunge anch'essa tutti e quattro gli ottimi; il vantaggio di C è rispetto a B.
+La baseline cresce fattorialmente. Le prove grandi non certificano l'ottimo.
+Il confronto principale è quello ripetuto su dieci mappe: il budget pareggia
+approssimativamente il tempo del ciclo di ricerca, con possibili sforamenti
+nell'ultima operazione. Le modalità precedenti rimangono eseguibili e rigenerano
+i loro risultati, ma i vecchi file preliminari non sono più inclusi.
+Tutte le cartelle `results/` restano locali e sono escluse da Git.
+Il comando `--mode experiment` le rigenera con tutte le informazioni necessarie.
 
 ## Relazione
 

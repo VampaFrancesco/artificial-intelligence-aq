@@ -1,24 +1,6 @@
 from math import sqrt
 from .node import Node
-from.state import State
-
-depot = Node(0, 0)
-delivery1 = Node(3, 4)
-delivery2 = Node(6, 1)
-delivery3 = Node(8, 7)
-delivery4 = Node(2, 9)
-delivery5 = Node(5, 6)
-delivery6 = Node(9, 3)
-
-locations = [
-    depot,
-    delivery1,
-    delivery2,
-    delivery3,
-    delivery4,
-    delivery5,
-    delivery6,
-]
+from .state import State
 
 def distance(i: Node, j: Node):
     x1, y1 = i.x, i.y

@@ -1,96 +1,120 @@
 \section{Esperimento}
 
-\textbf{Task e dati.} Ogni task è una mappa: il sistema deve costruire
-un giro che parta dal deposito, visiti tutte le consegne e torni al deposito.
-L'esperimento principale usa mappe con $100$ consegne e deposito in $(0,0)$,
-con coordinate generate uniformemente in $[0,100]^2$. Il dataset salvato
-contiene $12$ mappe per allenare e $3$ mappe nuove per provare il sistema.
-Campioniamo $40$ stati per mappa: $480$ esempi di allenamento e $120$ di prova.
-Nel confronto principale il modello viene allenato una volta e rimane fisso durante i task di prova.
+\textbf{Task e dati.} Il task è costruire un giro dal deposito che visiti
+tutte le consegne e torni al punto di partenza. Il dataset iniziale contiene
+$12$ mappe di allenamento e $3$ di verifica, ciascuna con $100$ consegne,
+deposito in $(0,0)$ e coordinate uniformi in $[0,100]^2$.
+I $40$ stati parziali per mappa forniscono $480$ esempi di allenamento e
+$120$ di verifica. Su questi ultimi il MAE è $49{,}391$, contro $184{,}684$
+della previsione costante. È uno scarto dai target euristici, non dall'ottimo.
 
-\textbf{Protocollo.} Su ciascuna delle tre mappe confrontiamo A, baseline;
-B, predittiva; C, predittiva regolata. Tutti partono dal deposito, senza
-soluzioni iniziali, e ogni esecuzione riparte da zero. La soglia del
-regolatore è $100$, fissata nelle prove preliminari. L'insegnante usa tre
-partenze e sei passate di 2-opt; il riferimento finale usa dodici partenze
-e venti passate. Questi riferimenti sono calcolati offline e non vengono
-passati alle ricerche online come soluzioni iniziali o suggerimenti.
+Il confronto principale usa \textbf{dieci ulteriori mappe}, escluse dal
+dataset iniziale e generate con la stessa distribuzione. Il modello rimane
+fisso. L'insegnante usa tre partenze e sei passate di 2-opt; il riferimento
+finale usa dodici partenze e venti passate. Questi calcoli sono offline e
+non forniscono soluzioni iniziali o suggerimenti ai tre metodi.
 
-Facciamo due confronti: $5\,000$ estrazioni per metodo e un secondo di
-ricerca per metodo. Il primo pareggia gli stati esaminati; il secondo
-il tempo assegnato al ciclo di ricerca. Preparazione dei dati, riferimenti
-e raccolta finale delle statistiche sono esterni al limite temporale.
-Il tempo è controllato fra iterazioni e può essere superato dall'ultima
-iterazione. I risultati temporizzati possono cambiare fra esecuzioni.
+\textbf{Protocollo.} Confrontiamo A, ricerca di base; B, ricerca predittiva;
+C, ricerca predittiva regolata. Ogni ricerca riparte dal deposito, senza
+un giro iniziale. La soglia del regolatore rimane $100$, fissata prima di
+queste prove. Per ciascuna mappa assegniamo a ogni metodo un budget nominale
+di $1$ e $3$ secondi, con tre ripetizioni per budget. I metodi vengono
+eseguiti in sequenza e l'ordine ruota: ciascuno occupa una volta ogni
+posizione. Un esperimento completo contiene quindi $180$ ricerche.
+Preparazione, riferimenti e statistiche finali sono esclusi dal budget;
+il monitoraggio interno è incluso.
 
-\begin{table}[htbp]
-\centering
+Le tabelle riportano la \textbf{distanza totale mediana di tre esecuzioni},
+incluso il ritorno al deposito. Un valore minore è migliore; il migliore
+fra A, B e C sulla stessa mappa è in grassetto. Usiamo i risultati della
+seconda esecuzione completa, verificandone la stabilità rispetto alla prima.
+
+\textbf{Confronto a 1 secondo.} Il budget breve permette di osservare
+quanto rapidamente ciascun metodo riesca a trovare un buon giro.
+\begin{center}
 \small
-\caption{Distanza totale dei giri trovati: un valore minore è migliore.
-La seconda prova assegna un secondo di ricerca a ogni metodo.}
-\label{tab:results}
-\begin{tabular}{llrrr}
+\begin{tabular}{lrrr}
 \toprule
-Budget & Mappa & A & B & C\\
+Mappa & A -- Base & B -- Predittiva & C -- Regolata\\
 \midrule
-$5\,000$ stati & 1 & $5236{,}435$ & $1434{,}007$ & $1311{,}845$\\
-$5\,000$ stati & 2 & $5453{,}993$ & $1346{,}243$ & $1270{,}629$\\
-$5\,000$ stati & 3 & $5029{,}908$ & $1395{,}538$ & $1373{,}503$\\
-\midrule
-1 secondo & 1 & $5134{,}219$ & $1434{,}007$ & $1311{,}845$\\
-1 secondo & 2 & $5295{,}162$ & $1308{,}793$ & $1306{,}856$\\
-1 secondo & 3 & $4864{,}579$ & $1386{,}645$ & $1380{,}646$\\
+1 & $5032{,}171$ & $\mathbf{1232{,}194}$ & $1260{,}496$\\
+2 & $4550{,}280$ & $1238{,}428$ & $\mathbf{1199{,}187}$\\
+3 & $4535{,}162$ & $\mathbf{1209{,}358}$ & $1216{,}796$\\
+4 & $5184{,}191$ & $1247{,}886$ & $\mathbf{1246{,}064}$\\
+5 & $4880{,}372$ & $\mathbf{1271{,}490}$ & $1272{,}012$\\
+6 & $5051{,}347$ & $1203{,}630$ & $\mathbf{1177{,}426}$\\
+7 & $4865{,}337$ & $1243{,}174$ & $\mathbf{1149{,}282}$\\
+8 & $5232{,}949$ & $1283{,}231$ & $\mathbf{1150{,}133}$\\
+9 & $5037{,}756$ & $\mathbf{1146{,}193}$ & $1150{,}825$\\
+10 & $5293{,}862$ & $1210{,}492$ & $\mathbf{1206{,}202}$\\
 \bottomrule
 \end{tabular}
-\end{table}
+\end{center}
 
-Il MAE rispetto ai target di prova è $49{,}391$ per il modello e $184{,}684$ per la previsione costante. Si misura
-la coerenza con i completamenti euristici, non l'errore esatto dall'ottimo.
-Il riferimento finale trova distanze rispettivamente pari a
-$866{,}325$, $832{,}224$ e $867{,}337$: non sono ottimi certificati e
-non calcoliamo un gap dall'ottimo su queste mappe.
+B migliora A su tutte le mappe, con una riduzione media della distanza del
+$75{,}20\%$. C migliora ulteriormente B su sei mappe e peggiora sulle altre
+quattro. Il guadagno medio aggiuntivo è $2{,}04\%$: l'aiuto del regolatore
+non è uniforme, passando da un peggioramento del $2{,}30\%$ sulla mappa 1
+a un miglioramento del $10{,}37\%$ sulla mappa 8.
 
-Con il budget di stati i tempi medi osservati, compreso il resoconto finale, sono circa $0{,}015$, $0{,}054$ e $1{,}455$ secondi per A, B e C.
-La distanza migliore di C non implica quindi maggiore velocità.
-Nel confronto temporizzato C trova ancora giri migliori di B nei tre casi
-osservati, con differenze ridotte nelle ultime due mappe. La frontiera di C
-cresce molto e la scansione richiesta dalle diversificazioni è costosa.
-La massa irrisolta resta circa $1$ per tutti: a questi budget ogni prima
-scelta conserva almeno un candidato attivo. È un limite informativo
-della misura, non una certificazione che i giri siano sbagliati.
-
-\textbf{Cambio del modello su una mappa personale.} Su un'ulteriore
-mappa da $100$ consegne inserita a mano, esclusa dall'allenamento, confrontiamo
-i due modelli disponibili. Manteniamo le stesse coordinate, soglia $100$
-e limite nominale di un secondo per ogni ricerca.
-
-\begin{table}[htbp]
-\centering
+\textbf{Confronto a 3 secondi.} Ripetiamo il confronto sulle stesse mappe,
+con lo stesso modello e la stessa soglia, aumentando soltanto il tempo
+assegnato. Ogni ricerca riparte da zero.
+\begin{center}
 \small
-\caption{Stessa mappa personale, due modelli. B è la ricerca predittiva;
-C aggiunge il regolatore.}
-\label{tab:personal-models}
-\begin{tabular}{lrr}
+\begin{tabular}{lrrr}
 \toprule
-Allenamento del modello & Costo B & Costo C\\
+Mappa & A -- Base & B -- Predittiva & C -- Regolata\\
 \midrule
-6 consegne & $3594{,}661$ & $3513{,}976$\\
-100 consegne & $3150{,}594$ & $3206{,}702$\\
+1 & $4946{,}385$ & $1229{,}267$ & $\mathbf{1183{,}694}$\\
+2 & $4542{,}940$ & $1237{,}996$ & $\mathbf{1199{,}187}$\\
+3 & $4516{,}857$ & $1207{,}742$ & $\mathbf{1160{,}431}$\\
+4 & $5142{,}859$ & $\mathbf{1242{,}330}$ & $1245{,}519$\\
+5 & $4869{,}099$ & $1271{,}490$ & $\mathbf{1257{,}145}$\\
+6 & $5039{,}634$ & $1199{,}439$ & $\mathbf{1177{,}426}$\\
+7 & $4834{,}985$ & $1240{,}967$ & $\mathbf{1149{,}282}$\\
+8 & $5231{,}129$ & $1283{,}231$ & $\mathbf{1150{,}133}$\\
+9 & $4990{,}438$ & $\mathbf{1146{,}193}$ & $1150{,}825$\\
+10 & $5281{,}628$ & $\mathbf{1204{,}769}$ & $1206{,}202$\\
 \bottomrule
 \end{tabular}
-\end{table}
+\end{center}
 
-La sostituzione del modello riduce il costo trovato da B del $12{,}35\%$.
-Con il nuovo modello, però, C trova un giro più lungo di B dell'$1{,}78\%$:
-la regolazione qui peggiora il risultato finale. Le diversificazioni possono
-interrompere un'esplorazione utile o consumare tempo, ma questa prova non
-identifica quale causa prevalga. Il confronto riguarda questi due modelli
-specifici; una singola esecuzione non dimostra un vantaggio generale.
+B mantiene un vantaggio medio del $75{,}11\%$ su A. C supera B in sette
+mappe su dieci, con un guadagno medio del $3{,}07\%$. Sulle mappe 1 e 3,
+per esempio, C passa da un risultato peggiore a uno migliore di B.
+Tuttavia, C resta peggiore sulla mappa 9 e diventa peggiore sulle mappe 4 e 10:
+più tempo non garantisce un vantaggio relativo della regolazione su ogni caso.
+Le percentuali sono medie dei guadagni calcolati separatamente per mappa,
+non riduzioni rispetto a un ottimo noto.
 
-\textbf{Un caso verificabile di ricerca utile.} In una prova separata
-con sei consegne e un modello distinto, il ramo classificato ultimo
-contiene un giro ottimo. Con $500$ estrazioni B non lo visita e trova
-costo $354{,}992$; C lo apre al passo $387$ e trova costo $349{,}580$
-al passo $421$. L'enumerazione indipendente conferma l'ottimo.
-È un caso concreto di ricerca utile oltre la preferenza iniziale,
-senza dimostrare che la stagnazione individui sempre il ramo giusto.
+\textbf{Stabilità e risorse.} Abbiamo eseguito due volte l'intero protocollo.
+Le distanze mediane di B e C coincidono nelle due esecuzioni; per A cambia
+soltanto una mappa a $3$ secondi, di circa lo $0{,}52\%$. I casi indipendenti
+restano dieci: ripetere una mappa non produce un nuovo caso.
+Il tempo è controllato fra iterazioni e l'ultima operazione può superare
+il limite. Nei due esperimenti, i massimi osservati per C sono circa
+$1{,}12$ e $3{,}26$ secondi, rispettivamente. Il confronto è quindi a risorse
+approssimativamente uguali, non a scadenza temporale rigorosa.
+
+\textbf{Un caso verificabile di ricerca utile.} Riproduciamo anche un caso
+illustrativo già individuato, con sei consegne e un modello distinto.
+Il ramo classificato ultimo contiene un giro ottimo. Con $500$ estrazioni
+B non lo visita e trova costo $354{,}992$; C lo apre al passo $387$ e trova
+costo $349{,}580$ al passo $421$. L'enumerazione indipendente conferma
+l'ottimo, raggiunto anche da A entro lo stesso budget.
+
+Il modello stima per quel ramo un costo totale di $340{,}181$: il residuo
+è $9{,}400$. Il ramo con il residuo maggiore, $91{,}986$, conduce invece
+al miglior costo di $396{,}500$. Quindi l'errore più grande non identifica
+da solo il ramo più utile. Questo caso mostra il valore di esplorare anche
+alternative sfavorite dal modello, ma non è una nuova conferma indipendente
+né dimostra che la stagnazione individui sempre la scelta migliore.
+
+\textbf{Prova personale con due modelli.} In una prova esplorativa sulla
+stessa mappa personale da $100$ consegne e con un secondo nominale,
+sostituire il modello allenato su sei consegne con quello allenato su cento
+riduce il costo di B da $3594{,}661$ a $3150{,}594$ ($12{,}35\%$).
+C passa da $3513{,}976$ a $3206{,}702$, ma con il nuovo modello resta peggiore
+di B dell'$1{,}78\%$. Il risultato riguarda questi due modelli specifici
+e una singola mappa, non isola l'effetto della dimensione di allenamento.

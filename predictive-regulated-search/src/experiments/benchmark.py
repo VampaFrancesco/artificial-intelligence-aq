@@ -53,7 +53,7 @@ def diagnose_choices(initial_state, matrix, distribution):
 
 
 def run_comparison(initial_state, matrix, model_data, budgets, teacher_budget, patience=100,
-                   max_seconds=None):
+                   max_seconds=None, method_order=None):
     certified = len(initial_state.unvisited) <= 9
     distribution = action_distribution(initial_state, matrix, model_data)
     if certified:
@@ -75,6 +75,10 @@ def run_comparison(initial_state, matrix, model_data, budgets, teacher_budget, p
         diagnostics = []
     results = []
     methods = ("Branch and Bound", "Predittiva", "Regolata")
+    if method_order is not None:
+        if len(method_order) != 3 or set(method_order) != set(methods):
+            raise ValueError("L'ordine deve contenere esattamente i tre metodi A/B/C.")
+        methods = tuple(method_order)
     for budget in budgets:
         for method in methods:
             observer = RootChoiceTracker(initial_state, distribution)

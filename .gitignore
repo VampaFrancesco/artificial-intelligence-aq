@@ -2,9 +2,15 @@ tex_files/build/*
 !tex_files/build/*.pdf
 .vscode/
 delivery_search/
-*.bib
-!tex_files/bibliografia.bib
 .venv/
 src/.venv/
 __pycache__/
 *.pyc
+
+.DS_Store
+# Dati intermedi e dati didattici generati su richiesta.
+predictive-regulated-search/data/result.json
+predictive-regulated-search/data/didattico/*.json
+!predictive-regulated-search/data/didattico/instances.json
+# I risultati restano locali, anche quando già presenti in una consegna precedente.
+**/results/
