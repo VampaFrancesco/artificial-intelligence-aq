@@ -1,12 +1,78 @@
 \section{Introduzione della previsione}
+\label{sec:model}
+\subsection{Che cosa deve imparare il modello}
+Prima di usare il modello su una nuova mappa, lo alleno su esempi di
+percorsi parziali. Questa preparazione è detta fase \emph{offline}.
+La fase successiva, in cui uso il modello già allenato per cercare un giro
+su una mappa, è detta \emph{ricerca online}. Qui ``online'' indica la fase
+di utilizzo del modello, non una connessione a Internet.
 
-Il modello prevede il \emph{costo rimanente}: la distanza necessaria per
-completare un percorso parziale e tornare al deposito. Il costo già percorso
-è noto e non deve essere previsto. Indichiamo la stima con $\widehat h(s)$.
+Il modello deve prevedere quanta strada manca per visitare le consegne
+residue e tornare al deposito. Chiamo questa previsione $\widehat h(s)$.
+La distanza $g$ già percorsa è nota e viene tenuta separata.
+Il valore ideale sarebbe il costo residuo ottimo, indicato con $h^*(s)$.
+Sulle mappe grandi, però, gli esempi di allenamento usano completamenti
+approssimati: la previsione cerca di riprodurre quei costi di riferimento.
 
-Usiamo una regressione lineare con quattro informazioni dello stato:
-numero di consegne rimaste, distanza dal deposito, distanza dalla consegna
-rimasta più vicina e distanza media dalle consegne rimaste. Il modello
-impara quattro pesi e un'intercetta. È semplice da leggere, ma queste
-informazioni riassuntive non descrivono tutta la geometria della mappa.
-Perciò la stima può sbagliare e non viene trattata come un limite sicuro.
+\subsection{Le informazioni usate per prevedere}
+Per descrivere ogni stato al modello scelgo quattro numeri, chiamati
+\emph{feature}. Riassumono quanto resta da fare e la geometria delle prossime
+visite. Come nella Sezione~1, $v$ è il luogo corrente e $N$ l'insieme delle
+consegne residue. Chiamo $m$ il loro numero, scritto anche $m=|N|$.
+
+\begin{center}\small
+\begin{tabular}{lll}
+\toprule
+Simbolo & Informazione & Calcolo\\
+\midrule
+$x_1$ & Numero di consegne residue & $m$\\
+$x_2$ & Distanza dal luogo corrente al deposito & $d(v,0)$\\
+$x_3$ & Distanza dalla consegna residua più vicina & $\min_{a\in N}d(v,a)$\\
+$x_4$ & Media delle distanze dalle consegne residue & $\frac{1}{m}\sum_{a\in N}d(v,a)$\\
+\bottomrule
+\end{tabular}
+\end{center}
+Se non restano consegne, minimo e media sono posti a zero.
+
+Durante la ricerca, quando tutte le consegne sono state visitate,
+\textbf{non serve prevedere la strada mancante}: l'unica tappa è il ritorno
+al deposito, e la sua distanza si legge direttamente dalla mappa.
+
+\subsection{Come viene calcolata la previsione}
+Uso una regressione lineare: il modello moltiplica ciascuna feature per
+un peso e somma i quattro contributi a un termine costante. Indico con
+$w_1,\ldots,w_4$ i pesi e con $b$ il termine costante, detto intercetta.
+La previsione è quindi
+\[
+ \widehat h(s)=b+\sum_{j=1}^{4}w_jx_j(s).
+\]
+Nell'allenamento conosco, per ogni esempio, un costo rimanente di riferimento,
+chiamato \emph{target} e indicato con $y(s)$. I pesi sono scelti per rendere
+piccole le differenze fra target e previsioni. Chiamando $D_{train}$
+l'insieme degli esempi di allenamento, il criterio è
+\[
+ \min_{b,w}\sum_{s\in D_{train}}\bigl(\widehat h(s)-y(s)\bigr)^2.
+\]
+Questo criterio determina i pesi e l'intercetta minimizzando l'errore
+quadratico sui dati di allenamento. Le feature vengono usate nelle loro
+unità originali, senza normalizzarle.
+
+\subsection{Parametri appresi e limiti}
+Per il modello da cento consegne, l'intercetta e i quattro pesi risultano,
+arrotondati per la lettura:
+\[
+\begin{split}
+ b&=163{,}645698,\\
+ (w_1,w_2,w_3,w_4)&=(6{,}027693;\ 0{,}017960;\ -1{,}597434;\ 1{,}667937).
+\end{split}
+\]
+Il peso negativo di $x_3$ è il risultato dell'allenamento con informazioni
+fra loro correlate. Non significa che allontanare una consegna renda
+necessariamente più breve il giro.
+
+Queste quattro informazioni non descrivono tutta la disposizione dei punti:
+stati diversi possono avere le stesse feature e costi residui differenti.
+Anche il termine costante può pesare molto quando restano poche consegne.
+Il modello può quindi sovrastimare o sottostimare il costo rimanente:
+la sua previsione aiuta a scegliere l'ordine di esplorazione, ma non viene
+usata per scartare definitivamente un ramo.

@@ -1,13 +1,33 @@
 \section*{Introduzione}
+Un corriere deve partire dal deposito, visitare tutte le consegne una volta
+e tornare al punto di partenza, percorrendo la minore distanza possibile.
+Questo è il problema del commesso viaggiatore, o TSP. Nel progetto i luoghi
+sono punti su un piano e le distanze sono misurate in linea retta, in unità
+arbitrarie: non rappresentano tempi di percorrenza su strade reali.
 
-Un corriere deve partire dal deposito, visitare tutte le consegne una sola
-volta e tornare al deposito, percorrendo meno strada possibile. Rappresentiamo
-le località con punti su un piano e usiamo le distanze euclidee: si tratta del
-problema del commesso viaggiatore euclideo, o TSP.
+La domanda studiata è: \emph{una previsione appresa può aiutare a scegliere
+quali percorsi approfondire, quando il tempo per cercare è limitato?}
+Confronto tre modalità di ricerca:
+\begin{itemize}
+\item \textbf{A, ricerca di base:} esplora i percorsi e scarta quelli già
+  troppo costosi per migliorare il giro migliore trovato.
+\item \textbf{B, ricerca predittiva:} usa un modello allenato in precedenza
+  per esplorare prima le continuazioni che sembrano meno costose.
+\item \textbf{C, ricerca predittiva regolata:} aggiunge un regolatore che
+  cambia il prossimo candidato quando la ricerca non migliora da molti passi.
+\end{itemize}
 
-Il progetto studia come scegliere le possibilità da esplorare quando il
-calcolo disponibile è limitato. Confrontiamo una ricerca di base, una ricerca
-guidata da un modello appreso e una ricerca che aggiunge un regolatore.
-Il modello indica quali percorsi sembrano promettenti; il regolatore osserva
-l'andamento della ricerca e può cambiare dove dedicare il calcolo.
-La relazione segue gli otto punti dell'assignment.
+I casi di studio sono:
+\begin{itemize}
+\item \textbf{Dieci mappe da cento consegne:} confronto principale dei tre
+  metodi, con uno e tre secondi disponibili per ogni ricerca.
+\item \textbf{Una mappa da sei consegne:} caso piccolo in cui è possibile
+  verificare il giro ottimo e osservare un errore nell'ordine delle previsioni.
+\item \textbf{Una mappa personale da cento consegne:} prova esplorativa
+  dell'effetto di sostituire il modello appreso.
+\end{itemize}
+
+Nella prova principale C riduce mediamente la distanza rispetto a B del
+$2{,}04\%$ a un secondo e del $3{,}07\%$ a tre secondi, ma peggiora alcune
+mappe. Le otto sezioni seguenti distinguono il contributo della previsione
+da quello della regolazione e discutono anche questi esiti sfavorevoli.

@@ -1,21 +1,59 @@
 \section{Regolazione della ricerca predittiva}
+\label{sec:regulator}
+\subsection{Quando cambiare candidato}
+Il metodo C usa le stesse previsioni e potature di B. Il regolatore osserva
+se la ricerca continua senza migliorare il giro e, in quel caso, prova a
+cambiare il prossimo candidato da approfondire. Un cambiamento di questo
+tipo viene chiamato \emph{diversificazione}.
 
-Il sistema C usa lo stesso modello di B e osserva due contatori:
-$q$, estrazioni dall'ultimo miglioramento del giro, e $c$, estrazioni
-ordinarie dall'ultima diversificazione. Quando entrambi raggiungono la
-soglia fissata, il regolatore sceglie dalla pila lo stato con costo
-parziale $g$ minimo, al posto della normale estrazione LIFO.
-Il candidato scelto riceve la successiva unità di calcolo; gli altri
-rimangono disponibili. Non vengono introdotte potature basate sul modello.
+Per decidere quando intervenire uso due contatori:
+\begin{itemize}
+\item $q$: quanti stati sono stati estratti dall'ultimo miglioramento
+  della distanza del giro migliore;
+\item $c$: quante estrazioni ordinarie sono avvenute dall'ultima
+  diversificazione, per lasciare tempo alla ricerca predittiva fra due interventi.
+\end{itemize}
+Entrambi partono da zero. Fisso una soglia, indicata con $P$, uguale a
+$100$. Il regolatore interviene soltanto quando \emph{entrambi} i contatori
+hanno raggiunto la soglia:
+\[
+ q\geq P\quad\text{e}\quad c\geq P.
+\]
+Quando la condizione è soddisfatta, invece di prendere l'ultimo candidato
+inserito nella pila scelgo quello con la distanza già percorsa $g$ minore.
+In caso di parità scelgo il primo presente nella pila. Le altre alternative
+restano disponibili. Se la condizione non è soddisfatta, la scelta rimane
+quella ordinaria di B.
 
-Un giro migliore azzera $q$; una diversificazione azzera $c$.
-Prima del primo giro, $q$ conta le estrazioni dall'avvio. Il secondo
-contatore distanzia gli interventi, lasciando spazio alla ricerca predittiva.
-La corrispondenza richiesta dall'assignment è dunque: osservazioni
-$O=(q,c)$, regola sulle soglie, decisione di cambiare il prossimo stato.
+La corrispondenza con la consegna è quindi: le \emph{osservazioni} sono i
+due contatori; la \emph{regola} verifica le soglie; il \emph{controllo}
+cambia quale candidato riceve il prossimo passo di ricerca.
 
-La stagnazione motiva un tentativo in una direzione diversa, ma non
-dimostra che la previsione sia sbagliata. Anche un costo parziale basso
-può condurre a un giro lungo. Inoltre, cercare il minimo nella pila
-richiede una scansione: il regolatore aggiunge lavoro e può far crescere
-la frontiera senza migliorare il risultato.
+\subsection{Come cambiano i contatori}
+Ogni estrazione aumenta $q$, anche se il candidato è un giro completo o
+viene subito scartato. Trovare un giro strettamente più corto del migliore
+lo azzera. Prima del primo giro, $q$ conta le estrazioni dall'avvio.
+
+Un'estrazione ordinaria aumenta $c$. Una diversificazione lo azzera,
+così devono trascorrere almeno altre cento estrazioni ordinarie prima di
+un nuovo intervento. La condizione viene controllata prima di estrarre:
+se dall'avvio non ci sono miglioramenti, il primo intervento può quindi
+avvenire al passo $101$.
+
+\subsection{Motivazione e limiti}
+L'assenza prolungata di miglioramenti è chiamata \emph{stagnazione}.
+È un segnale semplice: suggerisce di provare un candidato diverso,
+ma non dimostra che il modello stia sbagliando. Anche scegliere il costo
+parziale minore può essere poco utile, perché un percorso appena iniziato
+ha spesso una distanza bassa pur lasciando molto lavoro da fare.
+Il nuovo candidato può inoltre appartenere allo stesso primo ramo.
+
+Per trovare il minimo devo esaminare tutti i candidati nella pila.
+Se sono molti, questo intervento richiede tempo; espandere percorsi poco
+profondi può anche aggiungere molti nuovi candidati. Le prove misurano
+quindi sia la qualità dei giri sia il lavoro svolto.
+
+La regola e la soglia restano fisse durante le prove. Non ho cercato
+sistematicamente la soglia migliore sulle mappe finali e non alleno il
+regolatore durante la ricerca. Il confronto B--C serve proprio a verificare
+quando questa scelta semplice aiuta e quando peggiora il risultato.

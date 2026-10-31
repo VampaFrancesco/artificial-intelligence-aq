@@ -1,20 +1,77 @@
 \section{Origine dei target}
+\label{sec:targets}
+\subsection{Come ottengo gli esempi di allenamento}
+Per allenare il modello non bastano le mappe: a ogni percorso parziale
+devo associare un esempio di quanto potrebbe costare finirlo. Questo
+valore di riferimento è chiamato \emph{target}.
 
-Per allenare il modello servono stati parziali e valori di riferimento,
-chiamati \emph{target}. Per ogni stato, un procedimento separato completa
-il percorso mantenendo fisse le consegne già visitate. Dal costo totale
-del completamento si sottrae $g$, ottenendo il costo ancora necessario.
+Lo ottengo con una ricerca svolta durante la preparazione dei dati,
+prima delle prove finali. Tale procedimento viene chiamato \emph{insegnante}
+perché fornisce gli esempi da cui il modello impara. Mantiene fisso il
+percorso già deciso e completa soltanto le visite mancanti.
 
-Sulle mappe ridotte usiamo come insegnante un branch-and-bound completo:
-conserviamo il target soltanto se l'ottimo è certificato. Quando una ricerca
-completa è impraticabile, usiamo invece completamenti approssimati. Si visita
-ogni volta una consegna vicina e si migliora il giro con 2-opt: si invertono
-tratti del percorso se la distanza diminuisce. Proviamo più partenze e
-conserviamo il completamento migliore. Questo target è il costo di un giro
-ammissibile, non un ottimo dimostrato.
+Chiamo $J_{teacher}(s)$ il costo del giro completo prodotto dall'insegnante
+partendo dallo stato $s$. Per ottenere la sola distanza rimanente sottraggo
+il costo già percorso, $g(s)$. Il target, indicato con $y(s)$, è quindi
+\[
+ y(s)=J_{teacher}(s)-g(s).
+\]
+\subsection{Mappe piccole e mappe grandi}
+Sulle mappe da sei consegne posso cercare tutte le alternative necessarie
+a certificare il giro migliore. Uso branch-and-bound, con un limite di
+$100\,000$ estrazioni, e conservo l'esempio soltanto se la ricerca termina
+con un ottimo dimostrato. Il dataset piccolo contiene dieci mappe:
+otto forniscono $15\,648$ stati per allenare il modello e due forniscono
+$3\,912$ stati per verificarlo. Queste ultime sono state usate anche nelle
+prove preliminari sul regolatore e non costituiscono una verifica finale
+indipendente. Il caso piccolo della Sezione~8 usa un'ulteriore mappa,
+estranea a questo dataset, individuata nelle prove precedenti.
 
-Campioniamo percorsi parziali con molte e poche consegne residue, alternando
-prefissi casuali e prefissi costruiti visitando consegne vicine. Separiamo
-le mappe di allenamento da quelle di prova: stati della stessa mappa non
-vengono distribuiti fra i due gruppi. La generazione dei target e il fit
-sono operazioni offline, esterne al budget della ricerca valutata.
+Su cento consegne cercare l'ottimo richiederebbe troppo lavoro. Uso quindi
+un insegnante approssimato. Provo tre possibili prime visite, scelte fra
+le consegne più vicine alla posizione corrente. Per ciascuna completo il
+giro scegliendo ogni volta la consegna più vicina fra quelle rimaste:
+questa regola è chiamata \emph{nearest-neighbor}.
+
+Miglioro poi il giro con la tecnica \emph{2-opt}: inverto tratti della
+sequenza quando questo accorcia la distanza, senza modificare le visite
+già fissate nel percorso iniziale. Eseguo fino a sei passate e conservo
+il completamento meno costoso fra quelli provati.
+
+Il giro ottenuto rispetta il vincolo di visitare tutte le consegne,
+ma non è necessariamente ottimo. Il suo costo residuo può quindi essere
+maggiore del minimo possibile. Il modello impara ad approssimare questo
+riferimento e può, a sua volta, stimare un valore più alto o più basso.
+
+\subsection{Quali mappe uso per allenare e verificare}
+Il dataset grande contiene quindici mappe con cento consegne ciascuna:
+dodici per l'allenamento e tre per verificare le previsioni. Il deposito
+è nell'origine; le coordinate di ogni consegna sono scelte uniformemente
+fra $0$ e $100$ su entrambi gli assi. Questa regione si indica con
+$[0,100]^2$.
+
+Per ogni mappa seleziono quaranta stati distribuiti fra l'inizio del giro
+e il momento in cui resta una sola consegna. Alterno percorsi parziali
+ricavati da un ordinamento casuale e da un giro nearest-neighbor.
+Gli stati della stessa mappa condividono quindi la disposizione dei punti
+e derivano da due ordinamenti: non sono osservazioni indipendenti.
+
+Ottengo $480$ esempi di allenamento e $120$ di verifica. Tengo separate
+le mappe, anziché distribuire casualmente i loro stati nei due gruppi,
+per verificare il modello su disposizioni che non ha già visto.
+Le dieci mappe del confronto finale sono ulteriori e non appartengono
+a nessuno dei due gruppi.
+
+\begin{figure}[!htbp]
+\centering\includegraphics[width=\linewidth]{images/pipeline.pdf}
+\caption{Le mappe di allenamento e i target servono a preparare il modello.
+Nella successiva fase di ricerca lo stesso modello viene usato su mappe nuove.
+I riferimenti di valutazione non vengono forniti come giri iniziali.}
+\label{fig:pipeline}
+\end{figure}
+
+Per valutare le soluzioni delle mappe grandi calcolo inoltre un riferimento
+più impegnativo: dodici prime visite e fino a venti passate di 2-opt.
+Anche questo giro è approssimato e non certifica l'ottimo. Allenamento,
+costruzione dei target e riferimenti vengono svolti separatamente dal
+tempo assegnato ai tre metodi nelle prove finali.

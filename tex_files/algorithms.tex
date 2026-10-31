@@ -1,26 +1,99 @@
 \section{Ricerca}
+\label{sec:search}
+\subsection{Come viene rappresentato il giro}
+La mappa contiene un deposito, indicato con $0$, e $n$ consegne numerate da
+$1$ a $n$. Per confrontare due giri serve prima definire la distanza fra
+una coppia di luoghi. Se il luogo $i$ ha coordinate $(x_i,y_i)$ e il luogo
+$j$ ha coordinate $(x_j,y_j)$, la loro distanza in linea retta, indicata
+con $d(i,j)$, è
+\[
+ d(i,j)=\sqrt{(x_i-x_j)^2+(y_i-y_j)^2}.
+\]
+Si può raggiungere direttamente ogni luogo da ogni altro: la mappa è quindi
+un grafo completo. Le distanze sono non negative e uguali nei due versi.
 
-Cerchiamo un ordine di visita delle consegne. Uno stato contiene il percorso
-parziale $p$, l'insieme $N$ delle consegne ancora da visitare e il costo $g$
-già percorso. Per esempio, $p=(0,2)$ indica la partenza dal deposito $0$ e la
-visita della consegna $2$: le consegne rimanenti devono ancora essere ordinate.
-Un'espansione genera un successore per ciascuna consegna in $N$, aggiornando
-percorso, insieme residuo e costo. Quando $N$ è vuoto si aggiunge il ritorno
-al deposito e si valuta il giro completo.
+Un giro completo è una sequenza di luoghi. Lo indico con
+$r=(r_0,r_1,\ldots,r_n,r_{n+1})$: $r_k$ è il luogo occupato nella posizione
+$k$ del giro. Il primo e
+l'ultimo luogo sono il deposito, perciò $r_0=r_{n+1}=0$; nelle posizioni
+intermedie ogni consegna compare una sola volta.
 
-La baseline è una visita in profondità, DFS, con una pila: viene estratto
-l'ultimo stato inserito. Il branch-and-bound conserva il miglior giro trovato
-e scarta uno stato se il suo costo già percorso è almeno pari al costo di
-quel giro. La potatura è sicura perché le distanze aggiunte non sono negative.
-La ricerca termina quando esaurisce le alternative o il budget disponibile.
-Se termina per budget, il giro restituito può essere buono senza essere
-un ottimo dimostrato.
+La seguente formula calcola la distanza totale del giro, indicata con
+$J(r)$, includendo la partenza dal deposito e il ritorno dopo l'ultima consegna:
+\[
+ J(r)=\sum_{k=0}^{n}d(r_k,r_{k+1}).
+\]
+L'obiettivo della ricerca è trovare l'ordine di visita che minimizza questo costo.
 
-L'\emph{orizzonte} è il confine dell'albero costruito: comprende gli stati
-pendenti, i giri già valutati e i rami potati. La \emph{frontiera attiva} è
-soltanto la parte ancora candidata a ricevere calcolo: gli stati pendenti
-con $g$ minore del miglior costo completo. I rami potati non devono essere
-approfonditi; quelli lasciati pendenti alla scadenza restano irrisolti.
-Quindi orizzonte e frontiera attiva sono diversi. Alcuni stati possono
-rimanere materialmente nella pila pur essendo ormai esclusi dal limite:
-vengono scartati quando sono estratti.
+\subsection{Che cosa rappresenta uno stato}
+Durante la ricerca il giro non è ancora completo. Devo conoscere il tratto
+percorso, le consegne ancora da visitare e la distanza già accumulata.
+Chiamo \emph{stato} questa descrizione e la indico con $s=(p,N,g)$:
+\begin{itemize}
+\item $p$ è la sequenza delle visite già decise, cioè il percorso parziale;
+\item $N$ è l'insieme delle consegne rimaste;
+\item $g$ è la distanza del percorso parziale, senza anticipare le tappe future.
+\end{itemize}
+Uso $r$ per il giro completo e $p$ per il suo tratto già costruito.
+Indico inoltre con $v$ l'ultimo luogo di $p$, cioè la posizione corrente.
+
+\emph{Espandere} uno stato significa provare le possibili prossime visite.
+Se scelgo una consegna $a$ ancora presente in $N$, ottengo un nuovo stato,
+chiamato $s_a$. La seguente formula descrive l'aggiornamento del percorso,
+delle consegne residue e del costo dopo la visita di $a$:
+\[
+ s_a=\bigl(p\mathbin{\Vert}a,\;N\setminus\{a\},\;g+d(v,a)\bigr).
+\]
+
+Ad esempio, dopo $p=(0,2)$, in una mappa con tre consegne restano
+$N=\{1,3\}$. Posso costruire il nuovo percorso $(0,2,1)$ oppure $(0,2,3)$.
+Ripeto il procedimento finché non ci sono più consegne da visitare:
+questo è uno \emph{stato terminale}. A quel punto aggiungo la distanza
+per tornare al deposito e valuto il giro completo.
+
+\subsection{Ricerca di base e rami che si possono scartare}
+Il metodo A esplora in profondità: dopo aver scelto una continuazione,
+prova a completarla prima di tornare alle alternative rimaste.
+I candidati sono conservati in una pila, dalla quale si prende per primo
+l'ultimo inserito. I successori vengono inseriti per indice crescente.
+Questa strategia è una ricerca in profondità, detta anche DFS.
+
+Per evitare lavoro inutile uso il \emph{branch-and-bound}: confronto i
+percorsi parziali con il giro completo migliore già trovato. Chiamo
+$J_{\mathrm{best}}$ la distanza di quel giro. Prima di trovare un giro non
+ho ancora un limite utile e considero il valore infinito.
+
+Se un percorso parziale è già lungo almeno quanto il giro migliore,
+completarlo non può produrre un miglioramento: le nuove distanze possono
+soltanto aumentare il costo. Posso quindi scartare tutto quel ramo quando
+\[
+ g\geq J_{\mathrm{best}}.
+\]
+Questo scarto è chiamato \emph{potatura}. È sicuro perché usa distanze già
+percorse, non previsioni che potrebbero essere sbagliate. Per esempio,
+se ho trovato un giro di costo $100$, un percorso parziale che costa già
+$110$ non merita di essere completato.
+
+La ricerca si ferma quando esaurisce i candidati oppure il tempo disponibile.
+Nel secondo caso restituisce il miglior giro trovato, senza dimostrare che
+sia ottimo; se non ha ancora completato un giro, non restituisce una soluzione.
+Se tutti i candidati sono stati valutati o potati correttamente, il giro
+migliore è invece ottimo. Sulle mappe grandi arrivare a questa conclusione
+richiederebbe un'esplorazione impraticabile.
+
+\subsection{Orizzonte e frontiera attiva}
+L'\emph{orizzonte} è il confine dell'albero di ricerca costruito fino a un
+certo momento. Comprende i giri completi già valutati, i rami potati e i
+percorsi ancora in attesa. Non indica la profondità massima raggiunta.
+
+La \emph{frontiera attiva} è la parte di quel confine che può ancora ricevere
+calcolo: contiene i percorsi pendenti con costo $g<J_{\mathrm{best}}$.
+I giri valutati e i rami già esclusi fanno parte dell'orizzonte, ma non
+sono candidati attivi. I contatori distinguono anche le potature effettuate
+prima di inserire un candidato da quelle effettuate quando viene estratto.
+
+Alla scadenza del tempo i candidati attivi restano irrisolti. Un ramo potato
+è invece chiuso per una ragione precisa: non può migliorare la soluzione
+corrente. Questo riprende la distinzione delle lezioni fra ricerca
+\emph{costruttiva}, che genera percorsi, e chiusura \emph{complementare},
+che giustifica dove non occorre proseguire.

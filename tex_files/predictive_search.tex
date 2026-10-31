@@ -1,18 +1,33 @@
 \section{Ricerca predittiva}
-
-Per scegliere quali successori esplorare prima, il sistema B confronta
-il costo totale stimato:
+\label{sec:predictive}
+Il metodo B usa il modello per scegliere quali continuazioni esplorare prima.
+Per confrontarle deve considerare sia la distanza già percorsa, $g(s)$,
+sia quella ancora prevista, $\widehat h(s)$. Chiamo $\widehat f(s)$ la loro
+somma, cioè la stima della distanza totale del giro che passa da quello stato:
 \[
  \widehat f(s)=g(s)+\widehat h(s).
 \]
-Si include $g$ perché una continuazione economica potrebbe appartenere a
-un percorso già molto costoso. I successori sono inseriti nella pila in
-ordine decrescente di stima, così il meno costoso viene estratto per primo.
-L'ordinamento è locale ai successori: la ricerca resta in profondità.
-Se non restano consegne, si usa il costo esatto di ritorno al deposito.
+Ad esempio, uno stato con $g=100$ e $\widehat h=80$ ha costo totale previsto
+$180$. Uno con $g=140$ e $\widehat h=50$ ha costo totale previsto $190$.
+Il primo viene preferito, anche se il secondo ha una previsione residua minore.
 
-Questa versione usa sempre lo stesso criterio predittivo e non osserva
-la stagnazione per cambiare politica. La potatura rimane quella sicura
-sul costo già percorso. Una previsione sbagliata può quindi ritardare
-un buon ramo, ma non lo elimina definitivamente. Con ricerca completa
-l'ottimo resta garantito; con budget limitato l'ordine può influire sul giro trovato.
+Dopo ogni espansione, B ordina i nuovi candidati secondo questa stima,
+in modo da proseguire prima lungo il meno costoso. Il confronto avviene
+fra i successori dello stesso stato: non viene riordinata tutta la frontiera.
+La ricerca conserva quindi il comportamento in profondità descritto per A.
+
+Questa precisazione distingue B da A*: pur usando anch'esso una somma di
+costo percorso e costo previsto, A* sceglie il prossimo stato confrontando
+globalmente i candidati della frontiera. Nel progetto l'ordinamento è locale.
+
+A e B usano la stessa regola di potatura; cambia l'ordine di esplorazione.
+Il confronto A--B misura dunque il contributo della previsione. C aggiunge
+la regola di scelta descritta nella sezione seguente, quindi B--C permette
+di misurare il contributo aggiuntivo del regolatore.
+
+Una previsione sbagliata può far esplorare tardi un buon ramo e peggiorare
+il giro trovato entro il tempo disponibile. Non rende però scorretta la
+potatura, che continua a usare soltanto la distanza già percorsa.
+Se la ricerca riesce a esaminare o escludere correttamente tutte le
+alternative, trova comunque l'ottimo. I pesi del modello restano fissi
+per tutta la ricerca.

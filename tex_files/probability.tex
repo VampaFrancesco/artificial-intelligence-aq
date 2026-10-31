@@ -1,29 +1,71 @@
 \section{Scelta probabilistica e massa irrisolta}
+\label{sec:probability}
+\subsection{Come assegno un peso alle prime scelte}
+Considero un momento preciso: la scelta della prossima consegna a partire
+dallo stato iniziale della prova, chiamato $s_0$. In genere il percorso
+iniziale contiene soltanto il deposito. Scegliere una prima consegna
+significa aprire il ramo di tutti i giri che iniziano con quella visita.
 
-Consideriamo le alternative alla prima decisione: quale consegna visitare
-dopo il percorso iniziale. Ogni scelta identifica un sottoalbero di
-completamenti. Trasformiamo i costi totali previsti in una distribuzione:
+Voglio assegnare più peso ai rami con costo previsto minore. Per farlo
+trasformo le stime dei costi in numeri positivi la cui somma è uno,
+cioè in una distribuzione di probabilità. La trasformazione usata è
+chiamata \emph{softmax}. Prima della formula, i simboli necessari sono:
+\begin{itemize}
+\item $a$: una possibile prossima consegna; $s_a$ è lo stato che ottengo
+  visitandola, come definito nella Sezione~1;
+\item $\widehat f(s_a)$: la distanza totale prevista passando da quello stato;
+\item $f_{\min}$: il più piccolo costo previsto fra tutte le prime scelte;
+\item $T$: un parametro positivo, chiamato \emph{temperatura}, che controlla
+  quanto i pesi sono concentrati sulle scelte preferite;
+\item $\pi(a\mid s_0)$: il peso assegnato alla scelta $a$, partendo da $s_0$.
+\end{itemize}
+La formula seguente assegna a ogni prima scelta una probabilità ricavata
+dal costo previsto; $u$ rappresenta le alternative disponibili:
 \[
- \pi(a\mid s_0)=\frac{\exp[-(\widehat f_a-m)/T]}
- {\sum_b\exp[-(\widehat f_b-m)/T]},
- \qquad m=\min_b\widehat f_b.
+ \pi(a\mid s_0)=
+ \frac{\exp[-(\widehat f(s_a)-f_{\min})/T]}
+ {\sum_u\exp[-(\widehat f(s_u)-f_{\min})/T]}.
 \]
-La temperatura $T$ è la distanza media fra coppie di luoghi; vale uno
-se tutte le distanze sono nulle. Queste probabilità esprimono preferenze
-di esplorazione: costi stimati minori ricevono peso maggiore. Non sono
-confidenze calibrate sull'ottimalità. La ricerca resta deterministica:
-non campiona azioni. Cambiare $T$ modifica i pesi, ma non l'ordine delle stime.
+Costi previsti minori ricevono probabilità maggiori. Sottrarre il minimo
+migliora la stabilità numerica senza modificare la distribuzione.
 
-Un'azione resta irrisolta se il suo sottoalbero contiene almeno uno
-stato della frontiera attiva. La massa irrisolta è la somma delle
-probabilità di queste azioni, ciascuna contata una volta:
+Uso come temperatura la distanza media fra tutte le coppie di luoghi;
+se tutte le distanze sono nulle, pongo $T=1$. Una temperatura alta rende
+i pesi più simili, una bassa li concentra sulle stime migliori.
+Questi pesi esprimono preferenze del modello, non la probabilità dimostrata
+che un ramo contenga il giro ottimo.
+
+La ricerca non sceglie azioni a sorte: B e C continuano a usare le proprie
+regole deterministiche. La distribuzione resta fissa dall'avvio e serve
+per descrivere i rami ancora irrisolti. A non la usa per scegliere i
+candidati e il regolatore di C osserva soltanto i due contatori.
+Cambiare la temperatura modifica dunque i pesi osservati, ma non l'ordine
+di ricerca del sistema realizzato. Se non ci sono consegne residue,
+non ci sono prime scelte a cui assegnare probabilità.
+
+\subsection{Quale parte della preferenza rimane irrisolta}
+Durante la ricerca alcuni rami possono essere chiusi, mentre altri
+conservano candidati da esaminare. Per descrivere il peso di questi ultimi
+uso la \emph{massa irrisolta}: sommo le probabilità delle prime scelte
+che hanno ancora almeno un candidato attivo nel proprio ramo.
+
+Chiamo $t$ il passo corrente della ricerca, $U_t$ l'insieme di queste prime
+scelte ancora irrisolte e $\rho_t$ la loro massa complessiva. La formula è
 \[
- \rho=\sum_{a\in U}\pi(a\mid s_0).
+ \rho_t=\sum_{a\in U_t}\pi(a\mid s_0).
 \]
-Trovare un giro in un ramo non risolve tutti gli altri completamenti
-possibili di quel ramo. La distribuzione iniziale rimane fissa durante
-la prova; il cambiamento di massa dipende dalla ricerca. La stessa
-misura è applicata ai tre sistemi, ma la baseline non la usa per scegliere
-e il regolatore continua a osservare i due contatori. Una massa positiva
-non è una probabilità di aver mancato l'ottimo e non equivale al numero
-di stati pendenti.
+Ogni prima scelta viene contata una sola volta, anche se nel suo ramo
+restano molti candidati. Per esempio, se tre scelte hanno pesi
+$0{,}6$, $0{,}3$ e $0{,}1$ e il primo ramo è stato risolto interamente,
+la massa delle altre due è $0{,}4$.
+
+Trovare un buon giro nel primo ramo non basta a risolverlo: se contiene
+altre continuazioni attive, anche il suo peso resta nella somma.
+Prima di espandere lo stato iniziale tutte le scelte sono irrisolte e
+la massa vale uno; quando la frontiera è esaurita vale zero.
+
+Questa misura non indica quanti stati mancano da visitare né la probabilità
+di aver perso l'ottimo. Sulle mappe grandi resta circa uno, perché ogni
+prima scelta conserva almeno un candidato attivo ai tempi considerati.
+In questo esperimento distingue quindi poco i metodi e non viene usata
+per decidere quando fermare la ricerca.

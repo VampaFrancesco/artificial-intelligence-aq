@@ -1,17 +1,42 @@
-\subsection*{Interpretazione e limiti}
+\subsection*{Domande che mi sono posto}
 
-A--B distingue il contributo della previsione; B--C quello aggiuntivo
-della regolazione. Su queste dieci mappe la previsione produce il beneficio
-maggiore, mentre la regolazione migliora mediamente il giro ma può peggiorarlo.
-Le scansioni della pila consumano tempo e la preferenza per costi parziali
-bassi può favorire stati poco profondi. Sono possibili spiegazioni dei
-peggioramenti; le prove non isolano quale meccanismo prevalga.
+Il confronto A--B misura il contributo della previsione; B--C quello
+aggiuntivo della regolazione. Per interpretare i risultati ho considerato
+le seguenti domande.
 
-I riferimenti euristici trovano giri migliori dei tre sistemi sulle mappe
-grandi, ma non certificano l'ottimo. La massa irrisolta resta circa $1$:
-ciascuna prima scelta conserva candidati attivi, rendendo questa misura
-poco informativa ai budget considerati. Non significa che i giri siano errati.
+\textbf{Perché usare la stagnazione come segnale?}
+È semplice da osservare: dopo molte estrazioni senza miglioramenti,
+il regolatore prova un candidato diverso. La stagnazione non misura
+direttamente l'errore del modello e non garantisce che cambiare candidato
+sia utile. Le misure di lavoro mostrano che le scansioni della pila consumano risorse; il costo parziale
+minimo può favorire stati poco profondi: sono possibili cause dei
+peggioramenti, che queste prove non permettono di distinguere.
 
-Le due esecuzioni mostrano stabilità su dieci mappe della stessa distribuzione
-dell'allenamento. Non costituiscono una dimostrazione statistica di un vantaggio
-generale, né garantiscono lo stesso comportamento su distribuzioni diverse.
+\textbf{Perché la massa irrisolta resta circa uno?}
+Una prima scelta rimane irrisolta finché il suo sottoalbero contiene
+almeno un candidato attivo. Con cento consegne, nei tempi disponibili
+nessuno di questi grandi sottoalberi viene interamente risolto.
+La misura distingue quindi poco i metodi: trovare un buon giro non
+equivale a risolvere tutte le alternative del suo ramo.
+
+\textbf{Dieci mappe bastano per concludere che la regolazione aiuta?}
+Descrivono il comportamento sui casi studiati: C migliora B su sei mappe
+a un secondo e su sette a tre secondi, ma perde sulle altre.
+Ripetere le stesse mappe verifica la stabilità dell'esecuzione, senza
+aumentare i casi indipendenti. Per generalizzare servirebbero più mappe
+e distribuzioni diverse da quella dell'allenamento.
+
+\textbf{Il confronto è equo se il limite di tempo viene superato?}
+I tre metodi ricevono lo stesso budget nominale, ma il controllo avviene
+fra iterazioni: un'operazione iniziata può terminare oltre la scadenza.
+Per questo riporto i tempi effettivi e considero le risorse solo
+approssimativamente uguali. Una scadenza più rigorosa richiederebbe
+controlli anche durante le operazioni costose del regolatore.
+
+\textbf{Il sistema è migliore degli altri algoritmi per il TSP?}
+Il vantaggio osservato riguarda la specifica baseline scelta, una DFS
+con branch-and-bound sul costo già percorso. Non permette di concludere
+che il sistema superi altre euristiche per il TSP. Infatti, sulle mappe
+grandi il riferimento euristico trova giri migliori dei tre metodi,
+senza certificare l'ottimo. L'obiettivo dell'esperimento è studiare il
+contributo della previsione e della regolazione a questa ricerca.
